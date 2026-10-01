@@ -674,14 +674,15 @@
   function nInst(L){ var u = {}; L.forEach(function(e){ u[e.n + "|" + e.c] = 1; }); return Object.keys(u).length; }
   function lavOf(c){ return LAV[ALIAS[deent(c.n)] || deent(c.n)]; }
   function pct(x){ return String(x).replace(".", ",") + "%"; }
-  function num(x){ return x.toLocaleString("it-IT"); }
+  // separatore delle migliaia scritto a mano: in italiano toLocaleString non lo mette sotto 10.000
+  function num(x){ return String(x).replace(/\B(?=(\d{3})+(?!\d))/g, "."); }
   function scope(j){ return j.s === "P" ? "settore" : "indirizzo"; }
   function medLab(j){ return j.s === "P" ? "media degli altri settori" : j.s === "Q" ? "media di tutte le qualifiche" : "media di tutti i diplomi"; }
   function srcLab(j){
     return (j.s === "P" ? "Settore «" + j.f + "» (" + j.pop + ")" : j.s === "Q" ? "Qualifica «" + j.f + "»" : "Diploma «" + j.f + "»") +
            " · indagine Excelsior 2022, #failasceltagiusta, Camera di Commercio di Varese";
   }
-  function kmTxt(e){ return e.km == null ? "" : (e.approx ? "~" : "") + e.km + " km"; }
+  function kmTxt(e){ return e.km == null ? "" : (e.approx ? "~" : "") + String(e.km).replace(".", ",") + " km"; }
   function schoolLabel(e){ return e.n + (e.art ? " \u2013 " + e.art : ""); }
 
 
