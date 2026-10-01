@@ -110,7 +110,7 @@ h2{font-size:clamp(28px,4vw,38px)}
 footer{margin-top:56px; border-top:1px solid var(--line); padding-block:32px 48px; color:var(--muted); font-size:15px}
 footer .row{display:flex; gap:24px; align-items:center; justify-content:space-between; flex-wrap:wrap}
 footer .logo{background:#FFFFFF; border-radius:12px; padding:8px 14px; display:inline-block}
-footer .logo img{width:220px; display:block}
+footer .logo img{width:120px; height:auto; display:block}
 footer p + p{margin-top:6px}
 
 @media (max-width:760px){

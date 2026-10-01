@@ -1,4 +1,4 @@
-SITO "ORIENTAMENTO SUPERIORI"  ->  https://lucaalbano99.github.io/bussolasuperiori/
+SITO "ORIENTAMENTO SUPERIORI"  ->  https://bussolasuperiori.github.io/
 =====================================================================
 
 Questa cartella E' il sito. Va caricata su GitHub cosi' com'e':
@@ -14,7 +14,7 @@ CONTENUTO
 
 COME SI AGGIORNA (2 minuti)
   1. Chiedi a Claude la modifica: ti consegna i file cambiati in questa cartella.
-  2. Vai su github.com/lucaalbano99/bussolasuperiori
+  2. Vai su github.com/bussolasuperiori/bussolasuperiori.github.io
   3. Entra nella cartella giusta (es. "bussola"), poi "Add file" > "Upload files".
   4. Trascina il file nuovo con lo STESSO NOME: sostituisce il vecchio.
   5. In basso scrivi cosa hai cambiato (es. "aggiunte paritarie") e premi "Commit changes".
