@@ -13,43 +13,68 @@
 <meta property="og:locale" content="it_IT">
 <meta name="theme-color" content="#16233A">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/oswald.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/fonts.css">
 <link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Vai al contenuto</a>
 
-<header class="hero">
-  <div class="wrap">
+<header class="topbar">
+  <div class="wrap bar">
+    <a class="brand" href="./" aria-label="Orientamento superiori, pagina iniziale"><img src="assets/favicon.svg" alt="" width="30" height="30"><span>Orientamento superiori</span></a>
     <nav aria-label="Menu principale">
-      <a class="brand" href="./"><img src="assets/favicon.svg" alt="">Orientamento superiori</a>
       <ul>
         <li><a href="bussola/">La Bussola</a></li>
         <li><a href="#schede">Schede</a></li>
         <li><a href="famiglie.html">Per le famiglie</a></li>
       </ul>
     </nav>
-    <p class="kicker">Football Center · Gallarate</p>
-    <h1>Scegliere la superiore con dati veri</h1>
-    <p class="sub">Strumenti gratuiti per ragazzi di terza media e per le loro famiglie, pensati per la provincia di Varese. Niente registrazione, niente pubblicità.</p>
   </div>
 </header>
 
 <main id="main">
+  <section class="hero" aria-labelledby="t-hero">
+    <svg class="hero-rose" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+      <g fill="none" stroke="#FBFAF6">
+        <circle cx="100" cy="100" r="96" stroke-width="1.5"/>
+        <circle cx="100" cy="100" r="86" stroke-width="7" stroke-dasharray="1.2 7.8"/>
+        <circle cx="100" cy="100" r="58" stroke-width="1"/>
+        <polygon points="100,20 110,90 180,100 110,110 100,180 90,110 20,100 90,90" stroke-width="1.5"/>
+        <polygon points="135.4,64.6 114,100 135.4,135.4 100,114 64.6,135.4 86,100 64.6,64.6 100,86" stroke-width="1"/>
+      </g>
+      <g class="needle">
+        <polygon points="100,30 112,100 100,94 88,100" fill="#FF8163"/>
+        <polygon points="100,170 88,100 100,106 112,100" fill="#4FD3C0"/>
+      </g>
+      <circle cx="100" cy="100" r="5" fill="#FBFAF6"/>
+    </svg>
+    <div class="wrap">
+      <p class="kicker rise"><img src="assets/logo-football-center.png" alt="" width="400" height="377">Football Center · Gallarate</p>
+      <h1 id="t-hero" class="rise">Scegliere la scuola superiore <em>con dati veri</em></h1>
+      <p class="sub rise">Strumenti gratuiti per ragazzi di terza media e per le loro famiglie, pensati per la provincia di Varese. Niente registrazione, niente pubblicità.</p>
+      <div class="hero-cta rise">
+        <a class="btn" href="bussola/">Apri la Bussola <span class="arr" aria-hidden="true">→</span></a>
+        <a class="textlink" href="famiglie.html">Sono un genitore</a>
+      </div>
+    </div>
+  </section>
+
   <div class="wrap">
 
-    <article class="feature" aria-labelledby="t-bussola">
+    <article class="feature" aria-labelledby="t-bussola" data-reveal>
       <div>
         <p class="eyebrow">Lo strumento principale</p>
         <h2 id="t-bussola">Bussola Superiori</h2>
         <p class="desc">Parti dai tuoi interessi e arrivi agli indirizzi e alle scuole che esistono davvero qui intorno: quanto sono lontane, quanti ragazzi arrivano in seconda, cosa cercano le imprese della provincia, quante ore di lezione e di laboratorio ci sono al primo anno.</p>
-        <ul class="facts" aria-label="In breve">
-          <li>69 istituti</li>
-          <li>50 indirizzi</li>
-          <li>5 passi</li>
-          <li>Funziona anche da telefono</li>
-        </ul>
-        <a class="btn" href="bussola/">Apri la Bussola <span aria-hidden="true">→</span></a>
+        <dl class="stats" aria-label="In breve">
+          <div><dt>istituti</dt><dd>69</dd></div>
+          <div><dt>indirizzi</dt><dd>50</dd></div>
+          <div><dt>passi</dt><dd>5</dd></div>
+        </dl>
+        <p class="pill"><span aria-hidden="true">📱</span> Funziona anche da telefono</p>
+        <div><a class="btn" href="bussola/">Apri la Bussola <span class="arr" aria-hidden="true">→</span></a></div>
       </div>
       <ol class="steps-mini" aria-label="Come funziona">
         <li><span class="ico" aria-hidden="true">🧭</span><div><b>Il tuo codice</b><span class="t">Tre lettere che dicono da dove conviene iniziare a guardare.</span></div></li>
@@ -59,59 +84,78 @@
     </article>
 
     <section id="schede" aria-labelledby="t-schede">
-      <p class="eyebrow">Da stampare</p>
-      <h2 id="t-schede">Le schede di lavoro</h2>
-      <p class="lede">Si usano insieme alla Bussola: le risposte si scrivono a mano, così il ragionamento resta sul foglio. Formato A4, una facciata ciascuna.</p>
-      <div class="cards">
-        <div class="card">
-          <span class="ico" aria-hidden="true">📝</span>
-          <h3>Foglio 1 · Analisi degli indirizzi</h3>
-          <p>Per i passi 2 e 3: tre indirizzi che ti incuriosiscono, messi in ordine prima di vedere i numeri.</p>
-          <p class="meta">PDF · 1 pagina</p>
-          <a class="btn ghost" href="schede/foglio-1-analisi-indirizzi.pdf" download>Scarica il foglio 1</a>
-        </div>
-        <div class="card">
-          <span class="ico" aria-hidden="true">✅</span>
-          <h3>Foglio 2 · Il verdetto</h3>
-          <p>Per il passo 5: le tre scuole scelte, i loro numeri, e se l'ordine del foglio 1 regge ancora.</p>
-          <p class="meta">PDF · 1 pagina</p>
-          <a class="btn ghost" href="schede/foglio-2-il-verdetto.pdf" download>Scarica il foglio 2</a>
-        </div>
+      <div data-reveal>
+        <p class="eyebrow">Da stampare</p>
+        <h2 id="t-schede">Le schede di lavoro</h2>
+        <p class="lede">Si usano insieme alla Bussola: le risposte si scrivono a mano, così il ragionamento resta sul foglio. Formato A4, una facciata ciascuna.</p>
+      </div>
+      <div class="sheets">
+        <a class="sheet" href="schede/foglio-1-analisi-indirizzi.pdf" download data-reveal="0">
+          <div class="paper"><img src="assets/img/anteprima-foglio-1.jpg" alt="" width="520" height="734" loading="lazy"></div>
+          <div>
+            <h3>Foglio 1 · Analisi degli indirizzi</h3>
+            <p>Per i passi 2 e 3: tre indirizzi che ti incuriosiscono, messi in ordine prima di vedere i numeri.</p>
+            <span class="dl">Scarica il PDF <span class="arr" aria-hidden="true">↓</span></span>
+            <span class="meta">A4 · 1 pagina</span>
+          </div>
+        </a>
+        <a class="sheet" href="schede/foglio-2-il-verdetto.pdf" download data-reveal="1">
+          <div class="paper"><img src="assets/img/anteprima-foglio-2.jpg" alt="" width="520" height="734" loading="lazy"></div>
+          <div>
+            <h3>Foglio 2 · Il verdetto</h3>
+            <p>Per il passo 5: le tre scuole scelte, i loro numeri, e se l'ordine del foglio 1 regge ancora.</p>
+            <span class="dl">Scarica il PDF <span class="arr" aria-hidden="true">↓</span></span>
+            <span class="meta">A4 · 1 pagina</span>
+          </div>
+        </a>
       </div>
     </section>
 
-    <section aria-labelledby="t-famiglie">
-      <p class="eyebrow">Per i genitori</p>
-      <h2 id="t-famiglie">Usarla insieme, a casa</h2>
-      <p class="lede">Come accompagnare la scelta senza sostituirsi, come leggere i numeri della Bussola e quali domande fare agli open day.</p>
-      <a class="btn ghost" href="famiglie.html">Leggi la guida per le famiglie</a>
+    <section aria-labelledby="t-dati">
+      <div data-reveal>
+        <p class="eyebrow">Trasparenza</p>
+        <h2 id="t-dati">Da dove vengono i dati</h2>
+      </div>
+      <ul class="sources">
+        <li data-reveal="0"><span class="ico" aria-hidden="true">🏫</span><span><b>Scuole statali e iscritti per anno</b>Open data del Ministero dell'Istruzione e del Merito, anno scolastico 2024/25.</span></li>
+        <li data-reveal="1"><span class="ico" aria-hidden="true">📍</span><span><b>Posizione delle scuole e distanze</b>Anagrafe scuole di Regione Lombardia. Le distanze sono in linea d'aria da Gallarate.</span></li>
+        <li data-reveal="2"><span class="ico" aria-hidden="true">✍️</span><span><b>Scuole paritarie</b>Indirizzi verificati a mano su Guida Percorsi Varese.</span></li>
+        <li data-reveal="0"><span class="ico" aria-hidden="true">🏭</span><span><b>Cosa cercano le imprese</b>Indagine Excelsior 2022, pubblicata dalla Camera di Commercio di Varese.</span></li>
+        <li data-reveal="1"><span class="ico" aria-hidden="true">🕘</span><span><b>Ore di lezione</b>Quadri orari ufficiali: DM 29/2026 per i tecnici; DPR 89/2010, DPR 52/2013 e DPR 222/2024 per i licei.</span></li>
+      </ul>
+      <p class="notice" data-reveal><span class="ico" aria-hidden="true">💡</span><span><b>È uno strumento di orientamento, non una classifica.</b> I dati ufficiali arrivano con uno o due anni di ritardo e le scuole cambiano: prima di iscriverti controlla sempre sul sito della scuola e chiedi all'open day.</span></p>
     </section>
 
-    <section aria-labelledby="t-dati">
-      <p class="eyebrow">Trasparenza</p>
-      <h2 id="t-dati">Da dove vengono i dati</h2>
-      <ul class="sources">
-        <li><b>Scuole statali e iscritti per anno:</b> open data del Ministero dell'Istruzione e del Merito, anno scolastico 2024/25.</li>
-        <li><b>Posizione delle scuole e distanze:</b> Anagrafe scuole di Regione Lombardia. Le distanze sono in linea d'aria da Gallarate.</li>
-        <li><b>Scuole paritarie:</b> indirizzi verificati a mano su Guida Percorsi Varese.</li>
-        <li><b>Cosa cercano le imprese:</b> indagine Excelsior 2022, pubblicata dalla Camera di Commercio di Varese.</li>
-        <li><b>Ore di lezione:</b> quadri orari ufficiali (DM 29/2026 per i tecnici; DPR 89/2010, DPR 52/2013 e DPR 222/2024 per i licei).</li>
-      </ul>
-      <p class="notice"><b>È uno strumento di orientamento, non una classifica.</b> I dati ufficiali arrivano con uno o due anni di ritardo e le scuole cambiano: prima di iscriverti controlla sempre sul sito della scuola e chiedi all'open day.</p>
-    </section>
+    <aside class="cta-band" aria-labelledby="t-fam" data-reveal>
+      <div>
+        <p class="eyebrow">Per i genitori</p>
+        <h2 id="t-fam">Usarla insieme, a casa</h2>
+        <p>Come accompagnare la scelta senza sostituirsi, come leggere i numeri della Bussola e quali domande fare agli open day.</p>
+      </div>
+      <a class="btn" href="famiglie.html">Leggi la guida <span class="arr" aria-hidden="true">→</span></a>
+    </aside>
 
   </div>
 </main>
 
-<footer>
+<footer class="site-footer">
   <div class="wrap">
-    <div class="row">
-      <div>
-        <p><b>Un progetto di Football Center</b>, associazione sportiva dilettantistica di Gallarate.</p>
-        <p>Questo sito non usa cookie e non raccoglie dati personali: quello che inserisci nella Bussola resta sul tuo dispositivo. È ospitato su GitHub Pages.</p>
-        <p>Ultimo aggiornamento: 1 ottobre 2026.</p>
+    <div class="foot">
+      <a class="foot-logo" href="./" aria-label="Football Center, pagina iniziale"><img src="assets/logo-football-center.png" alt="Logo Football Center" width="400" height="377" loading="lazy"></a>
+      <div class="foot-text">
+        <p class="foot-kicker">Un progetto di</p>
+        <p class="foot-name">Football Center</p>
+        <p>Associazione sportiva dilettantistica di Gallarate.</p>
       </div>
-      <a class="logo" href="./" aria-label="Football Center"><img src="assets/logo-football-center.png" alt="Logo Football Center" width="400" height="377"></a>
+      <ul class="foot-nav" aria-label="Collegamenti">
+        <li><a href="bussola/">La Bussola</a></li>
+        <li><a href="#schede">Schede da stampare</a></li>
+        <li><a href="famiglie.html">Per le famiglie</a></li>
+      </ul>
+    </div>
+    <div class="small">
+      <p>Questo sito non usa cookie e non raccoglie dati personali: quello che inserisci nella Bussola resta sul tuo dispositivo. È ospitato su GitHub Pages.</p>
+      <p>Ultimo aggiornamento: 1 ottobre 2026</p>
     </div>
   </div>
 </footer>

@@ -10,7 +10,8 @@ CONTENUTO
   404.html                   pagina "non trovata"
   bussola/index.html         la Bussola Superiori (versione per il sito)
   schede/                    i due fogli A4 da stampare (PDF)
-  assets/                    stile, caratteri, logo, icona, anteprima WhatsApp, QR code
+  assets/                    stile (site.css), effetti (site.js), caratteri, logo, icona,
+                             anteprime delle schede (img/), anteprima WhatsApp, QR code
 
 COME SI AGGIORNA (2 minuti)
   1. Chiedi a Claude la modifica: ti consegna i file cambiati in questa cartella.

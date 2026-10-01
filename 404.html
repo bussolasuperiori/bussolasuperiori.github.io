@@ -4,18 +4,48 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pagina non trovata · Orientamento superiori</title>
+<meta name="robots" content="noindex">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/assets/fonts.css">
 <link rel="stylesheet" href="/assets/site.css">
 </head>
 <body>
-<header class="hero">
-  <div class="wrap">
-    <p class="kicker">Errore 404</p>
-    <h1>Qui non c'è niente</h1>
-    <p class="sub">La pagina che cercavi non esiste, o è stata spostata. Riparti da qui:</p>
-    <p><a class="btn" href="/">Torna alla pagina iniziale</a></p>
+<header class="topbar">
+  <div class="wrap bar">
+    <a class="brand" href="/" aria-label="Orientamento superiori, pagina iniziale"><img src="/assets/favicon.svg" alt="" width="30" height="30"><span>Orientamento superiori</span></a>
+    <nav aria-label="Menu principale">
+      <ul>
+        <li><a href="/bussola/">La Bussola</a></li>
+        <li><a href="/#schede">Schede</a></li>
+        <li><a href="/famiglie.html">Per le famiglie</a></li>
+      </ul>
+    </nav>
   </div>
 </header>
+<main>
+  <section class="hero" style="min-height:calc(100vh - 64px)">
+    <svg class="hero-rose" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+      <g fill="none" stroke="#FBFAF6">
+        <circle cx="100" cy="100" r="96" stroke-width="1.5"/>
+        <circle cx="100" cy="100" r="86" stroke-width="7" stroke-dasharray="1.2 7.8"/>
+        <polygon points="100,20 110,90 180,100 110,110 100,180 90,110 20,100 90,90" stroke-width="1.5"/>
+      </g>
+      <g class="needle">
+        <polygon points="100,30 112,100 100,94 88,100" fill="#FF8163"/>
+        <polygon points="100,170 88,100 100,106 112,100" fill="#4FD3C0"/>
+      </g>
+      <circle cx="100" cy="100" r="5" fill="#FBFAF6"/>
+    </svg>
+    <div class="wrap">
+      <p class="kicker rise">Errore 404</p>
+      <h1 class="rise">Qui la bussola <em>non trova il nord</em></h1>
+      <p class="sub rise">La pagina che cercavi non esiste, o è stata spostata. Riparti da qui:</p>
+      <div class="hero-cta rise">
+        <a class="btn" href="/">Torna alla pagina iniziale <span class="arr" aria-hidden="true">→</span></a>
+        <a class="textlink" href="/bussola/">Apri la Bussola</a>
+      </div>
+    </div>
+  </section>
+</main>
 </body>
 </html>

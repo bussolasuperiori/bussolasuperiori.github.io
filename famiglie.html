@@ -13,46 +13,67 @@
 <meta property="og:locale" content="it_IT">
 <meta name="theme-color" content="#16233A">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/oswald.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/fonts.css">
 <link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Vai al contenuto</a>
 
-<header class="hero">
-  <div class="wrap">
+<header class="topbar">
+  <div class="wrap bar">
+    <a class="brand" href="./" aria-label="Orientamento superiori, pagina iniziale"><img src="assets/favicon.svg" alt="" width="30" height="30"><span>Orientamento superiori</span></a>
     <nav aria-label="Menu principale">
-      <a class="brand" href="./"><img src="assets/favicon.svg" alt="">Orientamento superiori</a>
       <ul>
         <li><a href="bussola/">La Bussola</a></li>
         <li><a href="./#schede">Schede</a></li>
         <li><a href="famiglie.html" aria-current="page">Per le famiglie</a></li>
       </ul>
     </nav>
-    <p class="kicker">Guida per i genitori</p>
-    <h1>Accompagnare, non scegliere al posto loro</h1>
-    <p class="sub">Come usare la Bussola insieme a vostro figlio o vostra figlia, come leggere i numeri che mostra e cosa chiedere alle scuole.</p>
   </div>
 </header>
 
 <main id="main">
-  <div class="wrap">
+  <section class="hero" aria-labelledby="t-hero">
+    <svg class="hero-rose" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+      <g fill="none" stroke="#FBFAF6">
+        <circle cx="100" cy="100" r="96" stroke-width="1.5"/>
+        <circle cx="100" cy="100" r="86" stroke-width="7" stroke-dasharray="1.2 7.8"/>
+        <circle cx="100" cy="100" r="58" stroke-width="1"/>
+        <polygon points="100,20 110,90 180,100 110,110 100,180 90,110 20,100 90,90" stroke-width="1.5"/>
+        <polygon points="135.4,64.6 114,100 135.4,135.4 100,114 64.6,135.4 86,100 64.6,64.6 100,86" stroke-width="1"/>
+      </g>
+      <g class="needle">
+        <polygon points="100,30 112,100 100,94 88,100" fill="#FF8163"/>
+        <polygon points="100,170 88,100 100,106 112,100" fill="#4FD3C0"/>
+      </g>
+      <circle cx="100" cy="100" r="5" fill="#FBFAF6"/>
+    </svg>
 
+    <div class="wrap">
+      <p class="kicker rise">Guida per i genitori</p>
+      <h1 id="t-hero" class="rise">Accompagnare, <em>non scegliere al posto loro</em></h1>
+      <p class="sub rise">Come usare la Bussola insieme a vostro figlio o vostra figlia, come leggere i numeri che mostra e cosa chiedere alle scuole.</p>
+    </div>
+  </section>
+
+  <div class="wrap">
     <section aria-labelledby="t-prima">
-      <p class="eyebrow">Prima di iniziare</p>
-      <h2 id="t-prima">Tre cose da tenere a mente</h2>
+      <div data-reveal><p class="eyebrow">Prima di iniziare</p>
+      <h2 id="t-prima">Tre cose da tenere a mente</h2></div>
       <div class="cards">
-        <div class="card">
+        <div class="card" data-reveal="0">
           <span class="ico" aria-hidden="true">🙋</span>
           <h3>Guida lui, o lei</h3>
           <p>Sedetevi accanto, non davanti allo schermo. Fate domande invece di dare risposte: «Perché ti incuriosisce?» vale più di «Secondo me…».</p>
         </div>
-        <div class="card">
+        <div class="card" data-reveal="1">
           <span class="ico" aria-hidden="true">🧭</span>
           <h3>Il codice orienta, non decide</h3>
           <p>Le tre lettere del primo passo dicono da dove conviene cominciare a guardare. Si possono sempre esplorare anche tutti gli altri indirizzi.</p>
         </div>
-        <div class="card">
+        <div class="card" data-reveal="2">
           <span class="ico" aria-hidden="true">💡</span>
           <h3>Anche un no è utile</h3>
           <p>Scoprire che un indirizzo non fa per sé restringe il campo. Non è tempo perso: è un pezzo di decisione.</p>
@@ -61,23 +82,23 @@
     </section>
 
     <section aria-labelledby="t-numeri">
-      <p class="eyebrow">Alla fine del percorso</p>
+      <div data-reveal><p class="eyebrow">Alla fine del percorso</p>
       <h2 id="t-numeri">Come leggere i tre numeri del verdetto</h2>
-      <p class="lede">Per ogni scuola scelta, la Bussola mostra tre numeri. Nessuno dei tre dice se una scuola è «buona»: servono a fare domande migliori.</p>
+      <p class="lede">Per ogni scuola scelta, la Bussola mostra tre numeri. Nessuno dei tre dice se una scuola è «buona»: servono a fare domande migliori.</p></div>
       <div class="cards">
-        <div class="num-card">
+        <div class="num-card" data-reveal="0">
           <span class="tag">A</span>
           <h3>Quante scuole</h3>
           <p>Quante scuole in provincia offrono quell'indirizzo con una classe prima, e quanto è lontana la più vicina.</p>
           <p>Un indirizzo offerto da una sola scuola lontana significa viaggi lunghi tutti i giorni, per cinque anni: va messo nel conto.</p>
         </div>
-        <div class="num-card">
+        <div class="num-card" data-reveal="1">
           <span class="tag">B</span>
           <h3>Le imprese la trovano?</h3>
           <p>Su 100 assunzioni previste in quel settore, quante sono difficili da coprire perché le imprese non trovano candidati adatti. Più è alta, più le imprese faticano a trovare persone con quel titolo. Dati Excelsior 2022.</p>
           <p>Per i licei questo numero non si usa: il liceo prepara a continuare gli studi, non a essere assunti subito.</p>
         </div>
-        <div class="num-card">
+        <div class="num-card" data-reveal="2">
           <span class="tag">C</span>
           <h3>In seconda, ogni 100</h3>
           <p>Quanti ragazzi c'erano in seconda nel 2024/25, ogni 100 che erano in prima l'anno prima, contando tutto l'istituto. In provincia metà delle scuole è a 88 o più.</p>
@@ -87,44 +108,61 @@
     </section>
 
     <section aria-labelledby="t-openday">
-      <p class="eyebrow">Open day</p>
+      <div data-reveal><p class="eyebrow">Open day</p>
       <h2 id="t-openday">Domande da portare alle scuole</h2>
-      <p class="lede">Le presentazioni degli open day raccontano il meglio. Queste domande aiutano a vedere anche il resto.</p>
+      <p class="lede">Le presentazioni degli open day raccontano il meglio. Queste domande aiutano a vedere anche il resto.</p></div>
       <ul class="q-list">
-        <li><span class="ico" aria-hidden="true">🛠️</span><span>Quante ore di laboratorio ci sono davvero al primo anno, e dove si fanno?</span></li>
-        <li><span class="ico" aria-hidden="true">👥</span><span>Quanti ragazzi ci sono di solito in una classe prima?</span></li>
-        <li><span class="ico" aria-hidden="true">🔁</span><span>Come funziona il recupero se uno studente resta indietro?</span></li>
-        <li><span class="ico" aria-hidden="true">🧩</span><span>Come vengono seguiti gli studenti con DSA o BES? Chi scrive il PDP e quando?</span></li>
-        <li><span class="ico" aria-hidden="true">🌍</span><span>Quali lingue straniere si studiano, e da quale anno?</span></li>
-        <li><span class="ico" aria-hidden="true">🏭</span><span>Con quali aziende o enti si fanno stage e PCTO?</span></li>
-        <li><span class="ico" aria-hidden="true">🚌</span><span>Come si arriva con i mezzi, e gli orari coincidono con l'uscita?</span></li>
-        <li><span class="ico" aria-hidden="true">🎓</span><span>Cosa fanno i diplomati dopo: università, ITS, lavoro?</span></li>
+        <li data-reveal><span class="ico" aria-hidden="true">🛠️</span><span>Quante ore di laboratorio ci sono davvero al primo anno, e dove si fanno?</span></li>
+        <li data-reveal><span class="ico" aria-hidden="true">👥</span><span>Quanti ragazzi ci sono di solito in una classe prima?</span></li>
+        <li data-reveal><span class="ico" aria-hidden="true">🔁</span><span>Come funziona il recupero se uno studente resta indietro?</span></li>
+        <li data-reveal><span class="ico" aria-hidden="true">🧩</span><span>Come vengono seguiti gli studenti con DSA o BES? Chi scrive il PDP e quando?</span></li>
+        <li data-reveal><span class="ico" aria-hidden="true">🌍</span><span>Quali lingue straniere si studiano, e da quale anno?</span></li>
+        <li data-reveal><span class="ico" aria-hidden="true">🏭</span><span>Con quali aziende o enti si fanno stage e PCTO?</span></li>
+        <li data-reveal><span class="ico" aria-hidden="true">🚌</span><span>Come si arriva con i mezzi, e gli orari coincidono con l'uscita?</span></li>
+        <li data-reveal><span class="ico" aria-hidden="true">🎓</span><span>Cosa fanno i diplomati dopo: università, ITS, lavoro?</span></li>
       </ul>
     </section>
 
     <section aria-labelledby="t-utili">
-      <p class="eyebrow">Per approfondire</p>
-      <h2 id="t-utili">Altri strumenti utili</h2>
+      <div data-reveal><p class="eyebrow">Per approfondire</p>
+      <h2 id="t-utili">Altri strumenti utili</h2></div>
       <ul class="sources">
-        <li><b><a href="https://www.guida-percorsi-varese.it/" rel="noopener">Guida Percorsi Varese</a></b> · l'elenco completo dell'offerta in provincia, compresi i corsi IeFP dei centri di formazione professionale, che nei dati del Ministero non ci sono.</li>
-        <li><b><a href="https://unica.istruzione.gov.it/" rel="noopener">Unica, Ministero dell'Istruzione e del Merito</a></b> · la piattaforma ufficiale: schede delle scuole e, quando si aprono, le iscrizioni online.</li>
+        <li data-reveal="0"><span class="ico" aria-hidden="true">🗺️</span><span><b><a href="https://www.guida-percorsi-varese.it/" rel="noopener">Guida Percorsi Varese</a></b>L'elenco completo dell'offerta in provincia, compresi i corsi IeFP dei centri di formazione professionale, che nei dati del Ministero non ci sono.</span></li>
+        <li data-reveal="1"><span class="ico" aria-hidden="true">🏛️</span><span><b><a href="https://unica.istruzione.gov.it/" rel="noopener">Unica, Ministero dell'Istruzione e del Merito</a></b>La piattaforma ufficiale: schede delle scuole e, quando si aprono, le iscrizioni online.</span></li>
       </ul>
-      <p class="notice"><b>Quando ci si iscrive?</b> Le iscrizioni alla prima superiore si fanno online, di solito in inverno. Le date esatte le pubblica il Ministero ogni anno: controllatele per tempo.</p>
-      <p style="margin-top:22px"><a class="btn" href="bussola/">Apri la Bussola <span aria-hidden="true">→</span></a></p>
+      <p class="notice" data-reveal><span class="ico" aria-hidden="true">📅</span><span><b>Quando ci si iscrive?</b> Le iscrizioni alla prima superiore si fanno online, di solito in inverno. Le date esatte le pubblica il Ministero ogni anno: controllatele per tempo.</span></p>
     </section>
+
+    <aside class="cta-band" aria-labelledby="t-go" data-reveal>
+      <div>
+        <p class="eyebrow">Pronti?</p>
+        <h2 id="t-go">Aprite la Bussola insieme</h2>
+        <p>Cinque passi da fare con calma, meglio con un foglio accanto per segnare dubbi e domande.</p>
+      </div>
+      <a class="btn" href="bussola/">Apri la Bussola <span class="arr" aria-hidden="true">→</span></a>
+    </aside>
 
   </div>
 </main>
 
-<footer>
+<footer class="site-footer">
   <div class="wrap">
-    <div class="row">
-      <div>
-        <p><b>Un progetto di Football Center</b>, associazione sportiva dilettantistica di Gallarate.</p>
-        <p>Questo sito non usa cookie e non raccoglie dati personali. È ospitato su GitHub Pages.</p>
-        <p>Ultimo aggiornamento: 1 ottobre 2026.</p>
+    <div class="foot">
+      <a class="foot-logo" href="./" aria-label="Football Center, pagina iniziale"><img src="assets/logo-football-center.png" alt="Logo Football Center" width="400" height="377" loading="lazy"></a>
+      <div class="foot-text">
+        <p class="foot-kicker">Un progetto di</p>
+        <p class="foot-name">Football Center</p>
+        <p>Associazione sportiva dilettantistica di Gallarate.</p>
       </div>
-      <a class="logo" href="./" aria-label="Football Center"><img src="assets/logo-football-center.png" alt="Logo Football Center" width="400" height="377"></a>
+      <ul class="foot-nav" aria-label="Collegamenti">
+        <li><a href="bussola/">La Bussola</a></li>
+        <li><a href="./#schede">Schede da stampare</a></li>
+        <li><a href="famiglie.html">Per le famiglie</a></li>
+      </ul>
+    </div>
+    <div class="small">
+      <p>Questo sito non usa cookie e non raccoglie dati personali. È ospitato su GitHub Pages.</p>
+      <p>Ultimo aggiornamento: 1 ottobre 2026</p>
     </div>
   </div>
 </footer>
