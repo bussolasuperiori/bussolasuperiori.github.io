@@ -1,0 +1,16 @@
+/* Caratteri ospitati su questo sito (licenza SIL OFL 1.1): nessuna richiesta a server esterni. */
+@font-face{
+  font-family:'Oswald';
+  src:url('fonts/oswald.woff2') format('woff2');
+  font-weight:200 700; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:'Nunito Sans';
+  src:url('fonts/nunito-sans.woff2') format('woff2');
+  font-weight:200 1000; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:'Nunito Sans';
+  src:url('fonts/nunito-sans-italic.woff2') format('woff2');
+  font-weight:200 1000; font-style:italic; font-display:swap;
+}

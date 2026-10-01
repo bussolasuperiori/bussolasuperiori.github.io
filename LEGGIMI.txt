@@ -1,0 +1,30 @@
+SITO "ORIENTAMENTO SUPERIORI"  ->  https://lucaalbano99.github.io/bussolasuperiori/
+=====================================================================
+
+Questa cartella E' il sito. Va caricata su GitHub cosi' com'e':
+index.html deve stare nella radice del repository, non dentro una sottocartella.
+
+CONTENUTO
+  index.html                 pagina iniziale
+  famiglie.html              guida per i genitori
+  404.html                   pagina "non trovata"
+  bussola/index.html         la Bussola Superiori (versione per il sito)
+  schede/                    i due fogli A4 da stampare (PDF)
+  assets/                    stile, caratteri, logo, icona, anteprima WhatsApp, QR code
+
+COME SI AGGIORNA (2 minuti)
+  1. Chiedi a Claude la modifica: ti consegna i file cambiati in questa cartella.
+  2. Vai su github.com/lucaalbano99/bussolasuperiori
+  3. Entra nella cartella giusta (es. "bussola"), poi "Add file" > "Upload files".
+  4. Trascina il file nuovo con lo STESSO NOME: sostituisce il vecchio.
+  5. In basso scrivi cosa hai cambiato (es. "aggiunte paritarie") e premi "Commit changes".
+  6. Dopo 1-2 minuti il sito e' aggiornato. Se non vedi la modifica: Ctrl+F5.
+
+NON TOCCARE A MANO
+  bussola/index.html viene rigenerato da Claude a partire dalla sorgente
+  (ORIENTAMENTO\dati\script\bussola_sorgente.html + build_sito.py).
+  Se lo modifichi direttamente, la modifica si perde al prossimo aggiornamento.
+
+QUANDO CAMBIANO I DATI
+  Ricordati di aggiornare la data "Ultimo aggiornamento" in fondo a
+  index.html e famiglie.html (Claude lo fa se glielo chiedi).

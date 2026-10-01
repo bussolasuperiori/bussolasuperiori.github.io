@@ -1,0 +1,1141 @@
+<!doctype html>
+<html lang="it">
+<head>
+<title>Bussola Superiori</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Dai tuoi interessi agli indirizzi e alle scuole vere della provincia di Varese: distanze, ore di lezione, cosa cercano le imprese. Gratuito, senza registrazione.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Bussola Superiori">
+<meta property="og:description" content="Dai tuoi interessi agli indirizzi e alle scuole vere della provincia di Varese. Gratuito, senza registrazione.">
+<meta property="og:url" content="https://lucaalbano99.github.io/bussolasuperiori/bussola/">
+<meta property="og:image" content="https://lucaalbano99.github.io/bussolasuperiori/assets/anteprima.png">
+<meta property="og:locale" content="it_IT">
+<meta name="theme-color" content="#16233A">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts.css">
+</head>
+<body>
+
+<style>
+  :root{
+    --ink:#16233A; --paper:#F0EFE9; --surface:#FBFAF6; --surface-2:#FFFFFF;
+    --line:#DCD8CB; --line-strong:#C3BDAC; --muted:#5A6472;
+    --coral:#D9482A; --coral-soft:#FBE7E1; --teal:#12756B; --teal-soft:#DEF0ED;
+    --shadow:0 1px 2px rgba(22,35,58,.06), 0 8px 24px rgba(22,35,58,.05);
+    --r:14px;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ink:#EDEFF3; --paper:#111A2B; --surface:#182338; --surface-2:#1E2B43;
+      --line:#2C3A54; --line-strong:#41527094; --muted:#A3AFC2;
+      --coral:#FF8163; --coral-soft:#3A2119; --teal:#4FD3C0; --teal-soft:#10312F;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#EDEFF3; --paper:#111A2B; --surface:#182338; --surface-2:#1E2B43;
+    --line:#2C3A54; --line-strong:#41527094; --muted:#A3AFC2;
+    --coral:#FF8163; --coral-soft:#3A2119; --teal:#4FD3C0; --teal-soft:#10312F;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+  }
+
+  *{box-sizing:border-box}
+  body{
+    background:var(--paper); color:var(--ink);
+    font-family:'Nunito Sans', 'Segoe UI', Tahoma, sans-serif;
+    font-size:16px; line-height:1.55; margin:0;
+  }
+  .wrap{max-width:1140px; margin:0 auto; padding-inline:18px; padding-block:0 64px}
+  h1,h2,h3,.disp{font-family:'Oswald','Arial Narrow',Arial,sans-serif; font-weight:600; letter-spacing:.2px; text-wrap:balance; margin:0}
+  a{color:var(--teal)}
+  button{font-family:inherit}
+  :focus-visible{outline:3px solid var(--coral); outline-offset:2px; border-radius:6px}
+
+  /* ---- header ---- */
+  header.top{background:var(--ink); color:#F6F4EF; padding-block:26px 22px}
+  :root[data-theme="dark"] header.top, :root:not([data-theme="light"]) header.top{border-bottom:1px solid var(--line)}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) header.top{background:#0B1322}}
+  .top .wrap{padding-block:0}
+  .kicker{font-family:'Oswald',Arial,sans-serif; font-size:13px; letter-spacing:3px; text-transform:uppercase; color:#8FA6B8; margin:0 0 6px}
+  header.top h1{font-size:clamp(30px,5vw,44px); color:#FBFAF6; text-transform:uppercase; line-height:1.05}
+  header.top p.sub{margin:8px 0 0; color:#B7C4D4; font-size:15px; max-width:62ch}
+
+  /* ---- step rail ---- */
+  .rail{position:sticky; top:env(safe-area-inset-top,0px); z-index:20; background:var(--surface); border-bottom:1px solid var(--line)}
+  .rail .wrap{padding-block:0}
+  .rail ol{display:flex; gap:2px; list-style:none; margin:0; padding:0; overflow-x:auto}
+  .rail li{flex:1 1 0; min-width:132px}
+  .rail button{
+    width:100%; display:flex; flex-direction:column; gap:1px; align-items:flex-start;
+    background:none; border:0; border-bottom:3px solid transparent; cursor:pointer;
+    padding:11px 12px 9px; color:var(--muted); text-align:left;
+  }
+  .rail button:disabled{cursor:not-allowed; opacity:.45}
+  .rail .n{font-family:'Oswald',Arial,sans-serif; font-size:11px; letter-spacing:2px; text-transform:uppercase}
+  .rail .t{font-size:14px; font-weight:600; line-height:1.25}
+  .rail button[aria-current="true"]{color:var(--ink); border-bottom-color:var(--coral)}
+
+  /* ---- generic blocks ---- */
+  .panel{padding-block:34px}
+  .lede{max-width:66ch; color:var(--muted); font-size:17px; margin:10px 0 0}
+  h2.sec{font-size:clamp(24px,3.4vw,34px); margin-top:0}
+  .note{
+    background:var(--teal-soft); border-left:4px solid var(--teal); border-radius:0 10px 10px 0;
+    padding:14px 18px; font-size:15px; margin-top:22px; max-width:74ch;
+  }
+  .note b{color:var(--ink)}
+
+  /* ---- step 1 : sliders ---- */
+  .riasec{display:grid; grid-template-columns:repeat(auto-fit,minmax(272px,1fr)); gap:14px; margin-top:26px}
+  .area{background:var(--surface); border:1px solid var(--line); border-radius:var(--r); padding:16px 18px; box-shadow:var(--shadow)}
+  .area .hd{display:flex; align-items:baseline; gap:10px}
+  .area .let{font-family:'Oswald',Arial,sans-serif; font-size:30px; font-weight:700; color:var(--coral); line-height:1}
+  .area .nm{font-family:'Oswald',Arial,sans-serif; font-size:19px; font-weight:500}
+  .area .ds{font-size:13.5px; color:var(--muted); margin:6px 0 12px; min-height:2.8em}
+  .area .row{display:flex; align-items:center; gap:12px}
+  .area input[type=range]{flex:1; accent-color:var(--coral); height:26px}
+  .area output{font-family:'Oswald',Arial,sans-serif; font-size:22px; min-width:2.2ch; text-align:right; font-variant-numeric:tabular-nums}
+
+  .codebox{
+    margin-top:26px; background:var(--ink); color:#FBFAF6; border-radius:var(--r);
+    padding:22px 24px; display:flex; flex-wrap:wrap; align-items:center; gap:22px;
+  }
+  :root[data-theme="dark"] .codebox, :root:not([data-theme="light"]) .codebox{background:var(--surface-2); border:1px solid var(--line)}
+  .codebox .lbl{font-family:'Oswald',Arial,sans-serif; font-size:12px; letter-spacing:2.5px; text-transform:uppercase; color:#8FA6B8}
+  .code{font-family:'Oswald',Arial,sans-serif; font-size:52px; font-weight:700; letter-spacing:8px; line-height:1; color:#FF8163}
+  :root:not([data-theme="dark"]) .codebox .code{color:#FFA98F}
+  .codebox .exp{font-size:14.5px; color:#C3CEDB; max-width:46ch}
+
+  /* ---- buttons ---- */
+  .btn{
+    display:inline-flex; align-items:center; gap:9px; border:0; cursor:pointer;
+    background:var(--coral); color:#fff; font-weight:700; font-size:16px;
+    padding:13px 24px; border-radius:999px;
+  }
+  :root[data-theme="dark"] .btn, :root:not([data-theme="light"]) .btn{color:#251009}
+  .btn.ghost{background:transparent; color:var(--ink); border:1.5px solid var(--line-strong); font-weight:600}
+  .btn.small{padding:8px 16px; font-size:14px}
+  .btn:hover{filter:brightness(1.06)}
+  .actions{display:flex; flex-wrap:wrap; gap:12px; margin-top:30px; align-items:center}
+
+  /* ---- filters ---- */
+  .filters{display:flex; flex-wrap:wrap; gap:8px; margin:22px 0 4px}
+  .chip{
+    border:1.5px solid var(--line-strong); background:var(--surface); color:var(--muted);
+    border-radius:999px; padding:7px 15px; font-size:14px; font-weight:600; cursor:pointer;
+  }
+  .chip[aria-pressed="true"]{background:var(--ink); color:var(--surface); border-color:var(--ink)}
+  :root[data-theme="dark"] .chip[aria-pressed="true"], :root:not([data-theme="light"]) .chip[aria-pressed="true"]{background:var(--teal); color:#07201E; border-color:var(--teal)}
+  .count{font-size:14px; color:var(--muted); margin:14px 0 0}
+
+  /* ---- cards ---- */
+  .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(316px,1fr)); gap:16px; margin-top:16px; align-items:start}
+  .card{background:var(--surface); border:1px solid var(--line); border-radius:var(--r); padding:20px; box-shadow:var(--shadow); display:flex; flex-direction:column; gap:12px}
+  .card.hit{border-color:var(--coral)}
+  .card .tag{font-family:'Oswald',Arial,sans-serif; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--muted)}
+  .card h3{font-size:20px; line-height:1.2}
+  .card .what{font-size:14.5px; color:var(--muted); margin:0}
+  .lets{display:flex; gap:6px; flex-wrap:wrap}
+  .let-pill{
+    width:27px; height:27px; display:grid; place-items:center; border-radius:50%;
+    font-family:'Oswald',Arial,sans-serif; font-weight:600; font-size:14px;
+    background:var(--surface-2); color:var(--muted); border:1.5px solid var(--line);
+  }
+  .let-pill.on{background:var(--coral); color:#fff; border-color:var(--coral)}
+  :root[data-theme="dark"] .let-pill.on, :root:not([data-theme="light"]) .let-pill.on{color:#251009}
+  .strip{margin:0; font-size:13.5px; color:var(--teal); background:var(--teal-soft);
+    border-radius:9px; padding:8px 11px; line-height:1.4}
+  .strip.none{color:var(--muted); background:transparent; border:1px dashed var(--line-strong)}
+  .strip b{color:inherit}
+  ul.slist{list-style:none; margin:6px 0 0; padding:0; display:flex; flex-direction:column; gap:8px}
+  ul.slist li{display:flex; flex-direction:column}
+  .slist .sn{font-weight:700; font-size:14px; line-height:1.3}
+  .verd{background:var(--surface); border:1px solid var(--line); border-radius:var(--r);
+    padding:24px; margin-top:18px; box-shadow:var(--shadow)}
+  .verd > h3{font-size:22px; line-height:1.2}
+  .verd .who{font-size:14px; color:var(--muted); margin:3px 0 18px}
+  .three{display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:14px}
+  .tre{background:var(--surface-2); border:1px solid var(--line); border-radius:12px; padding:16px 18px}
+  .tre .lab{font-family:'Oswald',Arial,sans-serif; font-size:11px; letter-spacing:1.6px;
+    text-transform:uppercase; color:var(--muted); display:flex; gap:7px; align-items:center}
+  .tre .lab i{font-style:normal; width:19px; height:19px; border-radius:50%; background:var(--ink);
+    color:var(--surface); display:grid; place-items:center; font-size:11px; font-weight:700}
+  .tre .big{font-family:'Oswald',Arial,sans-serif; font-size:34px; font-weight:700; line-height:1.05;
+    margin:9px 0 3px; color:var(--ink)}
+  .tre .sub{font-size:13px; color:var(--muted); line-height:1.4; margin:0}
+  .tre.warn .big{color:var(--coral)}
+  .ask{margin-top:20px; border-top:1px dashed var(--line); padding-top:16px}
+  .ask h4{font-family:'Oswald',Arial,sans-serif; font-size:15px; letter-spacing:1px;
+    text-transform:uppercase; color:var(--teal); margin:0 0 10px}
+  .ask ol{margin:0; padding-left:20px; font-size:15px; line-height:1.55}
+  .ask ol li{margin-bottom:9px}
+  .ask .scrivi{font-size:13px; color:var(--muted); margin:10px 0 0}
+  .ore{margin-top:6px}
+  .job{margin-top:6px}
+  .jhero{font-family:'Oswald',Arial,sans-serif; font-size:44px; font-weight:700; line-height:1;
+    color:var(--coral); margin:0; display:flex; align-items:baseline; gap:11px; flex-wrap:wrap}
+  .jhero span{font-family:'Nunito Sans',sans-serif; font-size:13.5px; font-weight:600;
+    color:var(--muted); line-height:1.35; flex:1 1 160px}
+  .jtrack{position:relative; height:10px; border-radius:99px; background:var(--line); margin:12px 0 6px}
+  .jfill{height:100%; border-radius:99px; background:var(--coral)}
+  .jmed{position:absolute; top:-4px; width:2px; height:18px; background:var(--ink); border-radius:2px}
+  .jmedlab{margin:0; font-size:12.5px; color:var(--muted)}
+  .jrow{margin:9px 0 0; font-size:14px; line-height:1.45}
+  .job.liceo .jrow:first-child{color:var(--teal)}
+  .jsrc{margin:11px 0 0; font-size:11.5px; color:var(--muted); line-height:1.4}
+  dd.nojob{font-size:13.5px; color:var(--muted)}
+  .par{display:inline-block; margin-left:7px; font-size:10.5px; font-weight:700; letter-spacing:.6px;
+    text-transform:uppercase; color:var(--muted); border:1px solid var(--line-strong);
+    border-radius:99px; padding:1px 7px; vertical-align:1px}
+  .slist .sm{font-size:12.5px; color:var(--muted); font-variant-numeric:tabular-nums}
+  select{font-family:'Nunito Sans',sans-serif; font-size:15px; color:var(--ink);
+    background:var(--surface-2); border:1px solid var(--line-strong); border-radius:9px;
+    padding:10px 12px; text-transform:none; letter-spacing:0; width:100%; max-width:100%}
+  label.f select + input[type=text]{margin-top:7px}
+  .srcnote{font-size:13px; color:var(--muted); border-top:1px solid var(--line);
+    margin-top:30px; padding-top:14px; max-width:78ch}
+  .card details{border-top:1px dashed var(--line); padding-top:11px}
+  .card summary{cursor:pointer; font-weight:700; font-size:14px; color:var(--teal); list-style:none}
+  .card summary::-webkit-details-marker{display:none}
+  .card summary::before{content:"▸ "}
+  .card details[open] summary::before{content:"▾ "}
+  .kv{margin:11px 0 0; font-size:14px}
+  .kv dt{font-family:'Oswald',Arial,sans-serif; font-size:11px; letter-spacing:1.6px; text-transform:uppercase; color:var(--muted); margin-top:9px}
+  .kv dd{margin:2px 0 0}
+  .card .foot{display:flex; flex-wrap:wrap; gap:9px; margin-top:auto; padding-top:4px}
+  .lnk{font-size:13.5px; font-weight:700; text-decoration:none; border-bottom:2px solid var(--teal-soft)}
+
+  /* ---- compare ---- */
+  .tablewrap{overflow-x:auto; margin-top:22px; border:1px solid var(--line); border-radius:var(--r); background:var(--surface)}
+  table{border-collapse:collapse; width:100%; min-width:600px; font-size:14.5px}
+  th,td{text-align:left; padding:13px 16px; border-bottom:1px solid var(--line); vertical-align:top}
+  thead th{background:var(--ink); color:#FBFAF6; font-family:'Oswald',Arial,sans-serif; font-weight:500; font-size:15px; position:sticky; top:0}
+  :root[data-theme="dark"] thead th, :root:not([data-theme="light"]) thead th{background:var(--surface-2); color:var(--ink)}
+  tbody th{font-family:'Oswald',Arial,sans-serif; font-weight:500; font-size:12px; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); width:170px}
+  tbody tr:last-child th, tbody tr:last-child td{border-bottom:0}
+
+  .empty{background:var(--surface); border:1.5px dashed var(--line-strong); border-radius:var(--r); padding:34px 24px; text-align:center; color:var(--muted); margin-top:22px}
+
+  /* ---- scheda ---- */
+  .sheet{background:var(--surface); border:1px solid var(--line); border-radius:var(--r); padding:22px; margin-top:16px; box-shadow:var(--shadow)}
+  .sheet h3{font-size:19px; color:var(--coral)}
+  .sheet .meta{font-size:13px; color:var(--muted); margin:2px 0 14px}
+  .fields{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px}
+  label.f{display:flex; flex-direction:column; gap:5px; font-size:12px; font-family:'Oswald',Arial,sans-serif; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted)}
+  input[type=text], textarea{
+    font-family:'Nunito Sans',sans-serif; font-size:15px; color:var(--ink);
+    background:var(--surface-2); border:1px solid var(--line-strong); border-radius:9px; padding:10px 12px;
+    text-transform:none; letter-spacing:0; width:100%;
+  }
+  textarea{min-height:74px; resize:vertical}
+  .nameline{display:flex; flex-wrap:wrap; gap:14px; align-items:end; margin-top:22px}
+  .nameline label.f{flex:1 1 260px}
+  .qlist{margin:12px 0 0; padding-left:20px; font-size:15px}
+  .qlist li{margin-bottom:7px}
+
+  .printbar{display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin-top:28px}
+  .hint{font-size:13.5px; color:var(--muted)}
+
+  #printhead{display:none}
+
+  @media print{
+    body{background:#fff; color:#000; font-size:12pt}
+    header.top, .rail, .actions, .printbar, .note, #s1, #s2, #s3, #s5, .filters, .count{display:none !important}
+    #printhead{display:block; margin-bottom:14pt; border-bottom:2pt solid #000; padding-bottom:8pt}
+    .wrap{max-width:none; padding:0}
+    .panel{padding:0}
+    .sheet{break-inside:avoid; border:1pt solid #999; box-shadow:none; background:#fff; margin-bottom:12pt}
+    input[type=text], textarea, select{border:0; border-bottom:1pt solid #666; border-radius:0; background:#fff; appearance:none}
+    .strip, ul.slist, .job, .ore, dd.nojob{display:none}
+    textarea{min-height:52pt}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important}}
+
+  .sitenav{display:flex; gap:18px; flex-wrap:wrap; margin:0 0 14px; font-size:14px; font-weight:700}
+  .sitenav a{color:#B7C4D4; text-decoration:none}
+  .sitenav a:hover{color:#FBFAF6; text-decoration:underline}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <p class="sitenav"><a href="../">&larr; Orientamento superiori</a><a href="../#schede">Schede da stampare</a><a href="../famiglie.html">Per le famiglie</a></p>
+    <p class="kicker">Parole Insieme &middot; Orientamento terze medie</p>
+    <h1>Bussola Superiori</h1>
+    <p class="sub">Dai tuoi interessi agli indirizzi che esistono davvero in provincia di Varese. Cinque passi, con dati veri sulle scuole.</p>
+  </div>
+</header>
+
+<nav class="rail" aria-label="Passi del percorso">
+  <div class="wrap">
+    <ol>
+      <li><button type="button" data-go="1" aria-current="true"><span class="n">Passo 1</span><span class="t">Il tuo codice</span></button></li>
+      <li><button type="button" data-go="2"><span class="n">Passo 2</span><span class="t">Gli indirizzi</span></button></li>
+      <li><button type="button" data-go="3"><span class="n">Passo 3</span><span class="t">Il confronto</span></button></li>
+      <li><button type="button" data-go="4"><span class="n">Passo 4</span><span class="t">Le tue scuole</span></button></li>
+      <li><button type="button" data-go="5"><span class="n">Passo 5</span><span class="t">Il verdetto</span></button></li>
+    </ol>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- ============ PASSO 1 ============ -->
+  <section id="s1" class="panel" aria-labelledby="h1a">
+    <h2 class="sec" id="h1a">Da dove parti: i tuoi interessi</h2>
+    <p class="lede">Se hai fatto il test di Holland a scuola, sposta ogni cursore fino al punteggio che hai ottenuto in quell&rsquo;area. Se non l&rsquo;hai fatto, leggi le sei descrizioni e dai a ognuna un voto da 0 a 10: <b>quanto ti somiglia?</b> Non serve essere precisi al millimetro.</p>
+
+    <div class="riasec" id="riasec"></div>
+
+    <div class="codebox">
+      <div>
+        <p class="lbl">Il tuo codice</p>
+        <p class="code" id="code">&mdash;&mdash;&mdash;</p>
+      </div>
+      <p class="exp" id="codeExp">Muovi i cursori: qui compaiono le tue tre lettere pi&ugrave; alte.</p>
+    </div>
+
+    <div class="note">
+      <b>Attenzione:</b> questo codice non decide niente al posto tuo. Dice solo da dove conviene iniziare a guardare. Al passo 2 puoi sempre vedere <b>tutti</b> gli indirizzi, anche quelli che non c&rsquo;entrano con le tue lettere &mdash; e a volte &egrave; proprio l&igrave; che si trova la cosa giusta.
+    </div>
+
+    <div class="actions">
+      <button class="btn" type="button" data-go="2">Vai agli indirizzi &rarr;</button>
+    </div>
+  </section>
+
+  <!-- ============ PASSO 2 ============ -->
+  <section id="s2" class="panel" aria-labelledby="h2a" hidden>
+    <h2 class="sec" id="h2a">Gli indirizzi che esistono</h2>
+    <p class="lede">Sono gli indirizzi attivi in provincia di Varese: licei, istituti tecnici, professionali e percorsi IeFP. In cima trovi quelli pi&ugrave; vicini al tuo codice. Aprine almeno cinque, poi scegline tre e compila il <b>foglio 1</b>.</p>
+
+    <div class="filters" role="group" aria-label="Filtra per tipo di scuola">
+      <button class="chip" type="button" data-f="all" aria-pressed="true">Tutti</button>
+      <button class="chip" type="button" data-f="liceo" aria-pressed="false">Licei</button>
+      <button class="chip" type="button" data-f="tecnico" aria-pressed="false">Istituti tecnici</button>
+      <button class="chip" type="button" data-f="professionale" aria-pressed="false">Professionali</button>
+      <button class="chip" type="button" data-f="iefp" aria-pressed="false">IeFP</button>
+      <button class="chip" type="button" id="onlyMine" aria-pressed="false">Solo il mio codice</button>
+    </div>
+    <p class="count" id="count"></p>
+
+    <div class="grid" id="cards"></div>
+
+    <div class="actions">
+      <button class="btn ghost" type="button" data-go="1">&larr; Torna al codice</button>
+      <button class="btn" type="button" data-go="3">Confronta i preferiti &rarr;</button>
+    </div>
+
+    <p class="srcnote"><b>Da dove vengono questi numeri.</b>
+      Le scuole statali, le distanze e gli iscritti vengono dagli open data del Ministero
+      dell&rsquo;Istruzione e dall&rsquo;Anagrafe Scuole di Regione Lombardia; l&rsquo;offerta &egrave; quella
+      rilevata nel 2024/25, quindi un indirizzo attivato di recente pu&ograve; non comparire.
+      Le scuole <b>paritarie</b> sono state verificate a mano su Guida Percorsi a settembre 2026:
+      per loro non ci sono i numeri sugli iscritti, perch&eacute; il Ministero non li pubblica.
+      I percorsi <b>IeFP</b> dei centri di formazione (ENAIP, CIOFS, CFP) non sono nei dati ministeriali:
+      per quelli vale sempre Guida Percorsi.
+      La <b>tenuta</b> confronta i ragazzi iscritti in prima un anno con quelli iscritti in seconda
+      l&rsquo;anno dopo, nella stessa scuola: in provincia la met&agrave; delle scuole sta sopra 88 ogni 100.
+      Non &egrave; una percentuale di promossi &mdash; conta anche chi arriva da altre scuole, e per questo
+      in qualche istituto supera quota 100.
+      Una distanza con la tilde (~) &egrave; misurata sul centro del comune, non sull&rsquo;indirizzo esatto.</p>
+  </section>
+
+  <!-- ============ PASSO 3 ============ -->
+  <section id="s3" class="panel" aria-labelledby="h3a" hidden>
+    <h2 class="sec" id="h3a">Il confronto</h2>
+    <p class="lede">Massimo tre indirizzi, uno accanto all&rsquo;altro. Guardali riga per riga: la differenza vera fra due scuole di solito sta nelle materie di indirizzo e in quello che puoi fare dopo.</p>
+    <div id="cmp"></div>
+    <div class="actions">
+      <button class="btn ghost" type="button" data-go="2">&larr; Torna agli indirizzi</button>
+      <button class="btn" type="button" data-go="4">Prepara la scheda &rarr;</button>
+    </div>
+  </section>
+
+  <!-- ============ PASSO 4 ============ -->
+  <section id="s4" class="panel" aria-labelledby="h4a" hidden>
+    <div id="printhead">
+      <p class="kicker" style="color:#000">Parole Insieme &middot; Bussola Superiori</p>
+      <h2 class="sec" style="margin:0">Scheda di orientamento</h2>
+    </div>
+
+    <h2 class="sec">Le tue scuole</h2>
+    <p class="lede">Ultimo passo: per ogni indirizzo scegli dal men&ugrave; una delle scuole della provincia che lo offrono. Se la tua non c&rsquo;&egrave; (paritarie e centri di formazione non sono nei dati del Ministero), cercala su Guida Percorsi e scrivila a mano. Poi stampa e portala a casa.</p>
+
+    <div class="nameline">
+      <label class="f" for="stud">Nome e cognome<input type="text" id="stud" placeholder="Il tuo nome"></label>
+      <label class="f" for="cls">Classe<input type="text" id="cls" placeholder="3&ordf;__"></label>
+    </div>
+
+    <div id="sheets"></div>
+
+    <div class="sheet">
+      <h3>Le domande da fare all&rsquo;open day</h3>
+      <p class="meta">Portale scritte. Chi arriva con le domande pronte scopre cose che gli altri non scoprono.</p>
+      <ol class="qlist">
+        <li>Quante ore a settimana di laboratorio si fanno davvero al primo anno?</li>
+        <li>Quanti studenti erano iscritti in prima l&rsquo;anno scorso, e quanti sono arrivati in seconda?</li>
+        <li>Che cosa fanno i vostri diplomati l&rsquo;anno dopo il diploma?</li>
+        <li>Quanto tempo di compiti a casa serve, in media, in una giornata normale?</li>
+        <li>Che supporto c&rsquo;&egrave; per chi ha un DSA o un piano personalizzato?</li>
+        <li>Si pu&ograve; cambiare indirizzo dopo il primo anno senza perdere l&rsquo;anno?</li>
+        <li>Posso passare una mattina in classe prima di decidere?</li>
+      </ol>
+    </div>
+
+    <div class="printbar">
+      <button class="btn" type="button" data-go="5">Vai al verdetto &rarr;</button>
+      <button class="btn ghost" type="button" data-go="3">&larr; Torna al confronto</button>
+      <button class="btn ghost small" type="button" id="printBtn">Stampa (se serve)</button>
+    </div>
+  </section>
+
+  <!-- ============ PASSO 5 ============ -->
+  <section id="s5" class="panel" aria-labelledby="h5a" hidden>
+    <h2 class="sec" id="h5a">Il verdetto</h2>
+    <p class="lede">Hai scelto. Adesso guarda tre numeri per ognuna delle tue scuole e decidi se ti fanno
+      cambiare idea. <b>Non c&rsquo;&egrave; una risposta giusta</b>: c&rsquo;&egrave; la tua, presa sapendo qualcosa in pi&ugrave;.</p>
+
+    <div id="verdetto"></div>
+
+    <div class="actions">
+      <button class="btn ghost" type="button" data-go="4">&larr; Torna alle scuole</button>
+      <button class="btn ghost" type="button" data-go="2">Cambia indirizzi</button>
+    </div>
+  </section>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------------- dati: le 6 aree RIASEC ---------------- */
+  var AREAS = [
+    {k:"R", nm:"Realistico",    ds:"Fare con le mani, usare strumenti e macchine, stare all'aperto, vedere il risultato concreto."},
+    {k:"I", nm:"Investigativo", ds:"Capire perché le cose funzionano, osservare, studiare, risolvere problemi difficili."},
+    {k:"A", nm:"Artistico",     ds:"Inventare, disegnare, scrivere, suonare, creare qualcosa che prima non c'era."},
+    {k:"S", nm:"Sociale",       ds:"Stare con le persone, aiutare, spiegare, prendersi cura, lavorare in squadra."},
+    {k:"E", nm:"Intraprendente",ds:"Convincere, organizzare, guidare un gruppo, vendere un'idea, rischiare."},
+    {k:"C", nm:"Convenzionale", ds:"Ordine, precisione, numeri e dati, procedure chiare, fare le cose per bene."}
+  ];
+
+  /* ---------------- dati: il catalogo indirizzi ----------------
+     slug = pagina reale su guida-percorsi-varese.it/cat/<slug>/      */
+  var BASE = "https://www.guida-percorsi-varese.it/cat/";
+
+  var C = [
+  /* ---- LICEI ---- */
+  {t:"liceo",n:"Liceo classico",r:["I","A","S"],slug:"liceo-classico",
+   w:"Cinque anni su come pensavano e scrivevano i greci e i romani, e su come quel modo di ragionare regge ancora oggi.",
+   m:"Latino, greco, italiano, storia e filosofia, inglese, matematica",
+   d:"Prepara soprattutto all'università, in qualunque facoltà: giurisprudenza, lettere, medicina, scienze politiche."},
+  {t:"liceo",n:"Liceo scientifico",r:["I","R","C"],slug:"liceo-scientifico",
+   w:"L'indirizzo più scelto in Italia: matematica e scienze robuste, ma con latino, filosofia e storia ancora dentro.",
+   m:"Matematica, fisica, scienze naturali, latino, filosofia, inglese",
+   d:"Università scientifiche e non: ingegneria, medicina, informatica, economia. Tiene aperte quasi tutte le porte."},
+  {t:"liceo",n:"Liceo scientifico &ndash; scienze applicate",r:["I","R","C"],slug:"liceo-scientifico",
+   w:"Come lo scientifico ma senza latino: al suo posto più informatica, più laboratorio, più scienze.",
+   m:"Informatica, matematica, fisica, scienze, disegno tecnico",
+   d:"Ingegneria, informatica, scienze. Scelta tipica di chi ama le scienze ma non vuole il latino."},
+  {t:"liceo",n:"Liceo scientifico sportivo",r:["R","S","I"],slug:"liceo-scientifico-a-indirizzo-sportivo",
+   w:"Base scientifica con discipline sportive dentro l'orario, e lo sport studiato anche come diritto ed economia.",
+   m:"Discipline sportive, scienze motorie, matematica, fisica, diritto dello sport",
+   d:"Scienze motorie, fisioterapia, management dello sport, o qualunque facoltà scientifica."},
+  {t:"liceo",n:"Liceo linguistico",r:["A","S","E"],slug:"liceo-linguistico",
+   w:"Tre lingue straniere studiate sul serio, con conversazione con madrelingua e letteratura di quei Paesi.",
+   m:"Inglese più due lingue (spesso francese, spagnolo, tedesco o cinese), letterature straniere",
+   d:"Mediazione linguistica, relazioni internazionali, turismo, marketing estero, interpretariato."},
+  {t:"liceo",n:"Liceo delle scienze umane",r:["S","A","I"],slug:"liceo-delle-scienze-umane",
+   w:"Studia come funzionano le persone e i gruppi: psicologia, pedagogia, sociologia, antropologia.",
+   m:"Scienze umane, latino, filosofia, storia, biologia",
+   d:"Scienze della formazione, psicologia, servizio sociale, insegnamento."},
+  {t:"liceo",n:"Liceo economico-sociale",r:["E","S","C"],slug:"liceo-delle-scienze-umane",
+   w:"L'opzione dello scienze umane senza latino: al suo posto diritto, economia e una seconda lingua straniera.",
+   m:"Diritto ed economia, scienze umane, due lingue straniere, matematica, statistica",
+   d:"Economia, giurisprudenza, scienze politiche, sociologia."},
+  {t:"liceo",n:"Liceo artistico",r:["A","R"],slug:"liceo-artistico",
+   w:"Biennio comune, poi scegli: arti figurative, architettura, design, grafica, audiovisivo o scenografia.",
+   m:"Discipline pittoriche e plastiche, laboratorio d'indirizzo, storia dell'arte, disegno geometrico",
+   d:"Accademia di belle arti, design, architettura, ISIA, oppure lavoro creativo diretto."},
+  {t:"liceo",n:"Liceo musicale e coreutico",r:["A","S"],slug:"liceo-musicale-e-coreutico",
+   w:"Strumento o danza dentro l'orario scolastico, con esame d'ammissione: serve già una base.",
+   m:"Esecuzione e interpretazione, teoria e analisi, storia della musica o della danza, materie comuni",
+   d:"Conservatorio, accademia di danza, DAMS, professioni dello spettacolo."},
+  {t:"liceo",n:"Liceo del Made in Italy",r:["E","A","C"],slug:"liceo-del-made-in-italy",
+   w:"Indirizzo recente: le eccellenze italiane (moda, design, agroalimentare, arredo) viste come sistema economico e culturale.",
+   m:"Economia e marketing, due lingue straniere, storia dell'arte, diritto",
+   d:"Economia, marketing, gestione d'impresa nei settori del made in Italy."},
+  {t:"liceo",n:"Liceo internazionale per l'innovazione",r:["I","E","A"],slug:"liceo-internazionale-per-linnovazione",
+   w:"Percorso a forte impronta internazionale, con materie in inglese e attenzione a tecnologia e innovazione.",
+   m:"Materie veicolate in inglese, tecnologia, economia, progettualità",
+   d:"Università italiane e straniere, percorsi internazionali."},
+
+  /* ---- TECNICI ---- */
+  {t:"tecnico",n:"Amministrazione, finanza e marketing",r:["C","E"],slug:"settore-economico-amministrazione-finanza-e-marketing",
+   w:"Come funziona un'azienda da dentro: bilanci, tasse, banche, marketing. Il vecchio «ragioneria».",
+   m:"Economia aziendale, diritto, informatica, due lingue straniere, matematica",
+   d:"Lavoro subito in studi e uffici, oppure economia, giurisprudenza, ITS."},
+  {t:"tecnico",n:"Turismo",r:["E","S","C"],slug:"settore-economico-turismo",
+   w:"Tre lingue straniere più la parte economica e giuridica del settore turistico, con geografia e arte.",
+   m:"Tre lingue straniere, discipline turistiche e aziendali, arte e territorio, diritto",
+   d:"Agenzie, strutture ricettive, tour operator, oppure università economica o linguistica."},
+  {t:"tecnico",n:"Meccanica, meccatronica ed energia",r:["R","I"],slug:"settore-tecnologico-meccanica-meccatronica-ed-energia",
+   w:"Progettare e far funzionare macchine, impianti e automazioni. Tanto laboratorio e disegno tecnico.",
+   m:"Meccanica e macchine, sistemi e automazione, tecnologie meccaniche, disegno CAD",
+   d:"Molto richiesto dalle aziende del territorio; oppure ingegneria o ITS meccatronica."},
+  {t:"tecnico",n:"Trasporti e logistica",r:["R","C","I"],slug:"settore-tecnologico-trasporti-e-logistica",
+   w:"Mezzi e movimentazione: articolazioni su costruzione, conduzione o logistica, per terra, mare o aria.",
+   m:"Logistica, elettrotecnica, meccanica, struttura dei mezzi, diritto dei trasporti",
+   d:"Aeroporti, spedizionieri, magazzini automatizzati, ITS logistica, ingegneria."},
+  {t:"tecnico",n:"Elettronica ed elettrotecnica",r:["R","I"],slug:"settore-tecnologico-elettronica-ed-elettrotecnica",
+   w:"Circuiti, impianti elettrici, automazione industriale. Si costruisce e si misura, non solo si studia.",
+   m:"Elettrotecnica ed elettronica, sistemi automatici, tecnologie elettriche",
+   d:"Manutenzione e automazione industriale, energia, ingegneria, ITS."},
+  {t:"tecnico",n:"Informatica e telecomunicazioni",r:["I","R","C"],slug:"settore-tecnologico-informatica-e-telecomunicazioni",
+   w:"Programmazione, database, reti e sistemi. Si scrive codice dal primo anno, non solo in teoria.",
+   m:"Informatica, sistemi e reti, tecnologie e progettazione, telecomunicazioni",
+   d:"Sviluppo software, sistemi e reti; oppure informatica, ingegneria, ITS digitale."},
+  {t:"tecnico",n:"Grafica e comunicazione",r:["A","R","E"],slug:"settore-tecnologico-grafica-e-comunicazione",
+   w:"Progetto grafico, fotografia, video e stampa: la parte creativa unita a quella tecnica e produttiva.",
+   m:"Progettazione multimediale, tecnologie dei processi di produzione, laboratori tecnici",
+   d:"Agenzie e studi grafici, comunicazione d'impresa, design, ITS del digitale."},
+  {t:"tecnico",n:"Chimica, materiali e biotecnologie",r:["I","R"],slug:"settore-tecnologico-chimica-materiali-e-biotecnologie",
+   w:"Laboratorio vero, tutti gli anni: analisi chimiche, materiali, biotecnologie ambientali o sanitarie.",
+   m:"Chimica analitica e strumentale, chimica organica, biologia, microbiologia",
+   d:"Laboratori di analisi, industria chimica e farmaceutica; oppure chimica, biotecnologie, farmacia."},
+  {t:"tecnico",n:"Sistema moda",r:["A","R","C"],slug:"settore-tecnologico-sistema-moda",
+   w:"Il tessile e l'abbigliamento come filiera industriale: dal filato al capo finito, dal disegno alla produzione.",
+   m:"Ideazione e progettazione del prodotto moda, tecnologie dei materiali, marketing",
+   d:"Aziende tessili e di moda, uffici stile, ITS moda, design."},
+  {t:"tecnico",n:"Agraria, agroalimentare e agroindustria",r:["R","I"],slug:"settore-tecnologico-agraria-agroalimentare-e-agroindustria",
+   w:"Coltivazioni, allevamento, trasformazione dei prodotti e gestione del territorio. Si lavora anche fuori dall'aula.",
+   m:"Produzioni vegetali e animali, trasformazione dei prodotti, gestione ambientale, economia agraria",
+   d:"Aziende agricole e agroalimentari, perito agrario, agraria, scienze e tecnologie alimentari."},
+  {t:"tecnico",n:"Costruzioni, ambiente e territorio",r:["R","I","C"],slug:"settore-tecnologico-costruzioni-ambiente-e-territorio",
+   w:"L'ex geometra: progettare edifici, rilevare terreni, stimare valori, seguire un cantiere.",
+   m:"Progettazione costruzioni e impianti, topografia, geopedologia, estimo",
+   d:"Studi tecnici, cantieri, catasto; oppure ingegneria, architettura, ITS edilizia."},
+
+  /* ---- PROFESSIONALI ---- */
+  {t:"professionale",n:"Servizi per la sanità e l'assistenza sociale",r:["S","I"],slug:"servizi-sanita-e-assistenza-sociale",
+   w:"Prendersi cura delle persone: bambini, anziani, persone con disabilità. Tirocinio dentro il percorso.",
+   m:"Igiene e cultura medico-sanitaria, psicologia, metodologie operative, diritto",
+   d:"Strutture socio-sanitarie e asili; oppure scienze infermieristiche, educazione, servizio sociale."},
+  {t:"professionale",n:"Enogastronomia e ospitalità alberghiera",r:["R","S","E"],slug:"enogastronomia-e-ospitalita-alberghiera",
+   w:"Cucina, sala, bar o accoglienza turistica. Si sta in laboratorio con la divisa già dal primo anno.",
+   m:"Laboratorio di cucina o sala, scienza degli alimenti, due lingue straniere, diritto e tecnica turistica",
+   d:"Ristorazione e hotellerie, con possibilità di lavorare presto; oppure ITS turismo."},
+  {t:"professionale",n:"Manutenzione e assistenza tecnica",r:["R","C"],slug:"manutenzione-e-assistenza-tecnica",
+   w:"Far funzionare e riparare impianti, macchine e mezzi. Tanta officina, poca teoria astratta.",
+   m:"Tecnologie elettriche ed elettroniche, tecnologie meccaniche, laboratori tecnologici",
+   d:"Manutentore in azienda, elettricista, tecnico impianti. Settore con molta richiesta."},
+  {t:"professionale",n:"Industria e artigianato per il Made in Italy",r:["R","A"],slug:"industria-e-artigianato-per-made-in-italy",
+   w:"Produrre oggetti di qualità: legno, moda, arredo, oreficeria, a seconda della scuola.",
+   m:"Laboratori tecnologici ed esercitazioni, tecnologie dei materiali, progettazione",
+   d:"Artigianato e piccola industria, spesso con assunzione rapida sul territorio."},
+  {t:"professionale",n:"Servizi commerciali",r:["E","C","S"],slug:"servizi-commerciali",
+   w:"Il lato pratico dell'azienda: vendita, comunicazione, amministrazione, promozione.",
+   m:"Tecniche professionali dei servizi commerciali, diritto, economia, due lingue straniere",
+   d:"Uffici, negozi, servizi alle imprese; oppure ITS o economia."},
+  {t:"professionale",n:"Servizi culturali e dello spettacolo",r:["A","E"],slug:"servizi-culturali-e-dello-spettacolo",
+   w:"Produrre contenuti: video, audio, eventi, allestimenti. La parte tecnica dietro le quinte.",
+   m:"Tecniche di produzione audiovisiva, linguaggi multimediali, organizzazione di eventi",
+   d:"Produzioni video, teatri, eventi, comunicazione."},
+  {t:"professionale",n:"Agricoltura e sviluppo rurale",r:["R","I"],slug:"agricoltura-sviluppo-rurale-valorizzazione-prodotti-territorio",
+   w:"Coltivare, allevare, valorizzare i prodotti del territorio e curare boschi e montagna.",
+   m:"Agronomia, produzioni animali, valorizzazione dei prodotti, gestione del verde",
+   d:"Aziende agricole, agriturismo, manutenzione del verde, consorzi."},
+  {t:"professionale",n:"Odontotecnico",r:["R","I","C"],slug:"arti-ausiliarie-professioni-sanitarie-odontotecnico",
+   w:"Costruire protesi e apparecchi dentali. Lavoro di precisione assoluta, in laboratorio.",
+   m:"Esercitazioni di laboratorio odontotecnico, anatomia, scienze dei materiali dentali",
+   d:"Laboratori odontotecnici, con abilitazione dopo il diploma."},
+  {t:"professionale",n:"Ottico",r:["R","I","C"],slug:"arti-ausiliarie-professioni-sanitarie-ottico",
+   w:"Misurare la vista, costruire e montare occhiali e lenti a contatto.",
+   m:"Esercitazioni di lenti oftalmiche, optometria, contattologia, anatomia",
+   d:"Negozi di ottica e centri optometrici, con abilitazione dopo il diploma."},
+
+  /* ---- IeFP ---- */
+  {t:"iefp",n:"Operatore elettrico",r:["R"],slug:"operatore-elettrico",
+   w:"Montare e riparare impianti elettrici, in casa e in azienda. Tre anni, moltissime ore di officina.",
+   m:"Laboratorio elettrico, impianti civili e industriali, sicurezza",
+   d:"Qualifica in 3 anni, diploma professionale col 4&deg;. Assunzione rapida: profilo molto cercato."},
+  {t:"iefp",n:"Operatore meccanico",r:["R"],slug:"operatore-meccanico",
+   w:"Lavorare il metallo con macchine utensili tradizionali e a controllo numerico.",
+   m:"Laboratorio macchine utensili, disegno meccanico, controllo numerico",
+   d:"Officine e industria meccanica del territorio. Qualifica in 3 anni, poi 4&deg; anno."},
+  {t:"iefp",n:"Operatore informatico",r:["I","R","C"],slug:"operatore-informatico",
+   w:"Installare, configurare e assistere computer, reti e postazioni di lavoro.",
+   m:"Sistemi e reti, assistenza tecnica, basi di programmazione",
+   d:"Assistenza informatica in azienda. Qualifica in 3 anni, poi 4&deg; anno."},
+  {t:"iefp",n:"Operatore del benessere",r:["S","A","R"],slug:"operatore-del-benessere",
+   w:"Acconciatura o estetica: si lavora sulle persone, in salone, fin dal primo anno.",
+   m:"Laboratorio di acconciatura o estetica, anatomia, accoglienza del cliente",
+   d:"Saloni e centri estetici; con il 4&deg; anno e l'abilitazione si può aprire un'attività."},
+  {t:"iefp",n:"Operatore della ristorazione",r:["R","S"],slug:"operatore-della-ristorazione",
+   w:"Cucina o sala-bar, con molte ore pratiche e stage nei locali del territorio.",
+   m:"Laboratorio di cucina o sala, igiene alimentare, servizio",
+   d:"Ristoranti, bar, hotel. Qualifica in 3 anni, poi 4&deg; anno da tecnico."},
+  {t:"iefp",n:"Operatore alla riparazione di veicoli a motore",r:["R"],slug:"operatore-alla-riparazione-di-veicoli-a-motore",
+   w:"Meccanica, elettronica e carrozzeria dell'auto. Officina quasi tutti i giorni.",
+   m:"Diagnosi e riparazione, elettronica dell'auto, laboratorio",
+   d:"Officine e concessionarie. Qualifica in 3 anni, poi 4&deg; anno."},
+  {t:"iefp",n:"Operatore grafico",r:["A","R"],slug:"operatore-grafico",
+   w:"Impaginare, fotoritoccare, preparare file per la stampa e i social.",
+   m:"Software grafici, fotografia, stampa, multimedia",
+   d:"Tipografie, agenzie, uffici comunicazione. Qualifica in 3 anni, poi 4&deg; anno."},
+  {t:"iefp",n:"Operatore ai servizi di impresa",r:["C","E"],slug:"operatore-ai-servizi-di-impresa",
+   w:"Il lavoro d'ufficio vero: documenti, fatture, accoglienza, gestione dati.",
+   m:"Informatica gestionale, comunicazione aziendale, amministrazione",
+   d:"Uffici e segreterie. Qualifica in 3 anni, poi 4&deg; anno."},
+  {t:"iefp",n:"Operatore ai servizi di vendita",r:["E","S"],slug:"operatore-ai-servizi-di-vendita",
+   w:"Stare dietro il banco e dietro le quinte: vendita, magazzino, allestimento, cliente.",
+   m:"Tecniche di vendita, marketing di base, gestione del punto vendita",
+   d:"Negozi e catene commerciali. Qualifica in 3 anni, poi 4&deg; anno."},
+  {t:"iefp",n:"Operatore ai servizi di promozione e accoglienza",r:["S","E"],slug:"operatore-ai-servizi-di-promozione-e-accoglienza",
+   w:"Accogliere e informare: reception, uffici turistici, strutture ricettive.",
+   m:"Accoglienza, lingue straniere, promozione turistica",
+   d:"Hotel, agenzie, servizi turistici. Qualifica in 3 anni, poi 4&deg; anno."},
+  {t:"iefp",n:"Operatore di impianti termoidraulici",r:["R"],slug:"operatore-di-impianti-termoidraulici",
+   w:"Riscaldamento, condizionamento, idraulica. Un mestiere con richiesta costante.",
+   m:"Laboratorio termoidraulico, impianti, sicurezza, energie rinnovabili",
+   d:"Ditte impiantistiche o attività in proprio. Qualifica in 3 anni, poi 4&deg; anno."},
+  {t:"iefp",n:"Operatore del legno",r:["R","A"],slug:"operatore-del-legno",
+   w:"Falegnameria e arredo: dal progetto al mobile finito, con macchine e a mano.",
+   m:"Laboratorio di falegnameria, disegno del mobile, macchine per il legno",
+   d:"Falegnamerie e aziende dell'arredo. Qualifica in 3 anni, poi 4&deg; anno."},
+  {t:"iefp",n:"Operatore delle produzioni alimentari",r:["R","C"],slug:"operatore-delle-produzioni-alimentari",
+   w:"Panificazione, pasticceria e trasformazione alimentare, con tutta la parte di igiene e sicurezza.",
+   m:"Laboratorio di panificazione e pasticceria, igiene, tecnologie alimentari",
+   d:"Panetterie, pasticcerie, industria alimentare. Qualifica in 3 anni, poi 4&deg; anno."},
+  {t:"iefp",n:"Operatore dell'abbigliamento",r:["R","A"],slug:"operatore-dellabbigliamento",
+   w:"Tagliare, cucire, confezionare capi. Dal cartamodello al prodotto finito.",
+   m:"Laboratorio di confezione, modellistica, materiali tessili",
+   d:"Sartorie e aziende di abbigliamento. Qualifica in 3 anni, poi 4&deg; anno."},
+  {t:"iefp",n:"Operatore alle lavorazioni di pelletteria",r:["R","A"],slug:"operatore-alle-lavorazioni-di-prodotti-di-pelletteria",
+   w:"Borse e accessori in pelle: un settore piccolo ma con forte richiesta di mani capaci.",
+   m:"Laboratorio di pelletteria, materiali, modellistica",
+   d:"Aziende di pelletteria e moda. Qualifica in 3 anni, poi 4&deg; anno."},
+  {t:"iefp",n:"Operatore lavorazioni oro e metalli preziosi",r:["R","A"],slug:"operatore-lavorazioni-oro-e-metalli-preziosi",
+   w:"Oreficeria: lavorazione dei metalli preziosi e incastonatura. Precisione millimetrica.",
+   m:"Laboratorio orafo, disegno del gioiello, tecniche di incastonatura",
+   d:"Laboratori orafi e gioiellerie. Qualifica in 3 anni, poi 4&deg; anno."},
+  {t:"iefp",n:"Operatore dei sistemi e servizi logistici",r:["R","C"],slug:"operatore-dei-sistemi-e-dei-servizi-logistici",
+   w:"Magazzino e spedizioni: carichi, gestionali, mezzi di movimentazione.",
+   m:"Gestione del magazzino, software logistici, movimentazione merci, sicurezza",
+   d:"Magazzini, spedizionieri, corrieri. Settore forte vicino a Malpensa."},
+  {t:"iefp",n:"Operatore agricolo",r:["R"],slug:"operatore-agricolo",
+   w:"Coltivazioni, allevamento e cura del verde, con molte ore all'aperto.",
+   m:"Tecniche agricole, macchine agricole, cura del verde, zootecnia",
+   d:"Aziende agricole, vivai, manutenzione del verde. Qualifica in 3 anni, poi 4&deg; anno."},
+  {t:"iefp",n:"Tecnico dei servizi di animazione turistico-sportiva",r:["S","E","R"],slug:"tecnico-dei-servizi-di-animazione-turistico-sportiva-e-del-tempo-libero",
+   w:"Organizzare attività sportive e di animazione per gruppi, in villaggi, centri sportivi ed eventi.",
+   m:"Animazione, tecniche sportive, organizzazione di eventi, lingue",
+   d:"Villaggi turistici, centri sportivi, associazioni, eventi."}
+  ];
+
+  var TYPE_LABEL = {liceo:"Liceo &middot; 5 anni", tecnico:"Istituto tecnico &middot; 5 anni",
+                    professionale:"Istituto professionale &middot; 5 anni", iefp:"IeFP &middot; 3 anni + 4&deg;"};
+
+  /* ---------------- le scuole vere della provincia ----------------
+     Fonti: anagrafiche MIM 2026/27 + iscritti MIM 2024/25 + coordinate Regione Lombardia. */
+  var DB = {"agg":"2026-09-18","da":"Gallarate","note":{"anno_offerta":"2024/25","paritarie":37,"istituti":69,"paritarie_compilate":19},"ind":{"Liceo delle scienze umane":[{"n":"Gadda-Rosselli","c":"Gallarate","km":0.2,"g":"S","art":null,"al":271,"p1":82,"ten":87,"q":false,"eb":false,"web":"www.gaddarosselli.edu.it","approx":true},{"n":"Liceo Crespi","c":"Busto Arsizio","km":7.1,"g":"S","art":null,"al":496,"p1":109,"ten":87,"q":false,"eb":false,"web":"www.liceocrespi.edu.it","approx":false},{"n":"Fermi","c":"Castellanza","km":9.2,"g":"P","art":null,"al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.fermi-castellanza.com/","approx":true},{"n":"Liceo Curie","c":"Tradate","km":10.9,"g":"S","art":null,"al":347,"p1":74,"ten":87,"q":false,"eb":false,"web":"www.liceocurie.it","approx":true},{"n":"Liceo Manzoni","c":"Varese","km":17.9,"g":"S","art":null,"al":339,"p1":77,"ten":86,"q":false,"eb":false,"web":"www.liceimanzoni.edu.it","approx":true},{"n":"Liceo Legnani","c":"Saronno","km":21.0,"g":"S","art":null,"al":309,"p1":55,"ten":88,"q":false,"eb":false,"web":"www.liceolegnani.edu.it/","approx":true},{"n":"ISIS Valceresio","c":"Bisuschio","km":24.8,"g":"S","art":null,"al":237,"p1":52,"ten":96,"q":false,"eb":false,"web":"www.isisbisuschio.edu.it","approx":false},{"n":"Liceo Sereni","c":"Laveno-Mombello","km":30.5,"g":"S","art":null,"al":303,"p1":58,"ten":85,"q":false,"eb":false,"web":"www.liceoluino.gov.it","approx":false}],"Liceo scientifico – scienze applicate":[{"n":"Sacro Cuore","c":"Gallarate","km":0.2,"g":"P","art":null,"al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.sacrocuoregallarate.it/","approx":true},{"n":"Da Vinci-Pascoli","c":"Gallarate","km":1.2,"g":"S","art":null,"al":457,"p1":108,"ten":89,"q":false,"eb":false,"web":"https//www.liceogallarate.edu.it/","approx":false},{"n":"Liceo Scientifico Tosi","c":"Busto Arsizio","km":8.6,"g":"S","art":null,"al":608,"p1":189,"ten":88,"q":false,"eb":false,"web":"www.liceotosi.edu.it","approx":false},{"n":"Geymonat","c":"Tradate","km":11.6,"g":"S","art":null,"al":392,"p1":85,"ten":87,"q":false,"eb":false,"web":"www.isissgeymonat.edu.it","approx":false},{"n":"GB Vico","c":"Varese","km":17.9,"g":"P","art":null,"al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.linguisticovico.org","approx":true},{"n":"Scuole Manfredini","c":"Varese","km":17.9,"g":"P","art":null,"al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.scuolemanfredini.it","approx":true},{"n":"Liceo Grassi","c":"Saronno","km":18.4,"g":"S","art":null,"al":581,"p1":143,"ten":90,"q":false,"eb":false,"web":"www.gbgrassi.edu.it","approx":false},{"n":"Liceo Ferraris","c":"Varese","km":19.7,"g":"S","art":null,"al":648,"p1":130,"ten":94,"q":false,"eb":false,"web":"https//www.liceoferrarisvarese.edu.it/","approx":false},{"n":"Collegio Arcivescovile Castelli","c":"Saronno","km":21.0,"g":"P","art":null,"al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.collegiocastelli.it/","approx":true},{"n":"Prealpi","c":"Saronno","km":21.0,"g":"P","art":null,"al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.prealpiscuole.com","approx":true},{"n":"Stein","c":"Gavirate","km":22.0,"g":"S","art":null,"al":212,"p1":82,"ten":86,"q":false,"eb":false,"web":"www.steingavirate.edu.it","approx":false},{"n":"ISIS Valceresio","c":"Bisuschio","km":24.8,"g":"S","art":null,"al":146,"p1":41,"ten":96,"q":false,"eb":false,"web":"www.isisbisuschio.edu.it","approx":false},{"n":"Liceo Sereni","c":"Laveno-Mombello","km":30.5,"g":"S","art":null,"al":230,"p1":57,"ten":85,"q":false,"eb":false,"web":"www.liceoluino.gov.it","approx":false}],"Liceo scientifico":[{"n":"Da Vinci-Pascoli","c":"Gallarate","km":1.2,"g":"S","art":null,"al":435,"p1":87,"ten":89,"q":false,"eb":false,"web":"https//www.liceogallarate.edu.it/","approx":false},{"n":"Pascal","c":"Busto Arsizio","km":6.8,"g":"P","art":"Biomedico","al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.rezzarascuole.com","approx":true},{"n":"Pascal","c":"Busto Arsizio","km":6.8,"g":"P","art":"Informatico","al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.rezzarascuole.com","approx":true},{"n":"Pascal","c":"Busto Arsizio","km":6.8,"g":"P","art":"Linguistico","al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.rezzarascuole.com","approx":true},{"n":"Collegio Rotondi","c":"Gorla Minore","km":8.6,"g":"P","art":null,"al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.collegiorotondi.it","approx":true},{"n":"Liceo Scientifico Tosi","c":"Busto Arsizio","km":8.6,"g":"S","art":null,"al":327,"p1":60,"ten":88,"q":false,"eb":false,"web":"www.liceotosi.edu.it","approx":false},{"n":"Liceo Curie","c":"Tradate","km":10.9,"g":"S","art":null,"al":402,"p1":79,"ten":87,"q":false,"eb":false,"web":"www.liceocurie.it","approx":true},{"n":"Dalla Chiesa","c":"Sesto Calende","km":14.8,"g":"S","art":null,"al":301,"p1":81,"ten":90,"q":true,"eb":false,"web":"www.superiorisesto.edu.it","approx":false},{"n":"GB Vico","c":"Varese","km":17.9,"g":"P","art":null,"al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.linguisticovico.org","approx":true},{"n":"Scuole Manfredini","c":"Varese","km":17.9,"g":"P","art":null,"al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.scuolemanfredini.it","approx":true},{"n":"Liceo Grassi","c":"Saronno","km":18.4,"g":"S","art":null,"al":299,"p1":46,"ten":90,"q":false,"eb":false,"web":"www.gbgrassi.edu.it","approx":false},{"n":"Liceo Ferraris","c":"Varese","km":19.7,"g":"S","art":null,"al":495,"p1":90,"ten":94,"q":true,"eb":false,"web":"https//www.liceoferrarisvarese.edu.it/","approx":false},{"n":"Collegio Arcivescovile Castelli","c":"Saronno","km":21.0,"g":"P","art":null,"al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.collegiocastelli.it/","approx":true},{"n":"Stein","c":"Gavirate","km":22.0,"g":"S","art":null,"al":222,"p1":27,"ten":86,"q":false,"eb":false,"web":"www.steingavirate.edu.it","approx":false},{"n":"ISIS Valceresio","c":"Bisuschio","km":24.8,"g":"S","art":null,"al":130,"p1":23,"ten":96,"q":false,"eb":false,"web":"www.isisbisuschio.edu.it","approx":false},{"n":"Liceo Sereni","c":"Laveno-Mombello","km":30.5,"g":"S","art":null,"al":184,"p1":26,"ten":85,"q":false,"eb":false,"web":"www.liceoluino.gov.it","approx":false}],"Amministrazione, finanza e marketing":[{"n":"Gadda-Rosselli","c":"Gallarate","km":0.2,"g":"S","art":null,"al":195,"p1":35,"ten":87,"q":false,"eb":false,"web":"www.gaddarosselli.edu.it","approx":true},{"n":"Gadda-Rosselli","c":"Gallarate","km":0.2,"g":"S","art":"Sistemi informativi aziendali","al":134,"p1":35,"ten":87,"q":false,"eb":false,"web":"www.gaddarosselli.edu.it","approx":true},{"n":"Gadda-Rosselli","c":"Gallarate","km":0.2,"g":"S","art":"Relazioni internazionali per il marketing","al":133,"p1":35,"ten":87,"q":false,"eb":false,"web":"www.gaddarosselli.edu.it","approx":true},{"n":"Wojtyla","c":"Cassano Magnago","km":2.7,"g":"P","art":null,"al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.cavallotti.it","approx":true},{"n":"Wojtyla","c":"Cassano Magnago","km":2.7,"g":"P","art":"Management dello sport","al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.cavallotti.it","approx":true},{"n":"ITE Tosi","c":"Busto Arsizio","km":3.9,"g":"S","art":"Relazioni internazionali per il marketing","al":892,"p1":141,"ten":109,"q":true,"eb":true,"web":"www.etosi.edu.it","approx":false},{"n":"ITE Tosi","c":"Busto Arsizio","km":3.9,"g":"S","art":null,"al":583,"p1":98,"ten":109,"q":true,"eb":false,"web":"www.etosi.edu.it","approx":false},{"n":"ITE Tosi","c":"Busto Arsizio","km":3.9,"g":"S","art":"Sistemi informativi aziendali","al":488,"p1":119,"ten":109,"q":true,"eb":false,"web":"www.etosi.edu.it","approx":false},{"n":"Fermi","c":"Castellanza","km":9.2,"g":"P","art":null,"al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.fermi-castellanza.com/","approx":true},{"n":"Montale","c":"Tradate","km":10.9,"g":"S","art":"Relazioni internazionali per il marketing","al":610,"p1":202,"ten":96,"q":false,"eb":false,"web":"www.isismontaletradate.com","approx":true},{"n":"Don Milani","c":"Tradate","km":12.2,"g":"S","art":null,"al":243,"p1":52,"ten":93,"q":false,"eb":false,"web":"http//donmilaniva.com","approx":false},{"n":"Keynes","c":"Gazzada Schianno","km":12.9,"g":"S","art":"Relazioni internazionali per il marketing","al":99,"p1":28,"ten":72,"q":false,"eb":false,"web":"www.isiskeynes.it","approx":false},{"n":"Keynes","c":"Gazzada Schianno","km":12.9,"g":"S","art":"Sistemi informativi aziendali","al":65,"p1":28,"ten":72,"q":false,"eb":false,"web":"www.isiskeynes.it","approx":false},{"n":"Dalla Chiesa","c":"Sesto Calende","km":14.8,"g":"S","art":null,"al":125,"p1":29,"ten":90,"q":false,"eb":false,"web":"www.superiorisesto.edu.it","approx":false},{"n":"Dalla Chiesa","c":"Sesto Calende","km":14.8,"g":"S","art":"Relazioni internazionali per il marketing","al":107,"p1":29,"ten":90,"q":false,"eb":false,"web":"www.superiorisesto.edu.it","approx":false},{"n":"Daverio-Casula-Nervi","c":"Varese","km":17.6,"g":"S","art":"Relazioni internazionali per il marketing","al":282,"p1":51,"ten":85,"q":false,"eb":false,"web":"www.itetvarese.edu.it","approx":false},{"n":"Daverio-Casula-Nervi","c":"Varese","km":17.6,"g":"S","art":null,"al":238,"p1":51,"ten":85,"q":false,"eb":false,"web":"www.itetvarese.edu.it","approx":false},{"n":"ITC Zappa","c":"Saronno","km":18.1,"g":"S","art":"Sistemi informativi aziendali","al":215,"p1":45,"ten":81,"q":false,"eb":false,"web":"www.itczappa.edu.it","approx":false},{"n":"ITC Zappa","c":"Saronno","km":18.1,"g":"S","art":"Relazioni internazionali per il marketing","al":190,"p1":45,"ten":81,"q":false,"eb":false,"web":"www.itczappa.edu.it","approx":false},{"n":"ITC Zappa","c":"Saronno","km":18.1,"g":"S","art":null,"al":184,"p1":45,"ten":81,"q":false,"eb":false,"web":"www.itczappa.edu.it","approx":false},{"n":"Stein","c":"Gavirate","km":22.0,"g":"S","art":"Sistemi informativi aziendali","al":108,"p1":27,"ten":86,"q":false,"eb":false,"web":"www.steingavirate.edu.it","approx":false},{"n":"Stein","c":"Gavirate","km":22.0,"g":"S","art":"Relazioni internazionali per il marketing","al":98,"p1":27,"ten":86,"q":false,"eb":false,"web":"www.steingavirate.edu.it","approx":false},{"n":"ISIS Valceresio","c":"Bisuschio","km":24.8,"g":"S","art":"Relazioni internazionali per il marketing","al":115,"p1":26,"ten":96,"q":false,"eb":false,"web":"www.isisbisuschio.edu.it","approx":false},{"n":"ISIS Valceresio","c":"Bisuschio","km":24.8,"g":"S","art":null,"al":108,"p1":26,"ten":96,"q":false,"eb":false,"web":"www.isisbisuschio.edu.it","approx":false},{"n":"Città di Luino – Volontè","c":"Luino","km":38.4,"g":"S","art":"Sistemi informativi aziendali","al":104,"p1":28,"ten":77,"q":false,"eb":false,"web":"www.isisluino.edu.it","approx":false},{"n":"Città di Luino – Volontè","c":"Luino","km":38.4,"g":"S","art":null,"al":98,"p1":28,"ten":77,"q":false,"eb":false,"web":"www.isisluino.edu.it","approx":false}],"Turismo":[{"n":"Gadda-Rosselli","c":"Gallarate","km":0.2,"g":"S","art":null,"al":261,"p1":53,"ten":87,"q":false,"eb":false,"web":"www.gaddarosselli.edu.it","approx":true},{"n":"ITE Tosi","c":"Busto Arsizio","km":3.9,"g":"S","art":null,"al":120,"p1":17,"ten":109,"q":true,"eb":false,"web":"www.etosi.edu.it","approx":false},{"n":"Montale","c":"Tradate","km":10.9,"g":"S","art":null,"al":207,"p1":0,"ten":96,"q":false,"eb":false,"web":"www.isismontaletradate.com","approx":true},{"n":"Dalla Chiesa","c":"Sesto Calende","km":14.8,"g":"S","art":null,"al":136,"p1":30,"ten":90,"q":false,"eb":false,"web":"www.superiorisesto.edu.it","approx":false},{"n":"Daverio-Casula-Nervi","c":"Varese","km":17.6,"g":"S","art":null,"al":230,"p1":49,"ten":85,"q":true,"eb":false,"web":"www.itetvarese.edu.it","approx":false},{"n":"ITC Zappa","c":"Saronno","km":18.1,"g":"S","art":null,"al":333,"p1":82,"ten":81,"q":false,"eb":false,"web":"www.itczappa.edu.it","approx":false},{"n":"Stein","c":"Gavirate","km":22.0,"g":"S","art":null,"al":167,"p1":54,"ten":86,"q":false,"eb":false,"web":"www.steingavirate.edu.it","approx":false},{"n":"ISIS Valceresio","c":"Bisuschio","km":24.8,"g":"S","art":null,"al":113,"p1":26,"ten":96,"q":false,"eb":false,"web":"www.isisbisuschio.edu.it","approx":false},{"n":"Città di Luino – Volontè","c":"Luino","km":38.4,"g":"S","art":null,"al":170,"p1":51,"ten":77,"q":false,"eb":false,"web":"www.isisluino.edu.it","approx":false}],"Servizi per la sanità e l'assistenza sociale":[{"n":"Verri","c":"Busto Arsizio","km":7.3,"g":"S","art":null,"al":482,"p1":63,"ten":109,"q":false,"eb":false,"web":"www.ipcverri.it","approx":false},{"n":"Einaudi","c":"Varese","km":17.8,"g":"S","art":null,"al":475,"p1":102,"ten":115,"q":false,"eb":false,"web":"www.ipceinaudivarese.edu.it","approx":false},{"n":"Scuola Superiore Socio Sanitaria dell'Insubria","c":"Varese","km":17.9,"g":"P","art":null,"al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":null,"approx":true},{"n":"IPSIA Parma","c":"Saronno","km":18.0,"g":"S","art":null,"al":335,"p1":57,"ten":108,"q":false,"eb":false,"web":"https//www.ipsiasar.edu.it/","approx":false},{"n":"Orsoline S. Carlo","c":"Saronno","km":21.0,"g":"P","art":null,"al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.orsolinesaronno.it","approx":true},{"n":"Stein","c":"Gavirate","km":22.0,"g":"S","art":null,"al":299,"p1":98,"ten":86,"q":false,"eb":false,"web":"www.steingavirate.edu.it","approx":false},{"n":"ISIS Valceresio","c":"Bisuschio","km":24.8,"g":"S","art":null,"al":47,"p1":23,"ten":96,"q":false,"eb":false,"web":"www.isisbisuschio.edu.it","approx":false}],"Servizi commerciali":[{"n":"Verri","c":"Busto Arsizio","km":7.3,"g":"S","art":null,"al":271,"p1":44,"ten":109,"q":false,"eb":false,"web":"www.ipcverri.it","approx":false},{"n":"Collegio Rotondi","c":"Gorla Minore","km":8.6,"g":"P","art":null,"al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.collegiorotondi.it","approx":true},{"n":"Einaudi","c":"Varese","km":17.8,"g":"S","art":null,"al":46,"p1":0,"ten":115,"q":false,"eb":false,"web":"www.ipceinaudivarese.edu.it","approx":false},{"n":"IPSIA Parma","c":"Saronno","km":18.0,"g":"S","art":null,"al":127,"p1":26,"ten":108,"q":false,"eb":false,"web":"https//www.ipsiasar.edu.it/","approx":false},{"n":"ISIS Valceresio","c":"Bisuschio","km":24.8,"g":"S","art":null,"al":13,"p1":0,"ten":96,"q":false,"eb":false,"web":"www.isisbisuschio.edu.it","approx":false}],"Liceo linguistico":[{"n":"Gadda-Rosselli","c":"Gallarate","km":0.2,"g":"S","art":null,"al":273,"p1":56,"ten":87,"q":false,"eb":true,"web":"www.gaddarosselli.edu.it","approx":true},{"n":"Istituti Vinci – Liceo Linguistico Piero Chiara","c":"Gallarate","km":0.2,"g":"P","art":null,"al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://linguistico-gallarate.istitutivinci.it/","approx":true},{"n":"F. Cavallotti","c":"Cassano Magnago","km":2.7,"g":"P","art":null,"al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.cavallotti.it","approx":true},{"n":"Liceo Crespi","c":"Busto Arsizio","km":7.1,"g":"S","art":null,"al":427,"p1":99,"ten":87,"q":false,"eb":true,"web":"www.liceocrespi.edu.it","approx":false},{"n":"Collegio Rotondi","c":"Gorla Minore","km":8.6,"g":"P","art":null,"al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.collegiorotondi.it","approx":true},{"n":"Fermi","c":"Castellanza","km":9.2,"g":"P","art":null,"al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.fermi-castellanza.com/","approx":true},{"n":"Liceo Curie","c":"Tradate","km":10.9,"g":"S","art":null,"al":233,"p1":53,"ten":87,"q":false,"eb":false,"web":"www.liceocurie.it","approx":true},{"n":"Liceo Manzoni","c":"Varese","km":17.9,"g":"S","art":null,"al":404,"p1":81,"ten":86,"q":false,"eb":true,"web":"www.liceimanzoni.edu.it","approx":true},{"n":"Liceo Legnani","c":"Saronno","km":21.0,"g":"S","art":null,"al":414,"p1":82,"ten":88,"q":false,"eb":true,"web":"www.liceolegnani.edu.it/","approx":true},{"n":"Orsoline S. Carlo","c":"Saronno","km":21.0,"g":"P","art":null,"al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.orsolinesaronno.it","approx":true},{"n":"Stein","c":"Gavirate","km":22.0,"g":"S","art":null,"al":190,"p1":52,"ten":86,"q":false,"eb":false,"web":"www.steingavirate.edu.it","approx":false},{"n":"Liceo Sereni","c":"Laveno-Mombello","km":30.5,"g":"S","art":null,"al":210,"p1":52,"ten":85,"q":false,"eb":true,"web":"www.liceoluino.gov.it","approx":false}],"Liceo classico":[{"n":"Da Vinci-Pascoli","c":"Gallarate","km":1.2,"g":"S","art":null,"al":145,"p1":36,"ten":89,"q":false,"eb":false,"web":"https//www.liceogallarate.edu.it/","approx":false},{"n":"Liceo Crespi","c":"Busto Arsizio","km":7.1,"g":"S","art":null,"al":201,"p1":36,"ten":87,"q":false,"eb":false,"web":"www.liceocrespi.edu.it","approx":false},{"n":"Liceo Classico Cairoli","c":"Varese","km":17.9,"g":"S","art":null,"al":615,"p1":121,"ten":96,"q":false,"eb":true,"web":"www.liceoclassicovarese.edu.it","approx":false},{"n":"Liceo Legnani","c":"Saronno","km":21.0,"g":"S","art":null,"al":184,"p1":46,"ten":88,"q":false,"eb":false,"web":"www.liceolegnani.edu.it/","approx":true}],"Enogastronomia e ospitalità alberghiera":[{"n":"Falcone","c":"Gallarate","km":0.8,"g":"S","art":"Enogastronomia","al":301,"p1":56,"ten":87,"q":false,"eb":false,"web":"www.isfalconegallarate.edu.it","approx":false},{"n":"Falcone","c":"Gallarate","km":0.8,"g":"S","art":"Servizi di sala e vendita","al":266,"p1":56,"ten":87,"q":false,"eb":false,"web":"www.isfalconegallarate.edu.it","approx":false},{"n":"SIAI Marchetti","c":"Busto Arsizio","km":6.8,"g":"P","art":null,"al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.siaimarchetti.it","approx":true},{"n":"Verri","c":"Busto Arsizio","km":7.3,"g":"S","art":null,"al":345,"p1":72,"ten":109,"q":false,"eb":false,"web":"www.ipcverri.it","approx":false},{"n":"De Filippi","c":"Varese","km":17.9,"g":"P","art":"Enogastronomia","al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.istitutodefilippi.com","approx":true},{"n":"De Filippi","c":"Varese","km":17.9,"g":"P","art":"Servizi di sala e vendita","al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.istitutodefilippi.com","approx":true},{"n":"Collegio Arcivescovile Castelli","c":"Saronno","km":21.0,"g":"P","art":"Enogastronomia","al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.collegiocastelli.it/","approx":true},{"n":"Collegio Arcivescovile Castelli","c":"Saronno","km":21.0,"g":"P","art":"Servizi di sala e vendita","al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.collegiocastelli.it/","approx":true}],"Operatore ai servizi di promozione e accoglienza":[{"n":"Verri","c":"Busto Arsizio","km":7.3,"g":"S","art":null,"al":74,"p1":21,"ten":109,"q":false,"eb":false,"web":"www.ipcverri.it","approx":false}],"Operatore agricolo":[{"n":"Verri","c":"Busto Arsizio","km":7.3,"g":"S","art":null,"al":40,"p1":17,"ten":109,"q":false,"eb":false,"web":"www.ipcverri.it","approx":false}],"Liceo artistico":[{"n":"Candiani – Pina Bausch","c":"Busto Arsizio","km":6.8,"g":"S","art":"Arti figurative","al":187,"p1":34,"ten":90,"q":false,"eb":false,"web":"www.artisticobusto.edu.it","approx":true},{"n":"Candiani – Pina Bausch","c":"Busto Arsizio","km":6.8,"g":"S","art":"Grafica","al":179,"p1":34,"ten":90,"q":false,"eb":false,"web":"www.artisticobusto.edu.it","approx":true},{"n":"Candiani – Pina Bausch","c":"Busto Arsizio","km":6.8,"g":"S","art":"Architettura e ambiente","al":174,"p1":34,"ten":90,"q":false,"eb":false,"web":"www.artisticobusto.edu.it","approx":true},{"n":"Candiani – Pina Bausch","c":"Busto Arsizio","km":6.8,"g":"S","art":"Design","al":142,"p1":34,"ten":90,"q":false,"eb":false,"web":"www.artisticobusto.edu.it","approx":true},{"n":"Candiani – Pina Bausch","c":"Busto Arsizio","km":6.8,"g":"S","art":"Audiovisivo e multimediale","al":139,"p1":34,"ten":90,"q":false,"eb":false,"web":"www.artisticobusto.edu.it","approx":true},{"n":"Candiani – Pina Bausch","c":"Busto Arsizio","km":6.8,"g":"S","art":"Scenografia","al":126,"p1":34,"ten":90,"q":false,"eb":false,"web":"www.artisticobusto.edu.it","approx":true},{"n":"Candiani – Pina Bausch","c":"Busto Arsizio","km":6.8,"g":"S","art":"Teatro","al":121,"p1":34,"ten":90,"q":false,"eb":false,"web":"www.artisticobusto.edu.it","approx":true},{"n":"Olga Fiorini","c":"Busto Arsizio","km":6.8,"g":"P","art":"Design","al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.olgafiorini.it","approx":true},{"n":"Don Milani","c":"Tradate","km":12.2,"g":"S","art":"Audiovisivo e multimediale","al":118,"p1":23,"ten":93,"q":false,"eb":false,"web":"http//donmilaniva.com","approx":false},{"n":"Don Milani","c":"Tradate","km":12.2,"g":"S","art":"Architettura e ambiente","al":106,"p1":23,"ten":93,"q":false,"eb":false,"web":"http//donmilaniva.com","approx":false},{"n":"Don Milani","c":"Tradate","km":12.2,"g":"S","art":"Arti figurative","al":103,"p1":23,"ten":93,"q":false,"eb":false,"web":"http//donmilaniva.com","approx":false},{"n":"Don Milani","c":"Tradate","km":12.2,"g":"S","art":"Grafica","al":102,"p1":23,"ten":93,"q":false,"eb":false,"web":"http//donmilaniva.com","approx":false},{"n":"GB Vico","c":"Varese","km":17.9,"g":"P","art":null,"al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.linguisticovico.org","approx":true},{"n":"Scuole Manfredini","c":"Varese","km":17.9,"g":"P","art":"Architettura e ambiente","al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.scuolemanfredini.it","approx":true},{"n":"Scuole Manfredini","c":"Varese","km":17.9,"g":"P","art":"Grafica","al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.scuolemanfredini.it","approx":true},{"n":"Liceo Artistico Frattini","c":"Varese","km":19.5,"g":"S","art":"Arti figurative","al":179,"p1":49,"ten":79,"q":false,"eb":false,"web":"www.artisticovarese.edu.it/","approx":false},{"n":"Liceo Artistico Frattini","c":"Varese","km":19.5,"g":"S","art":"Audiovisivo e multimediale","al":157,"p1":31,"ten":79,"q":false,"eb":false,"web":"www.artisticovarese.edu.it/","approx":false},{"n":"Liceo Artistico Frattini","c":"Varese","km":19.5,"g":"S","art":"Architettura e ambiente","al":156,"p1":31,"ten":79,"q":false,"eb":false,"web":"www.artisticovarese.edu.it/","approx":false},{"n":"Liceo Artistico Frattini","c":"Varese","km":19.5,"g":"S","art":"Grafica","al":141,"p1":31,"ten":79,"q":false,"eb":false,"web":"www.artisticovarese.edu.it/","approx":false},{"n":"Liceo Artistico Frattini","c":"Varese","km":19.5,"g":"S","art":"Scenografia","al":137,"p1":31,"ten":79,"q":false,"eb":false,"web":"www.artisticovarese.edu.it/","approx":false},{"n":"Liceo Artistico Frattini","c":"Varese","km":19.5,"g":"S","art":"Design","al":104,"p1":31,"ten":79,"q":false,"eb":false,"web":"www.artisticovarese.edu.it/","approx":false}],"Liceo musicale e coreutico":[{"n":"Candiani – Pina Bausch","c":"Busto Arsizio","km":6.8,"g":"S","art":"Musicale","al":123,"p1":31,"ten":90,"q":false,"eb":false,"web":"www.artisticobusto.edu.it","approx":true},{"n":"Candiani – Pina Bausch","c":"Busto Arsizio","km":6.8,"g":"S","art":"Coreutico","al":75,"p1":18,"ten":90,"q":false,"eb":false,"web":"www.artisticobusto.edu.it","approx":true},{"n":"Liceo Manzoni","c":"Varese","km":17.9,"g":"S","art":"Musicale","al":120,"p1":28,"ten":86,"q":false,"eb":false,"web":"www.liceimanzoni.edu.it","approx":true}],"Informatica e telecomunicazioni":[{"n":"ISIS Ponti","c":"Gallarate","km":1.3,"g":"S","art":"Informatica","al":408,"p1":93,"ten":100,"q":true,"eb":false,"web":"www.iisponti.edu.it","approx":false},{"n":"SIAI Marchetti","c":"Busto Arsizio","km":6.8,"g":"P","art":"Informatica","al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.siaimarchetti.it","approx":true},{"n":"Facchinetti","c":"Castellanza","km":9.6,"g":"S","art":"Informatica","al":414,"p1":91,"ten":85,"q":true,"eb":false,"web":"https//isisfacchinetti.edu.it/","approx":false},{"n":"Geymonat","c":"Tradate","km":11.6,"g":"S","art":"Informatica","al":139,"p1":75,"ten":87,"q":false,"eb":false,"web":"www.isissgeymonat.edu.it","approx":false},{"n":"Geymonat","c":"Tradate","km":11.6,"g":"S","art":"Telecomunicazioni","al":133,"p1":0,"ten":87,"q":false,"eb":false,"web":"www.isissgeymonat.edu.it","approx":false},{"n":"Keynes","c":"Gazzada Schianno","km":12.9,"g":"S","art":"Informatica","al":466,"p1":120,"ten":72,"q":false,"eb":false,"web":"www.isiskeynes.it","approx":false},{"n":"Dalla Chiesa","c":"Sesto Calende","km":14.8,"g":"S","art":"Informatica","al":71,"p1":25,"ten":90,"q":false,"eb":false,"web":"www.superiorisesto.edu.it","approx":false},{"n":"Dalla Chiesa","c":"Sesto Calende","km":14.8,"g":"S","art":"Telecomunicazioni","al":58,"p1":0,"ten":90,"q":false,"eb":false,"web":"www.superiorisesto.edu.it","approx":false},{"n":"Newton","c":"Varese","km":17.5,"g":"S","art":"Informatica","al":57,"p1":0,"ten":99,"q":false,"eb":false,"web":"www.isisvarese.edu.it","approx":false},{"n":"ITIS Riva","c":"Saronno","km":35.0,"g":"S","art":"Informatica","al":406,"p1":104,"ten":76,"q":false,"eb":false,"web":"www.itisriva.edu.it","approx":false},{"n":"Città di Luino – Volontè","c":"Luino","km":38.4,"g":"S","art":"Informatica","al":190,"p1":59,"ten":77,"q":false,"eb":false,"web":"www.isisluino.edu.it","approx":false}],"Manutenzione e assistenza tecnica":[{"n":"ISIS Ponti","c":"Gallarate","km":1.3,"g":"S","art":null,"al":144,"p1":0,"ten":100,"q":false,"eb":false,"web":"www.iisponti.edu.it","approx":false},{"n":"Facchinetti","c":"Castellanza","km":9.6,"g":"S","art":null,"al":200,"p1":49,"ten":85,"q":false,"eb":false,"web":"https//isisfacchinetti.edu.it/","approx":false},{"n":"Dalla Chiesa","c":"Sesto Calende","km":14.8,"g":"S","art":null,"al":76,"p1":23,"ten":90,"q":false,"eb":false,"web":"www.superiorisesto.edu.it","approx":false},{"n":"Newton","c":"Varese","km":17.5,"g":"S","art":null,"al":480,"p1":117,"ten":99,"q":false,"eb":false,"web":"www.isisvarese.edu.it","approx":false},{"n":"IPSIA Parma","c":"Saronno","km":18.0,"g":"S","art":null,"al":182,"p1":28,"ten":108,"q":false,"eb":false,"web":"https//www.ipsiasar.edu.it/","approx":false}],"Meccanica, meccatronica ed energia":[{"n":"ISIS Ponti","c":"Gallarate","km":1.3,"g":"S","art":"Meccanica e meccatronica","al":271,"p1":45,"ten":100,"q":true,"eb":false,"web":"www.iisponti.edu.it","approx":false},{"n":"ISIS Ponti","c":"Gallarate","km":1.3,"g":"S","art":"Energia","al":97,"p1":27,"ten":100,"q":false,"eb":false,"web":"www.iisponti.edu.it","approx":false},{"n":"SIAI Marchetti","c":"Busto Arsizio","km":6.8,"g":"P","art":null,"al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.siaimarchetti.it","approx":true},{"n":"Facchinetti","c":"Castellanza","km":9.6,"g":"S","art":"Meccanica e meccatronica","al":195,"p1":38,"ten":85,"q":false,"eb":false,"web":"https//isisfacchinetti.edu.it/","approx":false},{"n":"Newton","c":"Varese","km":17.5,"g":"S","art":"Meccanica e meccatronica","al":227,"p1":53,"ten":99,"q":false,"eb":false,"web":"www.isisvarese.edu.it","approx":false},{"n":"ITIS Riva","c":"Saronno","km":35.0,"g":"S","art":"Meccanica e meccatronica","al":346,"p1":60,"ten":76,"q":false,"eb":false,"web":"www.itisriva.edu.it","approx":false},{"n":"ITIS Riva","c":"Saronno","km":35.0,"g":"S","art":"Energia","al":113,"p1":60,"ten":76,"q":false,"eb":false,"web":"www.itisriva.edu.it","approx":false}],"Operatore alla riparazione di veicoli a motore":[{"n":"Facchinetti","c":"Castellanza","km":9.6,"g":"S","art":null,"al":140,"p1":48,"ten":85,"q":false,"eb":false,"web":"https//isisfacchinetti.edu.it/","approx":false}],"Chimica, materiali e biotecnologie":[{"n":"ISIS Ponti","c":"Gallarate","km":1.3,"g":"S","art":"Biotecnologie ambientali","al":184,"p1":46,"ten":100,"q":false,"eb":false,"web":"www.iisponti.edu.it","approx":false},{"n":"Facchinetti","c":"Castellanza","km":9.6,"g":"S","art":"Biotecnologie ambientali","al":97,"p1":12,"ten":85,"q":false,"eb":false,"web":"https//isisfacchinetti.edu.it/","approx":false},{"n":"Facchinetti","c":"Castellanza","km":9.6,"g":"S","art":"Chimica e materiali","al":37,"p1":12,"ten":85,"q":false,"eb":false,"web":"https//isisfacchinetti.edu.it/","approx":false},{"n":"Geymonat","c":"Tradate","km":11.6,"g":"S","art":"Biotecnologie ambientali","al":144,"p1":27,"ten":87,"q":false,"eb":false,"web":"www.isissgeymonat.edu.it","approx":false},{"n":"Newton","c":"Varese","km":17.5,"g":"S","art":"Biotecnologie sanitarie","al":177,"p1":22,"ten":99,"q":false,"eb":false,"web":"www.isisvarese.edu.it","approx":false},{"n":"Newton","c":"Varese","km":17.5,"g":"S","art":"Materie plastiche","al":84,"p1":22,"ten":99,"q":false,"eb":false,"web":"www.isisvarese.edu.it","approx":false},{"n":"ITIS Riva","c":"Saronno","km":35.0,"g":"S","art":"Chimica e materiali","al":214,"p1":55,"ten":76,"q":false,"eb":false,"web":"www.itisriva.edu.it","approx":false}],"Elettronica ed elettrotecnica":[{"n":"ISIS Ponti","c":"Gallarate","km":1.3,"g":"S","art":"Elettrotecnica","al":171,"p1":23,"ten":100,"q":false,"eb":false,"web":"www.iisponti.edu.it","approx":false},{"n":"Facchinetti","c":"Castellanza","km":9.6,"g":"S","art":"Automazione","al":82,"p1":17,"ten":85,"q":false,"eb":false,"web":"https//isisfacchinetti.edu.it/","approx":false},{"n":"Geymonat","c":"Tradate","km":11.6,"g":"S","art":"Automazione","al":193,"p1":49,"ten":87,"q":false,"eb":false,"web":"www.isissgeymonat.edu.it","approx":false},{"n":"Keynes","c":"Gazzada Schianno","km":12.9,"g":"S","art":"Automazione","al":206,"p1":45,"ten":72,"q":false,"eb":false,"web":"www.isiskeynes.it","approx":false},{"n":"Dalla Chiesa","c":"Sesto Calende","km":14.8,"g":"S","art":null,"al":156,"p1":49,"ten":90,"q":false,"eb":false,"web":"www.superiorisesto.edu.it","approx":false},{"n":"Newton","c":"Varese","km":17.5,"g":"S","art":null,"al":90,"p1":21,"ten":99,"q":false,"eb":false,"web":"www.isisvarese.edu.it","approx":false},{"n":"GB Vico","c":"Varese","km":17.9,"g":"P","art":null,"al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.linguisticovico.org","approx":true},{"n":"ITIS Riva","c":"Saronno","km":35.0,"g":"S","art":"Elettrotecnica","al":201,"p1":58,"ten":76,"q":false,"eb":false,"web":"www.itisriva.edu.it","approx":false},{"n":"Città di Luino – Volontè","c":"Luino","km":38.4,"g":"S","art":"Automazione","al":77,"p1":18,"ten":77,"q":false,"eb":false,"web":"www.isisluino.edu.it","approx":false}],"Costruzioni, ambiente e territorio":[{"n":"ISIS Ponti","c":"Gallarate","km":1.3,"g":"S","art":null,"al":118,"p1":39,"ten":100,"q":false,"eb":false,"web":"www.iisponti.edu.it","approx":false},{"n":"Facchinetti","c":"Castellanza","km":9.6,"g":"S","art":null,"al":76,"p1":23,"ten":85,"q":false,"eb":false,"web":"https//isisfacchinetti.edu.it/","approx":false},{"n":"Don Milani","c":"Tradate","km":12.2,"g":"S","art":null,"al":177,"p1":45,"ten":93,"q":false,"eb":false,"web":"http//donmilaniva.com","approx":false},{"n":"Daverio-Casula-Nervi","c":"Varese","km":17.6,"g":"S","art":null,"al":143,"p1":28,"ten":85,"q":false,"eb":false,"web":"www.itetvarese.edu.it","approx":false},{"n":"Daverio-Casula-Nervi","c":"Varese","km":17.6,"g":"S","art":"Tecnologie del legno","al":68,"p1":28,"ten":85,"q":false,"eb":false,"web":"www.itetvarese.edu.it","approx":false},{"n":"ITC Zappa","c":"Saronno","km":18.1,"g":"S","art":null,"al":260,"p1":78,"ten":81,"q":false,"eb":false,"web":"www.itczappa.edu.it","approx":false},{"n":"Stein","c":"Gavirate","km":22.0,"g":"S","art":null,"al":129,"p1":50,"ten":86,"q":false,"eb":false,"web":"www.steingavirate.edu.it","approx":false},{"n":"Città di Luino – Volontè","c":"Luino","km":38.4,"g":"S","art":"Tecnologie del legno","al":65,"p1":19,"ten":77,"q":false,"eb":false,"web":"www.isisluino.edu.it","approx":false},{"n":"Città di Luino – Volontè","c":"Luino","km":38.4,"g":"S","art":null,"al":51,"p1":19,"ten":77,"q":false,"eb":false,"web":"www.isisluino.edu.it","approx":false}],"Sistema moda":[{"n":"Facchinetti","c":"Castellanza","km":9.6,"g":"S","art":null,"al":27,"p1":0,"ten":85,"q":false,"eb":false,"web":"https//isisfacchinetti.edu.it/","approx":false},{"n":"Newton","c":"Varese","km":17.5,"g":"S","art":null,"al":99,"p1":21,"ten":99,"q":false,"eb":false,"web":"www.isisvarese.edu.it","approx":false}],"Operatore informatico":[{"n":"ISIS Ponti","c":"Gallarate","km":1.3,"g":"S","art":null,"al":100,"p1":27,"ten":100,"q":false,"eb":false,"web":"www.iisponti.edu.it","approx":false},{"n":"Facchinetti","c":"Castellanza","km":9.6,"g":"S","art":null,"al":19,"p1":19,"ten":85,"q":false,"eb":false,"web":"https//isisfacchinetti.edu.it/","approx":false}],"Grafica e comunicazione":[{"n":"Falcone","c":"Gallarate","km":0.8,"g":"S","art":null,"al":449,"p1":68,"ten":87,"q":false,"eb":false,"web":"www.isfalconegallarate.edu.it","approx":false},{"n":"Don Milani","c":"Tradate","km":12.2,"g":"S","art":null,"al":345,"p1":74,"ten":93,"q":false,"eb":false,"web":"http//donmilaniva.com","approx":false}],"Servizi culturali e dello spettacolo":[{"n":"Falcone","c":"Gallarate","km":0.8,"g":"S","art":null,"al":206,"p1":53,"ten":87,"q":false,"eb":false,"web":"www.isfalconegallarate.edu.it","approx":false},{"n":"Einaudi","c":"Varese","km":17.8,"g":"S","art":null,"al":234,"p1":52,"ten":115,"q":false,"eb":false,"web":"www.ipceinaudivarese.edu.it","approx":false}],"Operatore della ristorazione":[{"n":"Falcone","c":"Gallarate","km":0.8,"g":"S","art":null,"al":121,"p1":26,"ten":87,"q":false,"eb":false,"web":"www.isfalconegallarate.edu.it","approx":false}],"Operatore grafico":[{"n":"Falcone","c":"Gallarate","km":0.8,"g":"S","art":null,"al":100,"p1":45,"ten":87,"q":false,"eb":false,"web":"www.isfalconegallarate.edu.it","approx":false}],"Operatore delle produzioni alimentari":[{"n":"Falcone","c":"Gallarate","km":0.8,"g":"S","art":null,"al":23,"p1":0,"ten":87,"q":false,"eb":false,"web":"www.isfalconegallarate.edu.it","approx":false}],"Agraria, agroalimentare e agroindustria":[{"n":"ISIS Ponti","c":"Gallarate","km":1.3,"g":"S","art":"Gestione dell'ambiente e del territorio","al":225,"p1":44,"ten":100,"q":false,"eb":false,"web":"www.iisponti.edu.it","approx":false}],"Trasporti e logistica":[{"n":"Istituti Vinci – Nautico","c":"Gallarate","km":0.2,"g":"P","art":"Conduzione del mezzo navale","al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://nautico-gallarate.istitutivinci.it/","approx":true},{"n":"Istituti Vinci – Nautico","c":"Gallarate","km":0.2,"g":"P","art":"Conduzione del mezzo aereo","al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://nautico-gallarate.istitutivinci.it/","approx":true},{"n":"ISIS Ponti","c":"Gallarate","km":1.3,"g":"S","art":"Costruzione del mezzo aereo","al":120,"p1":30,"ten":100,"q":true,"eb":false,"web":"www.iisponti.edu.it","approx":false},{"n":"ISIS Ponti","c":"Gallarate","km":1.3,"g":"S","art":"Conduzione del mezzo aereo","al":64,"p1":15,"ten":100,"q":false,"eb":false,"web":"www.iisponti.edu.it","approx":false},{"n":"ISIS Ponti","c":"Gallarate","km":1.3,"g":"S","art":"Logistica","al":43,"p1":15,"ten":100,"q":true,"eb":false,"web":"www.iisponti.edu.it","approx":false},{"n":"Newton","c":"Varese","km":17.5,"g":"S","art":"Logistica","al":9,"p1":0,"ten":99,"q":false,"eb":false,"web":"www.isisvarese.edu.it","approx":false},{"n":"Istituti Vinci – Aeronautico","c":"Varese","km":17.9,"g":"P","art":"Conduzione del mezzo aereo","al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://aeronautico-varese.istitutivinci.it/","approx":true}],"Operatore elettrico":[{"n":"ISIS Ponti","c":"Gallarate","km":1.3,"g":"S","art":null,"al":88,"p1":25,"ten":100,"q":false,"eb":false,"web":"www.iisponti.edu.it","approx":false},{"n":"IPSIA Parma","c":"Saronno","km":18.0,"g":"S","art":null,"al":70,"p1":25,"ten":108,"q":false,"eb":false,"web":"https//www.ipsiasar.edu.it/","approx":false}],"Industria e artigianato per il Made in Italy":[{"n":"ISIS Ponti","c":"Gallarate","km":1.3,"g":"S","art":"Industria","al":58,"p1":0,"ten":100,"q":false,"eb":false,"web":"www.iisponti.edu.it","approx":false},{"n":"Newton","c":"Varese","km":17.5,"g":"S","art":"Artigianato","al":51,"p1":0,"ten":99,"q":false,"eb":false,"web":"www.isisvarese.edu.it","approx":false}],"Operatore meccanico":[{"n":"ISIS Ponti","c":"Gallarate","km":1.3,"g":"S","art":null,"al":22,"p1":22,"ten":100,"q":false,"eb":false,"web":"www.iisponti.edu.it","approx":false},{"n":"IPSIA Parma","c":"Saronno","km":18.0,"g":"S","art":null,"al":85,"p1":23,"ten":108,"q":false,"eb":false,"web":"https//www.ipsiasar.edu.it/","approx":false}],"Liceo delle scienze umane – economico-sociale":[{"n":"Da Vinci-Pascoli","c":"Gallarate","km":1.2,"g":"S","art":null,"al":301,"p1":57,"ten":89,"q":false,"eb":false,"web":"https//www.liceogallarate.edu.it/","approx":false},{"n":"Olga Fiorini","c":"Busto Arsizio","km":6.8,"g":"P","art":"Spettacolo","al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.olgafiorini.it","approx":true},{"n":"Liceo Curie","c":"Tradate","km":10.9,"g":"S","art":null,"al":260,"p1":83,"ten":87,"q":false,"eb":false,"web":"www.liceocurie.it","approx":true},{"n":"Dalla Chiesa","c":"Sesto Calende","km":14.8,"g":"S","art":null,"al":411,"p1":85,"ten":90,"q":false,"eb":false,"web":"www.superiorisesto.edu.it","approx":false},{"n":"De Filippi","c":"Varese","km":17.9,"g":"P","art":null,"al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.istitutodefilippi.com","approx":true},{"n":"Liceo Classico Cairoli","c":"Varese","km":17.9,"g":"S","art":null,"al":167,"p1":58,"ten":96,"q":false,"eb":false,"web":"www.liceoclassicovarese.edu.it","approx":false},{"n":"Istituto Maria Ausiliatrice","c":"Varese","km":17.9,"g":"P","art":null,"al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.scuolamariausiliatrice.com","approx":true},{"n":"Liceo Manzoni","c":"Varese","km":17.9,"g":"S","art":null,"al":392,"p1":103,"ten":86,"q":false,"eb":false,"web":"www.liceimanzoni.edu.it","approx":true},{"n":"Liceo Legnani","c":"Saronno","km":21.0,"g":"S","art":null,"al":388,"p1":77,"ten":88,"q":false,"eb":false,"web":"www.liceolegnani.edu.it/","approx":true},{"n":"Orsoline S. Carlo","c":"Saronno","km":21.0,"g":"P","art":null,"al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.orsolinesaronno.it","approx":true},{"n":"Liceo Sereni","c":"Laveno-Mombello","km":30.5,"g":"S","art":null,"al":129,"p1":30,"ten":85,"q":false,"eb":false,"web":"www.liceoluino.gov.it","approx":false}],"Liceo scientifico sportivo":[{"n":"Da Vinci-Pascoli","c":"Gallarate","km":1.2,"g":"S","art":null,"al":137,"p1":29,"ten":89,"q":false,"eb":false,"web":"https//www.liceogallarate.edu.it/","approx":false},{"n":"F. Cavallotti","c":"Cassano Magnago","km":2.7,"g":"P","art":null,"al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.cavallotti.it","approx":true},{"n":"Olga Fiorini","c":"Busto Arsizio","km":6.8,"g":"P","art":null,"al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.olgafiorini.it","approx":true},{"n":"Fermi","c":"Castellanza","km":9.2,"g":"P","art":null,"al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.fermi-castellanza.com/","approx":true},{"n":"Dalla Chiesa","c":"Sesto Calende","km":14.8,"g":"S","art":null,"al":139,"p1":31,"ten":90,"q":false,"eb":false,"web":"www.superiorisesto.edu.it","approx":false},{"n":"GB Vico","c":"Varese","km":17.9,"g":"P","art":null,"al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.linguisticovico.org","approx":true},{"n":"Istituto Maria Ausiliatrice","c":"Varese","km":17.9,"g":"P","art":null,"al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.scuolamariausiliatrice.com","approx":true},{"n":"Liceo Ferraris","c":"Varese","km":19.7,"g":"S","art":null,"al":134,"p1":27,"ten":94,"q":false,"eb":false,"web":"https//www.liceoferrarisvarese.edu.it/","approx":false},{"n":"Prealpi","c":"Saronno","km":21.0,"g":"P","art":null,"al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.prealpiscuole.com","approx":true},{"n":"Stein","c":"Gavirate","km":22.0,"g":"S","art":null,"al":145,"p1":29,"ten":86,"q":false,"eb":false,"web":"www.steingavirate.edu.it","approx":false}],"Liceo del Made in Italy":[{"n":"Da Vinci-Pascoli","c":"Gallarate","km":1.2,"g":"S","art":null,"al":28,"p1":28,"ten":89,"q":false,"eb":false,"web":"https//www.liceogallarate.edu.it/","approx":false},{"n":"ITE Tosi","c":"Busto Arsizio","km":3.9,"g":"S","art":null,"al":null,"p1":null,"ten":109,"q":false,"eb":false,"web":"www.etosi.edu.it","approx":false,"nota":"attivo dal 2026/27"},{"n":"Olga Fiorini","c":"Busto Arsizio","km":6.8,"g":"P","art":null,"al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.olgafiorini.it","approx":true}],"Tecnico dei servizi di animazione turistico-sportiva":[{"n":"IPSIA Parma","c":"Saronno","km":18.0,"g":"S","art":null,"al":24,"p1":24,"ten":108,"q":false,"eb":false,"web":"https//www.ipsiasar.edu.it/","approx":false}],"Ottico":[{"n":"Einaudi","c":"Varese","km":17.8,"g":"S","art":null,"al":118,"p1":27,"ten":115,"q":false,"eb":false,"web":"www.ipceinaudivarese.edu.it","approx":false}],"Agricoltura e sviluppo rurale":[{"n":"Newton","c":"Varese","km":17.5,"g":"S","art":null,"al":136,"p1":38,"ten":99,"q":false,"eb":false,"web":"www.isisvarese.edu.it","approx":false}],"Operatore dell'abbigliamento":[{"n":"Newton","c":"Varese","km":17.5,"g":"S","art":null,"al":71,"p1":26,"ten":99,"q":false,"eb":false,"web":"www.isisvarese.edu.it","approx":false}],"Liceo internazionale per l'innovazione":[{"n":"Olga Fiorini","c":"Busto Arsizio","km":6.8,"g":"P","art":null,"al":null,"p1":null,"ten":null,"q":false,"eb":false,"web":"https://www.olgafiorini.it","approx":true}]}};
+
+  /* dati occupazionali provinciali — guida #failasceltagiusta 2023 (indagine Excelsior 2022,
+     Unioncamere-ANPAL) pubblicata dalla Camera di Commercio di Varese */
+  var LAV = {"Agraria, agroalimentare e agroindustria":{"f":"Agrario, agroalimentare e agroindustria","d":58,"m":47,"ma":"37,6","pr":"15,6","en":400,"lv":"diploma"},"Agricoltura e sviluppo rurale":{"f":"Agrario, agroalimentare e agroindustria","d":58,"m":47,"ma":"37,6","pr":"15,6","en":400,"lv":"diploma"},"Amministrazione, finanza e marketing":{"f":"Amministrazione, finanza e marketing","d":32,"m":52,"ma":"17,9","pr":"9,2","en":5980,"lv":"diploma"},"Turismo":{"f":"Turismo, enogastronomia, ospitalità e spettacolo","d":51,"m":47,"ma":"29,7","pr":"15,9","en":null,"lv":"diploma"},"Enogastronomia e ospitalità alberghiera":{"f":"Turismo, enogastronomia, ospitalità e spettacolo","d":51,"m":47,"ma":"29,7","pr":"15,9","en":null,"lv":"diploma"},"Servizi culturali e dello spettacolo":{"f":"Turismo, enogastronomia, ospitalità e spettacolo","d":51,"m":47,"ma":"29,7","pr":"15,9","en":null,"lv":"diploma"},"Chimica, materiali e biotecnologie":{"f":"Chimica, materiali e biotecnologie","d":50,"m":48,"ma":"22,1","pr":"14,0","en":null,"lv":"diploma"},"Costruzioni, ambiente e territorio":{"f":"Costruzioni, ambiente e territorio","d":57,"m":47,"ma":"27,8","pr":"23,1","en":660,"lv":"diploma"},"Elettronica ed elettrotecnica":{"f":"Elettronica ed elettrotecnica","d":58,"m":47,"ma":"40,6","pr":"15,3","en":1250,"lv":"diploma"},"Grafica e comunicazione":{"f":"Grafica e comunicazione","d":38,"m":48,"ma":"14,1","pr":"20,2","en":null,"lv":"diploma"},"Industria e artigianato per il Made in Italy":{"f":"Industria e artigianato per il made in Italy","d":52,"m":47,"ma":"34,1","pr":"14,7","en":1660,"lv":"diploma"},"Sistema moda":{"f":"Sistema moda","d":38,"m":48,"ma":"21,8","pr":"10,7","en":null,"lv":"diploma"},"Informatica e telecomunicazioni":{"f":"Informatica e telecomunicazioni","d":39,"m":48,"ma":"22,3","pr":"15,9","en":580,"lv":"diploma"},"Meccanica, meccatronica ed energia":{"f":"Meccanica, meccatronica ed energia","d":56,"m":45,"ma":"34,5","pr":"18,1","en":2210,"lv":"diploma"},"Manutenzione e assistenza tecnica":{"f":"Produzione e manutenzione industriale e artigianale","d":58,"m":45,"ma":null,"pr":null,"en":560,"lv":"diploma"},"Trasporti e logistica":{"f":"Trasporti e logistica","d":31,"m":48,"ma":"19,0","pr":"10,8","en":1140,"lv":"diploma"},"Servizi per la sanità e l'assistenza sociale":{"f":"Socio-sanitario","d":54,"m":47,"ma":"44,0","pr":null,"en":1800,"lv":"diploma"},"Liceo classico":{"f":"Licei","d":31,"m":48,"ma":"17,9","pr":"12,2","en":380,"lv":"diploma"},"Liceo scientifico":{"f":"Licei","d":31,"m":48,"ma":"17,9","pr":"12,2","en":380,"lv":"diploma"},"Liceo scientifico – scienze applicate":{"f":"Licei","d":31,"m":48,"ma":"17,9","pr":"12,2","en":380,"lv":"diploma"},"Liceo scientifico sportivo":{"f":"Licei","d":31,"m":48,"ma":"17,9","pr":"12,2","en":380,"lv":"diploma"},"Liceo delle scienze umane":{"f":"Licei","d":31,"m":48,"ma":"17,9","pr":"12,2","en":380,"lv":"diploma"},"Liceo delle scienze umane – economico-sociale":{"f":"Licei","d":31,"m":48,"ma":"17,9","pr":"12,2","en":380,"lv":"diploma"},"Liceo linguistico":{"f":"Licei","d":31,"m":48,"ma":"17,9","pr":"12,2","en":380,"lv":"diploma"},"Liceo artistico":{"f":"Artistico (liceo)","d":16,"m":45,"ma":null,"pr":null,"en":480,"lv":"diploma"},"Operatore elettrico":{"f":"Elettrico (qualifica)","d":56,"m":49,"ma":null,"pr":null,"en":1020,"lv":"qualifica"},"Operatore meccanico":{"f":"Meccanico (qualifica)","d":52,"m":49,"ma":null,"pr":null,"en":4640,"lv":"qualifica"},"Operatore alla riparazione di veicoli a motore":{"f":"Riparazione dei veicoli a motore (qualifica)","d":73,"m":49,"ma":null,"pr":null,"en":410,"lv":"qualifica"},"Operatore della ristorazione":{"f":"Ristorazione (qualifica)","d":49,"m":49,"ma":null,"pr":null,"en":5000,"lv":"qualifica"},"Operatore del benessere":{"f":"Estetica, acconciature e benessere","d":49,"m":48,"ma":"24,1","pr":"20,4","en":840,"lv":"qualifica"},"Operatore dei sistemi e servizi logistici":{"f":"Sistemi e servizi logistici (qualifica)","d":46,"m":49,"ma":null,"pr":null,"en":870,"lv":"qualifica"},"Operatore ai servizi di promozione e accoglienza":{"f":"Servizi di promozione e accoglienza (qualifica)","d":42,"m":49,"ma":null,"pr":null,"en":460,"lv":"qualifica"},"Operatore dell'abbigliamento":{"f":"Tessile e abbigliamento (qualifica)","d":36,"m":49,"ma":null,"pr":null,"en":950,"lv":"qualifica"},"Operatore ai servizi di vendita":{"f":"Servizi di vendita (qualifica)","d":36,"m":49,"ma":null,"pr":null,"en":1750,"lv":"qualifica"},"Operatore ai servizi di impresa":{"f":"Amministrativo segretariale (qualifica)","d":25,"m":49,"ma":null,"pr":null,"en":570,"lv":"qualifica"},"Operatore delle produzioni alimentari":{"f":"Trasformazione agroalimentare (qualifica)","d":56,"m":49,"ma":null,"pr":null,"en":2160,"lv":"qualifica"},"Operatore di impianti termoidraulici":{"f":"Edile (qualifica)","d":60,"m":49,"ma":null,"pr":null,"en":1450,"lv":"qualifica"},"Operatore grafico":{"f":"Grafica e comunicazione","d":38,"m":48,"ma":"14,1","pr":"20,2","en":null,"lv":"diploma"},"Operatore del legno":{"f":"Altri indirizzi (qualifica)","d":50,"m":49,"ma":null,"pr":null,"en":1280,"lv":"qualifica"},"Operatore alle lavorazioni di pelletteria":{"f":"Altri indirizzi (qualifica)","d":50,"m":49,"ma":null,"pr":null,"en":1280,"lv":"qualifica"},"Operatore lavorazioni oro e metalli preziosi":{"f":"Altri indirizzi (qualifica)","d":50,"m":49,"ma":null,"pr":null,"en":1280,"lv":"qualifica"},"Tecnico dei servizi di animazione turistico-sportiva":{"f":"Turismo, enogastronomia, ospitalità e spettacolo","d":51,"m":47,"ma":"29,7","pr":"15,9","en":null,"lv":"diploma"},"Operatore informatico":{"f":"Informatica e telecomunicazioni","d":39,"m":48,"ma":"22,3","pr":"15,9","en":580,"lv":"diploma"},"Operatore agricolo":{"f":"Agrario, agroalimentare e agroindustria","d":58,"m":47,"ma":"37,6","pr":"15,6","en":400,"lv":"diploma"},"Servizi commerciali":{"f":"Amministrazione, finanza e marketing","d":32,"m":52,"ma":"17,9","pr":"9,2","en":5980,"lv":"diploma"}};
+
+  /* ore settimanali del 1° anno — DM 29 del 19 febbraio 2026, allegati B e C1-C11,
+     in vigore dalle classi prime. Solo istituti tecnici. */
+  var ORE = {"Amministrazione, finanza e marketing":{"t":32,"l":0,"li":2,"n":"3 lingue con l'articolazione Relazioni internazionali","f":"Decreto ministeriale 29 del 19 febbraio 2026, quadri orario in vigore dalle classi prime"},"Turismo":{"t":32,"l":0,"li":3,"f":"Decreto ministeriale 29 del 19 febbraio 2026, quadri orario in vigore dalle classi prime"},"Agraria, agroalimentare e agroindustria":{"t":32,"l":5,"li":1,"f":"Decreto ministeriale 29 del 19 febbraio 2026, quadri orario in vigore dalle classi prime"},"Chimica, materiali e biotecnologie":{"t":32,"l":5,"li":1,"f":"Decreto ministeriale 29 del 19 febbraio 2026, quadri orario in vigore dalle classi prime"},"Costruzioni, ambiente e territorio":{"t":32,"l":5,"li":1,"f":"Decreto ministeriale 29 del 19 febbraio 2026, quadri orario in vigore dalle classi prime"},"Elettronica ed elettrotecnica":{"t":32,"l":5,"li":1,"f":"Decreto ministeriale 29 del 19 febbraio 2026, quadri orario in vigore dalle classi prime"},"Grafica e comunicazione":{"t":32,"l":5,"li":1,"f":"Decreto ministeriale 29 del 19 febbraio 2026, quadri orario in vigore dalle classi prime"},"Informatica e telecomunicazioni":{"t":32,"l":5,"li":1,"f":"Decreto ministeriale 29 del 19 febbraio 2026, quadri orario in vigore dalle classi prime"},"Meccanica, meccatronica ed energia":{"t":32,"l":5,"li":1,"f":"Decreto ministeriale 29 del 19 febbraio 2026, quadri orario in vigore dalle classi prime"},"Sistema moda":{"t":32,"l":5,"li":1,"f":"Decreto ministeriale 29 del 19 febbraio 2026, quadri orario in vigore dalle classi prime"},"Trasporti e logistica":{"t":32,"l":5,"li":1,"f":"Decreto ministeriale 29 del 19 febbraio 2026, quadri orario in vigore dalle classi prime"},"Liceo classico":{"t":27,"l":0,"li":1,"f":"DPR 89/2010, piani di studio dei licei (Gazzetta Ufficiale n. 137 del 15 giugno 2010)"},"Liceo scientifico":{"t":27,"l":0,"li":1,"f":"DPR 89/2010, piani di studio dei licei (Gazzetta Ufficiale n. 137 del 15 giugno 2010)"},"Liceo scientifico sportivo":{"t":27,"l":0,"li":1,"lt":"<b>6 ore</b> a settimana fra scienze motorie e discipline sportive gi\u00e0 dal primo anno, contro le 2 degli altri licei; dal terzo anno si aggiunge diritto ed economia dello sport","f":"DPR 52/2013, regolamento del liceo scientifico a indirizzo sportivo (Gazzetta Ufficiale n. 113 del 16 maggio 2013)"},"Liceo scientifico – scienze applicate":{"t":27,"l":0,"li":1,"f":"DPR 89/2010, piani di studio dei licei (Gazzetta Ufficiale n. 137 del 15 giugno 2010)"},"Liceo linguistico":{"t":27,"l":0,"li":3,"f":"DPR 89/2010, piani di studio dei licei (Gazzetta Ufficiale n. 137 del 15 giugno 2010)"},"Liceo delle scienze umane":{"t":27,"l":0,"li":1,"f":"DPR 89/2010, piani di studio dei licei (Gazzetta Ufficiale n. 137 del 15 giugno 2010)"},"Liceo delle scienze umane – economico-sociale":{"t":27,"l":0,"li":2,"f":"DPR 89/2010, piani di studio dei licei (Gazzetta Ufficiale n. 137 del 15 giugno 2010)"},"Liceo artistico":{"t":34,"l":3,"li":1,"f":"DPR 89/2010, piani di studio dei licei (Gazzetta Ufficiale n. 137 del 15 giugno 2010)","n":"più 10 ore di discipline grafiche, geometriche e plastiche: è il liceo in cui si sta più con le mani"},"Liceo musicale e coreutico":{"t":32,"l":5,"li":1,"f":"DPR 89/2010, piani di studio dei licei (Gazzetta Ufficiale n. 137 del 15 giugno 2010)","n":"fra strumento e musica d’insieme; per entrare c’è un esame di ammissione"},"Liceo del Made in Italy":{"t":27,"l":0,"li":2,"lt":"<b>nessuna ora</b> di laboratorio al primo anno: i laboratori per il made in Italy e i PCTO partono dal secondo anno","f":"DPR 222/2024, quadro orario del liceo del made in Italy (Gazzetta Ufficiale n. 41 del 19 febbraio 2025)"}};
+
+  var ALIAS = {
+    "Liceo economico-sociale": "Liceo delle scienze umane \u2013 economico-sociale",
+    "Servizi per la sanita' e l'assistenza sociale": "Servizi per la sanit\u00e0 e l'assistenza sociale",
+    "Enogastronomia e ospitalita' alberghiera": "Enogastronomia e ospitalit\u00e0 alberghiera"
+  };
+
+  function deent(s){
+    return String(s).replace(/&ndash;/g,"\u2013").replace(/&middot;/g,"\u00b7")
+      .replace(/&egrave;/g,"\u00e8").replace(/&agrave;/g,"\u00e0").replace(/&ugrave;/g,"\u00f9")
+      .replace(/&eacute;/g,"\u00e9").replace(/&deg;/g,"\u00b0").replace(/&amp;/g,"&");
+  }
+  function schoolsFor(c){
+    var k = ALIAS[deent(c.n)] || deent(c.n);
+    return (DB.ind && DB.ind[k]) ? DB.ind[k] : [];
+  }
+  function kmTxt(e){ return e.km == null ? "" : (e.approx ? "~" : "") + e.km + " km"; }
+  function schoolLabel(e){ return e.n + (e.art ? " \u2013 " + e.art : ""); }
+
+
+  /* ---------------- stato ---------------- */
+  var scores = {R:5,I:5,A:5,S:5,E:5,C:5};
+  var filter = "all", onlyMine = false, picked = [], step = 1;
+  var notes = {};
+
+  function save(){
+    try{ localStorage.setItem("bussola", JSON.stringify({scores:scores,picked:picked,notes:notes,
+      stud:val("stud"), cls:val("cls")})); }catch(e){}
+  }
+  function load(){
+    try{
+      var raw = localStorage.getItem("bussola"); if(!raw) return;
+      var d = JSON.parse(raw);
+      if(d && d.scores) scores = d.scores;
+      if(d && d.picked) picked = d.picked.filter(function(i){return i>=0 && i<C.length});
+      if(d && d.notes) notes = d.notes;
+      if(d && d.stud) setVal("stud", d.stud);
+      if(d && d.cls) setVal("cls", d.cls);
+    }catch(e){}
+  }
+  function val(id){ var e=document.getElementById(id); return e?e.value:""; }
+  function setVal(id,v){ var e=document.getElementById(id); if(e) e.value=v; }
+  function esc(s){ return String(s).replace(/&(?![a-zA-Z#0-9]+;)/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+  /* ---------------- codice RIASEC ---------------- */
+  function topLetters(){
+    var ks = AREAS.map(function(a){return a.k});
+    ks.sort(function(a,b){ return scores[b]-scores[a] || ks.indexOf(a)-ks.indexOf(b); });
+    return ks.slice(0,3);
+  }
+  function allZero(){ return AREAS.every(function(a){ return scores[a.k]===0; }); }
+
+  function renderCode(){
+    var t = topLetters(), el = document.getElementById("code"), ex = document.getElementById("codeExp");
+    if(allZero()){ el.textContent = "———"; ex.textContent = "Muovi i cursori: qui compaiono le tue tre lettere più alte."; return; }
+    el.textContent = t.join("");
+    var names = t.map(function(k){ return AREAS.filter(function(a){return a.k===k})[0].nm.toLowerCase(); });
+    ex.textContent = "Le tue tre aree più forti sono " + names[0] + ", " + names[1] + " e " + names[2] +
+      ". Al passo 2 gli indirizzi vicini a queste tre lettere compaiono per primi.";
+  }
+
+  /* ---------------- passo 1 ---------------- */
+  function buildAreas(){
+    var host = document.getElementById("riasec"), html = "";
+    AREAS.forEach(function(a){
+      html += '<div class="area">'+
+        '<div class="hd"><span class="let">'+a.k+'</span><span class="nm">'+a.nm+'</span></div>'+
+        '<p class="ds">'+a.ds+'</p>'+
+        '<div class="row">'+
+          '<input type="range" id="sl'+a.k+'" min="0" max="10" step="1" value="'+scores[a.k]+'" '+
+          'aria-label="Punteggio area '+a.nm+'">'+
+          '<output id="ot'+a.k+'">'+scores[a.k]+'</output>'+
+        '</div></div>';
+    });
+    host.innerHTML = html;
+    AREAS.forEach(function(a){
+      var sl = document.getElementById("sl"+a.k);
+      sl.addEventListener("input", function(){
+        scores[a.k] = parseInt(sl.value,10);
+        document.getElementById("ot"+a.k).textContent = sl.value;
+        renderCode(); save();
+      });
+    });
+  }
+
+  /* ---------------- punteggio di affinita' ---------------- */
+  function affinity(item){
+    var s = 0;
+    item.r.forEach(function(k,i){ s += scores[k] * (3-i); });
+    return s;
+  }
+  function matchCount(item){
+    var t = topLetters();
+    return item.r.filter(function(k){ return t.indexOf(k)>=0; }).length;
+  }
+
+  /* ---------------- le scuole sotto ogni indirizzo ---------------- */
+  function schoolStrip(c){
+    var L = schoolsFor(c);
+    if(!L.length){
+      var msg = c.t === "iefp"
+        ? "I percorsi IeFP li fanno i centri di formazione (ENAIP, CIOFS, CFP): non sono nei dati del Ministero."
+        : "Nessuna scuola trovata nei dati ufficiali della provincia.";
+      return '<p class="strip none">' + msg + ' <b>Controlla su Guida Percorsi.</b></p>';
+    }
+    var near = L[0];
+    return '<p class="strip"><b>' + L.length + (L.length===1 ? ' scuola' : ' scuole') +
+           '</b> in provincia &middot; la pi\u00f9 vicina: ' + near.c + ', ' + kmTxt(near) + '</p>';
+  }
+
+  function schoolList(c){
+    var L = schoolsFor(c);
+    if(!L.length) return "";
+    var h = '<dt>Dove si fa (dalla pi\u00f9 vicina)</dt><dd><ul class="slist">';
+    L.slice(0,6).forEach(function(e){
+      var bits = [];
+      if(e.p1) bits.push(e.p1 + " in prima");
+      if(e.ten) bits.push("in seconda " + e.ten + " ogni 100");
+      if(e.q) bits.push("anche 4 anni");
+      if(e.nota) bits.push(e.nota);
+      var tag = e.g === "P" ? '<span class="par">paritaria</span>' : '';
+      h += '<li><span class="sn">' + schoolLabel(e) + tag + '</span>' +
+           '<span class="sm">' + e.c + ' &middot; ' + kmTxt(e) + (bits.length ? ' &middot; ' + bits.join(' &middot; ') : '') + '</span></li>';
+    });
+    if(L.length > 6) h += '<li><span class="sm">e altre ' + (L.length-6) + ' \u2014 vedile su Guida Percorsi</span></li>';
+    return h + '</ul></dd>';
+  }
+
+  function oreBlock(c){
+    var o = ORE[ALIAS[deent(c.n)] || deent(c.n)];
+    if(!o) return "";
+    var lab = o.lt
+      ? o.lt
+      : (o.l
+        ? '<b>' + o.l + ' ore</b> di laboratorio a settimana gi\u00e0 dal primo anno' + (o.n ? ', ' + o.n : '')
+        : '<b>nessuna ora</b> di laboratorio nel primo anno: si sta in classe');
+    return '<dt>Com\u2019\u00e8 fatta la settimana, al primo anno</dt><dd><div class="ore">' +
+      '<p class="jrow"><b>' + o.t + ' ore</b> di lezione a settimana.</p>' +
+      '<p class="jrow">' + lab + '.</p>' +
+      '<p class="jrow"><b>' + o.li + (o.li === 1 ? ' lingua straniera' : ' lingue straniere') + '</b>' +
+        ((o.n && !o.l) ? ' \u2014 ' + o.n : '') + '. Quali siano di preciso lo decide la scuola: chiedilo all\u2019open day.</p>' +
+      '<p class="jsrc">' + o.f + '</p>' +
+      '</div></dd>';
+  }
+
+  function jobBlock(c){
+    var k = ALIAS[deent(c.n)] || deent(c.n), j = LAV[k];
+    if(!j) return '<dt>E il lavoro, qui in provincia</dt><dd class="nojob">' +
+      'Per questo indirizzo la Camera di Commercio non pubblica un dato a s\u00e9. ' +
+      'Guarda la filiera pi\u00f9 vicina, oppure il portale <b>failasceltagiusta</b> di Varese.</dd>';
+    // Un liceo non prepara a un mestiere: prepara a proseguire. Mostrare la sua
+    // "difficoltà di reperimento" accanto a quella di un tecnico fa leggere un dato
+    // sbagliato — sembra che il liceo "valga meno". Per i licei cambiamo discorso.
+    if(j.f === "Licei" || j.f === "Artistico (liceo)"){
+      return '<dt>E il lavoro, qui in provincia</dt><dd><div class="job liceo">' +
+        '<p class="jrow"><b>Il liceo non prepara a un mestiere: prepara a continuare a studiare.</b></p>' +
+        '<p class="jrow">Le imprese della provincia che assumono direttamente un diplomato di liceo sono poche &mdash; ' +
+        'circa <b>' + (j.en ? j.en.toLocaleString("it-IT") : "poche centinaia") + '</b> assunzioni previste in un anno, ' +
+        'contro le migliaia degli indirizzi tecnici. Non \u00e8 un difetto: \u00e8 che il liceo punta altrove.</p>' +
+        '<p class="jrow">Se scegli questa strada, la domanda giusta non \u00e8 <i>quante imprese mi cercano</i>, ' +
+        'ma <i>sono disposto a studiare ancora dopo i diciannove anni?</i></p>' +
+        '<p class="jsrc">Indagine Excelsior 2022, Camera di Commercio di Varese</p>' +
+        '</div></dd>';
+    }
+    var w = Math.max(4, Math.min(100, j.d)), mw = Math.max(0, Math.min(100, j.m));
+    var sopra = j.d > j.m;
+    var h = '<dt>E il lavoro, qui in provincia</dt><dd>' +
+      '<div class="job">' +
+        '<p class="jhero">' + j.d + '%<span>delle imprese della provincia fatica a trovare questo profilo</span></p>' +
+        '<div class="jtrack" role="img" aria-label="' + j.d + ' per cento, contro una media provinciale di ' + j.m + ' per cento">' +
+          '<div class="jfill" style="width:' + w + '%"></div>' +
+          '<div class="jmed" style="left:' + mw + '%"></div>' +
+        '</div>' +
+        '<p class="jmedlab">media degli altri indirizzi: ' + j.m + '% &mdash; questo indirizzo \u00e8 ' +
+          (sopra ? '<b>sopra</b> la media' : 'sotto la media') + '</p>';
+    if(j.en) h += '<p class="jrow"><b>' + j.en.toLocaleString("it-IT") + '</b> assunzioni previste in provincia per questa filiera</p>';
+    if(j.ma) h += '<p class="jrow">Perch\u00e9 fanno fatica: nel <b>' + j.ma + '%</b> dei casi non si presenta nessun candidato' +
+                  (j.pr ? '; nel <b>' + j.pr + '%</b> chi si presenta non \u00e8 preparato abbastanza' : '') + '.</p>';
+    h += '<p class="jsrc">Filiera &laquo;' + j.f + '&raquo; &middot; livello ' + j.lv +
+         ' &middot; indagine Excelsior 2022, Camera di Commercio di Varese</p>';
+    return h + '</div></dd>';
+  }
+
+  /* ---------------- passo 2 ---------------- */
+  function renderCards(){
+    var t = topLetters();
+    var idx = C.map(function(c,i){return i});
+    idx = idx.filter(function(i){
+      var c = C[i];
+      if(filter!=="all" && c.t!==filter) return false;
+      if(onlyMine && matchCount(c)===0) return false;
+      return true;
+    });
+    idx.sort(function(a,b){ return affinity(C[b])-affinity(C[a]) || C[a].n.localeCompare(C[b].n); });
+
+    document.getElementById("count").innerHTML = idx.length + " indirizzi mostrati" +
+      (onlyMine ? " &mdash; solo quelli che toccano il tuo codice <b>"+t.join("")+"</b>" : "") + ".";
+
+    var html = "";
+    idx.forEach(function(i){
+      var c = C[i], on = picked.indexOf(i)>=0, hit = matchCount(c)>=2;
+      html += '<article class="card'+(hit?' hit':'')+'">'+
+        '<span class="tag">'+TYPE_LABEL[c.t]+'</span>'+
+        '<h3>'+c.n+'</h3>'+
+        '<div class="lets" aria-label="Aree RIASEC di questo indirizzo">'+
+          c.r.map(function(k){ return '<span class="let-pill'+(t.indexOf(k)>=0?' on':'')+'" title="'+k+'">'+k+'</span>'; }).join("")+
+        '</div>'+
+        '<p class="what">'+c.w+'</p>'+
+        schoolStrip(c)+
+        '<details><summary>Materie, scuole e lavoro</summary>'+
+          '<dl class="kv">'+
+            '<dt>Materie di indirizzo</dt><dd>'+c.m+'</dd>'+
+            '<dt>E dopo?</dt><dd>'+c.d+'</dd>'+
+            oreBlock(c)+
+            schoolList(c)+
+            jobBlock(c)+
+          '</dl>'+
+        '</details>'+
+        '<div class="foot">'+
+          '<button class="btn small'+(on?'':' ghost')+'" type="button" data-pick="'+i+'">'+
+            (on?'&#10003; Nel confronto':'Aggiungi al confronto')+'</button>'+
+          '<a class="lnk" target="_blank" rel="noopener" href="'+BASE+c.slug+'/">Chi lo fa qui &#8599;</a>'+
+        '</div>'+
+      '</article>';
+    });
+    document.getElementById("cards").innerHTML = html;
+  }
+
+  function togglePick(i){
+    var p = picked.indexOf(i);
+    if(p>=0){ picked.splice(p,1); }
+    else {
+      if(picked.length>=3){ alert("Puoi confrontare al massimo 3 indirizzi. Togline uno prima di aggiungerne un altro."); return; }
+      picked.push(i);
+    }
+    save(); renderCards(); renderCmp(); renderSheets(); renderVerdetto();
+  }
+
+  /* ---------------- passo 3 ---------------- */
+  function renderCmp(){
+    var host = document.getElementById("cmp");
+    if(!picked.length){
+      host.innerHTML = '<div class="empty">Non hai ancora scelto niente.<br>Torna al passo 2 e aggiungi da uno a tre indirizzi al confronto.</div>';
+      return;
+    }
+    var rows = [["Tipo di scuola", function(c){return TYPE_LABEL[c.t]}],
+                ["Aree RIASEC", function(c){return c.r.join(" &middot; ")}],
+                ["Che cosa fai", function(c){return c.w}],
+                ["Materie di indirizzo", function(c){return c.m}],
+                ["E dopo?", function(c){return c.d}],
+                ["Quante scuole", function(c){var L=schoolsFor(c); return L.length ? L.length+" in provincia" : "nessuna nei dati ufficiali"}],
+                ["La pi\u00f9 vicina", function(c){var L=schoolsFor(c); return L.length ? L[0].c+" \u2014 "+kmTxt(L[0]) : "\u2014"}],
+                ["Tenuta 1\u00b0\u21922\u00b0 anno", function(c){
+                   var L=schoolsFor(c).filter(function(e){return e.ten});
+                   if(!L.length) return "dato non disponibile";
+                   var v=L.map(function(e){return e.ten}).sort(function(a,b){return a-b});
+                   return "da "+v[0]+"% a "+v[v.length-1]+"%";
+                 }],
+                ["Le imprese lo trovano?", function(c){
+                   var j = LAV[ALIAS[deent(c.n)] || deent(c.n)];
+                   if(!j) return "dato non disponibile";
+                   if(j.f === "Licei" || j.f === "Artistico (liceo)")
+                     return "il liceo prepara a proseguire, non ad assumere subito";
+                   return j.d + "% di difficolt\u00e0 (media " + j.m + "%)";
+                 }],
+                ["Assunzioni previste", function(c){
+                   var j = LAV[ALIAS[deent(c.n)] || deent(c.n)];
+                   return (j && j.en) ? j.en.toLocaleString("it-IT") + " in provincia" : "\u2014";
+                 }],
+                ["Ore a settimana", function(c){
+                   var o = ORE[ALIAS[deent(c.n)] || deent(c.n)];
+                   return o ? o.t + " ore, di cui " + (o.l ? o.l + " di laboratorio" : "nessuna di laboratorio") : "\u2014";
+                 }],
+                ["Lingue straniere", function(c){
+                   var o = ORE[ALIAS[deent(c.n)] || deent(c.n)];
+                   return o ? String(o.li) : "\u2014";
+                 }],
+                ["Approfondisci", function(c){return '<a target="_blank" rel="noopener" href="'+BASE+c.slug+'/">Guida Percorsi &#8599;</a>'}]];
+    var h = '<div class="tablewrap"><table><thead><tr><th scope="col">&nbsp;</th>';
+    picked.forEach(function(i){ h += '<th scope="col">'+C[i].n+'</th>'; });
+    h += '</tr></thead><tbody>';
+    rows.forEach(function(r){
+      h += '<tr><th scope="row">'+r[0]+'</th>';
+      picked.forEach(function(i){ h += '<td>'+r[1](C[i])+'</td>'; });
+      h += '</tr>';
+    });
+    h += '</tbody></table></div>';
+    host.innerHTML = h;
+  }
+
+  /* ---------------- passo 4 ---------------- */
+  function schoolSelect(i, c, n){
+    var L = schoolsFor(c), cur = n.s || "";
+    if(!L.length) return '<input type="text" id="n'+i+'_s" value="'+esc(cur)+'" placeholder="Cercala su Guida Percorsi">';
+    var o = '<option value="">\u2014 scegli \u2014</option>';
+    L.forEach(function(e){
+      var lab = schoolLabel(e) + "  (" + e.c + ", " + kmTxt(e) + (e.g === "P" ? ", paritaria" : "") + ")";
+      o += '<option value="'+esc(schoolLabel(e))+'" data-com="'+esc(e.c)+'"'+
+           (cur===schoolLabel(e)?' selected':'')+'>'+esc(lab)+'</option>';
+    });
+    var alt = cur && !L.some(function(e){return schoolLabel(e)===cur});
+    o += '<option value="__altra"'+(alt?' selected':'')+'>Altra scuola (la scrivo io)</option>';
+    return '<select id="n'+i+'_s">'+o+'</select>'+
+           '<input type="text" id="n'+i+'_sx" '+(alt?'':'hidden ')+'value="'+esc(alt?cur:"")+'" placeholder="Scrivi il nome">';
+  }
+
+  function renderSheets(){
+    var host = document.getElementById("sheets");
+    if(!picked.length){
+      host.innerHTML = '<div class="empty">Scegli prima almeno un indirizzo al passo 2.</div>';
+      return;
+    }
+    var h = "";
+    picked.forEach(function(i){
+      var c = C[i], n = notes[i] || {};
+      h += '<div class="sheet">'+
+        '<h3>'+c.n+'</h3>'+
+        '<p class="meta">'+TYPE_LABEL[c.t]+' &middot; aree '+c.r.join("-")+' &middot; '+
+          '<a target="_blank" rel="noopener" href="'+BASE+c.slug+'/">trova le scuole che lo offrono &#8599;</a></p>'+
+        '<div class="fields">'+
+          '<label class="f">Scuola'+schoolSelect(i, c, n)+'</label>'+
+          '<label class="f">Comune<input type="text" id="n'+i+'_c" value="'+esc(n.c||"")+'" placeholder="Dove si trova"></label>'+
+          '<label class="f">Data open day<input type="text" id="n'+i+'_o" value="'+esc(n.o||"")+'" placeholder="gg/mm"></label>'+
+        '</div>'+
+        '<div class="fields" style="margin-top:14px">'+
+          '<label class="f">Cosa mi convince<textarea id="n'+i+'_p">'+esc(n.p||"")+'</textarea></label>'+
+          '<label class="f">Cosa mi preoccupa<textarea id="n'+i+'_d">'+esc(n.d||"")+'</textarea></label>'+
+        '</div>'+
+      '</div>';
+    });
+    host.innerHTML = h;
+    picked.forEach(function(i){
+      ["s","c","o","p","d","sx"].forEach(function(f){
+        var el = document.getElementById("n"+i+"_"+f);
+        if(!el) return;
+        var ev = (el.tagName === "SELECT") ? "change" : "input";
+        el.addEventListener(ev, function(){
+          notes[i] = notes[i] || {};
+          if(f === "s" && el.tagName === "SELECT"){
+            var x = document.getElementById("n"+i+"_sx");
+            if(el.value === "__altra"){ if(x){ x.hidden = false; x.focus(); } notes[i].s = (x && x.value) || ""; }
+            else {
+              if(x) x.hidden = true;
+              notes[i].s = el.value;
+              var op = el.options[el.selectedIndex], com = op && op.getAttribute("data-com");
+              if(com){ var cc = document.getElementById("n"+i+"_c"); if(cc && !cc.value){ cc.value = com; notes[i].c = com; } }
+            }
+          } else if(f === "sx"){ notes[i].s = el.value; }
+          else { notes[i][f] = el.value; }
+          save(); renderVerdetto();
+        });
+      });
+    });
+  }
+
+  /* ---------------- passo 5: il verdetto ---------------- */
+  function schoolByName(c, nome){
+    var L = schoolsFor(c);
+    for(var i=0;i<L.length;i++){ if(schoolLabel(L[i]) === nome) return L[i]; }
+    return null;
+  }
+
+  function renderVerdetto(){
+    var host = document.getElementById("verdetto");
+    if(!picked.length){
+      host.innerHTML = '<div class="empty">Prima scegli gli indirizzi al passo 2 e le scuole al passo 4.</div>';
+      return;
+    }
+    var out = "";
+    picked.forEach(function(i){
+      var c = C[i], n = notes[i] || {}, L = schoolsFor(c);
+      var scelta = n.s ? schoolByName(c, n.s) : null;
+      var j = LAV[ALIAS[deent(c.n)] || deent(c.n)];
+
+      // A — quante scuole e la piu' vicina
+      var a = L.length
+        ? '<p class="big">' + L.length + '</p><p class="sub">' +
+          (L.length === 1 ? 'una sola scuola in provincia' : 'scuole in provincia') +
+          '. La pi\u00f9 vicina \u00e8 a ' + kmTxt(L[0]) + ', a ' + L[0].c + '.</p>'
+        : '<p class="big">\u2014</p><p class="sub">Nessuna nei dati ufficiali: cercala su Guida Percorsi.</p>';
+
+      // B — le imprese
+      var isLic = j && (j.f === "Licei" || j.f === "Artistico (liceo)");
+      var bcls = (j && !isLic && j.d > j.m) ? " warn" : "";
+      var b = isLic
+        ? '<p class="big">LICEO</p><p class="sub">Il liceo prepara a continuare a studiare, non a essere assunti ' +
+          'subito: questo numero qui non serve. Sulla scheda scrivi <b>LICEO</b>.</p>'
+        : j
+        ? '<p class="big">' + j.d + '%</p><p class="sub">delle imprese fatica a trovare questo profilo. ' +
+          'La media della provincia \u00e8 ' + j.m + '%, quindi qui si fa fatica <b>' +
+          (j.d > j.m ? 'pi\u00f9' : 'meno') + '</b> della media.</p>'
+        : '<p class="big">\u2014</p><p class="sub">Per questo indirizzo non c\u2019\u00e8 un dato provinciale.</p>';
+
+      // C — quanti arrivano in seconda
+      var c3, ccls = "";
+      if(scelta && scelta.ten){
+        ccls = scelta.ten < 85 ? " warn" : "";
+        var spieg = scelta.ten < 100
+          ? 'Chi manca ha cambiato scuola o indirizzo dopo il primo anno.'
+          : scelta.ten === 100
+            ? 'Tanti quanti erano partiti: chi \u00e8 uscito \u00e8 stato rimpiazzato da chi \u00e8 arrivato.'
+            : 'Sono pi\u00f9 di quanti erano partiti: qui arrivano ragazzi da altre scuole.';
+        c3 = '<p class="big">' + scelta.ten + '</p><p class="sub">ragazzi in seconda oggi, ogni 100 che erano in prima ' +
+             'l\u2019anno scorso a ' + scelta.n + '. ' + spieg + ' In provincia la met\u00e0 delle scuole sta sopra 88.</p>';
+      } else if(scelta){
+        c3 = '<p class="big">\u2014</p><p class="sub">' + scelta.n + ' \u00e8 paritaria: il Ministero non pubblica questo dato. ' +
+             'Sulla scheda scrivi <b>ND</b> e chiedilo all\u2019open day.</p>';
+      } else {
+        c3 = '<p class="big">?</p><p class="sub">Non hai ancora scelto la scuola al passo 4.</p>';
+      }
+
+      out += '<div class="verd">' +
+        '<h3>' + c.n + '</h3>' +
+        '<p class="who">' + (scelta ? 'Scuola scelta: <b>' + scelta.n + '</b> (' + scelta.c + ')'
+                                    : (n.s ? 'Scuola scritta a mano: <b>' + esc(n.s) + '</b>'
+                                           : 'Nessuna scuola scelta al passo 4')) + '</p>' +
+        '<div class="three">' +
+          '<div class="tre"><span class="lab"><i>A</i> Quante scuole</span>' + a + '</div>' +
+          '<div class="tre' + bcls + '"><span class="lab"><i>B</i> Le imprese la trovano?</span>' + b + '</div>' +
+          '<div class="tre' + ccls + '"><span class="lab"><i>C</i> In seconda, ogni 100</span>' + c3 + '</div>' +
+        '</div>' +
+        '<div class="ask"><h4>Adesso rispondi tu</h4><ol>' +
+          '<li>Quale dei tre numeri non ti aspettavi?</li>' +
+          '<li>Dopo averli letti, questa scuola sale o scende rispetto all\u2019ordine del <b>foglio 1</b>? Perch\u00e9?</li>' +
+          '<li>Scrivi <b>una</b> domanda da fare all\u2019open day che ti \u00e8 venuta guardando questi numeri.</li>' +
+        '</ol><p class="scrivi">Le risposte vanno sulla scheda di carta (<a href="../#schede">la scarichi qui</a>), non qui.</p></div>' +
+      '</div>';
+    });
+
+    out += '<div class="verd"><h3>L\u2019ultima cosa</h3>' +
+      '<p class="who">Da fare dopo aver compilato tutte le schede.</p>' +
+      '<div class="ask" style="border-top:0; padding-top:0"><h4>Il tuo ordine, adesso</h4><ol>' +
+      '<li>Rimetti in fila le tue scuole dalla 1 alla 3, come le vedi <b>adesso</b>.</li>' +
+      '<li>Confronta con l\u2019ordine che avevi scritto sul <b>foglio 1</b>, prima di vedere i numeri.</li>' +
+      '<li>Se \u00e8 cambiato, che cosa l\u2019ha fatto cambiare?</li>' +
+      '<li>Se non \u00e8 cambiato niente, va benissimo: adesso per\u00f2 sai <b>perch\u00e9</b>.</li>' +
+      '</ol></div></div>';
+    host.innerHTML = out;
+  }
+
+  /* ---------------- navigazione ---------------- */
+  function go(n){
+    step = n;
+    [1,2,3,4,5].forEach(function(k){ document.getElementById("s"+k).hidden = (k!==n); });
+    Array.prototype.forEach.call(document.querySelectorAll('.rail button'), function(b){
+      b.setAttribute("aria-current", b.getAttribute("data-go")==String(n) ? "true" : "false");
+    });
+    if(n===2) renderCards();
+    if(n===3) renderCmp();
+    if(n===4) renderSheets();
+    if(n===5) renderVerdetto();
+    window.scrollTo(0,0);
+  }
+
+  /* ---------------- avvio ---------------- */
+  load();
+  buildAreas();
+  renderCode();
+  renderCards();
+  renderCmp();
+  renderSheets();
+  renderVerdetto();
+
+  document.addEventListener("click", function(e){
+    var g = e.target.closest ? e.target.closest("[data-go]") : null;
+    if(g){ go(parseInt(g.getAttribute("data-go"),10)); return; }
+    var p = e.target.closest ? e.target.closest("[data-pick]") : null;
+    if(p){ togglePick(parseInt(p.getAttribute("data-pick"),10)); return; }
+    var f = e.target.closest ? e.target.closest("[data-f]") : null;
+    if(f){
+      filter = f.getAttribute("data-f");
+      Array.prototype.forEach.call(document.querySelectorAll("[data-f]"), function(b){
+        b.setAttribute("aria-pressed", b===f ? "true":"false");
+      });
+      renderCards(); return;
+    }
+    if(e.target.id==="onlyMine"){
+      onlyMine = !onlyMine;
+      e.target.setAttribute("aria-pressed", onlyMine?"true":"false");
+      renderCards(); return;
+    }
+  });
+
+  document.getElementById("printBtn").addEventListener("click", function(){ window.print(); });
+  ["stud","cls"].forEach(function(id){
+    var el = document.getElementById(id); if(el) el.addEventListener("input", save);
+  });
+})();
+</script>
+
+</body>
+</html>
