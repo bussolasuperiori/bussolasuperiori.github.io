@@ -1,2 +1,2 @@
-# bussolasuperiori.github.io
+# bussolasuperiori
 Bussola Superiori - strumento per l'orientamento nel Varesotto
