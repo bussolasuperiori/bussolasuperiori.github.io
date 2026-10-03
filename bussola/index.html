@@ -24,6 +24,13 @@
     --coral:#D9482A; --coral-soft:#FBE7E1; --teal:#12756B; --teal-soft:#DEF0ED;
     --shadow:0 1px 2px rgba(22,35,58,.06), 0 8px 24px rgba(22,35,58,.05);
     --r:14px;
+    --hdr:#16233A; --btn:#C2401F; --on-btn:#FFFFFF;
+    --btn2-bg:#FFFFFF; --btn2-ink:#16233A; --btn2-line:#8E97A4; --btn2-hover:#F3F1EA;
+    --add-bg:#DEF0ED; --add-ink:#0E5F57; --add-line:#12756B; --on-teal:#FFFFFF;
+    --chip-on-bg:#16233A; --chip-on-ink:#FBFAF6;
+    --box-bg:#16233A; --box-line:transparent; --code:#FFA98F;
+    --th-bg:#16233A; --th-ink:#FBFAF6;
+    color-scheme:light;
   }
   @media (prefers-color-scheme:dark){
     :root:not([data-theme="light"]){
@@ -31,6 +38,13 @@
       --line:#2C3A54; --line-strong:#41527094; --muted:#A3AFC2;
       --coral:#FF8163; --coral-soft:#3A2119; --teal:#4FD3C0; --teal-soft:#10312F;
       --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+      --hdr:#0B1322; --btn:#FF8163; --on-btn:#251009;
+      --btn2-bg:#24324D; --btn2-ink:#EDEFF3; --btn2-line:#6B7C9C; --btn2-hover:#2C3C5B;
+      --add-bg:#10312F; --add-ink:#7FE3D5; --add-line:#4FD3C0; --on-teal:#07201E;
+      --chip-on-bg:#4FD3C0; --chip-on-ink:#07201E;
+      --box-bg:#1E2B43; --box-line:#2C3A54; --code:#FF8163;
+      --th-bg:#1E2B43; --th-ink:#EDEFF3;
+      color-scheme:dark;
     }
   }
   :root[data-theme="dark"]{
@@ -38,6 +52,13 @@
     --line:#2C3A54; --line-strong:#41527094; --muted:#A3AFC2;
     --coral:#FF8163; --coral-soft:#3A2119; --teal:#4FD3C0; --teal-soft:#10312F;
     --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+    --hdr:#0B1322; --btn:#FF8163; --on-btn:#251009;
+    --btn2-bg:#24324D; --btn2-ink:#EDEFF3; --btn2-line:#6B7C9C; --btn2-hover:#2C3C5B;
+    --add-bg:#10312F; --add-ink:#7FE3D5; --add-line:#4FD3C0; --on-teal:#07201E;
+    --chip-on-bg:#4FD3C0; --chip-on-ink:#07201E;
+    --box-bg:#1E2B43; --box-line:#2C3A54; --code:#FF8163;
+    --th-bg:#1E2B43; --th-ink:#EDEFF3;
+    color-scheme:dark;
   }
 
   *{box-sizing:border-box}
@@ -49,13 +70,13 @@
   .wrap{max-width:1140px; margin:0 auto; padding-inline:18px; padding-block:0 64px}
   h1,h2,h3,.disp{font-family:'Oswald','Arial Narrow',Arial,sans-serif; font-weight:600; letter-spacing:.2px; text-wrap:balance; margin:0}
   a{color:var(--teal)}
-  button{font-family:inherit}
+  html{-webkit-text-size-adjust:100%}
+  button,select,input,textarea{font-family:inherit}
+  button{-webkit-appearance:none; appearance:none; color:inherit; -webkit-tap-highlight-color:transparent; touch-action:manipulation}
   :focus-visible{outline:3px solid var(--coral); outline-offset:2px; border-radius:6px}
 
   /* ---- header ---- */
-  header.top{background:var(--ink); color:#F6F4EF; padding-block:26px 22px}
-  :root[data-theme="dark"] header.top, :root:not([data-theme="light"]) header.top{border-bottom:1px solid var(--line)}
-  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) header.top{background:#0B1322}}
+  header.top{background:var(--hdr); color:#F6F4EF; padding-block:26px 22px; border-bottom:1px solid var(--box-line)}
   .top .wrap{padding-block:0}
   .kicker{font-family:'Oswald',Arial,sans-serif; font-size:13px; letter-spacing:3px; text-transform:uppercase; color:#8FA6B8; margin:0 0 6px}
   header.top h1{font-size:clamp(30px,5vw,44px); color:#FBFAF6; text-transform:uppercase; line-height:1.05}
@@ -98,25 +119,31 @@
   .area output{font-family:'Oswald',Arial,sans-serif; font-size:22px; min-width:2.2ch; text-align:right; font-variant-numeric:tabular-nums}
 
   .codebox{
-    margin-top:26px; background:var(--ink); color:#FBFAF6; border-radius:var(--r);
+    margin-top:26px; background:var(--box-bg); border:1px solid var(--box-line); color:#FBFAF6; border-radius:var(--r);
     padding:22px 24px; display:flex; flex-wrap:wrap; align-items:center; gap:22px;
   }
-  :root[data-theme="dark"] .codebox, :root:not([data-theme="light"]) .codebox{background:var(--surface-2); border:1px solid var(--line)}
   .codebox .lbl{font-family:'Oswald',Arial,sans-serif; font-size:12px; letter-spacing:2.5px; text-transform:uppercase; color:#8FA6B8}
-  .code{font-family:'Oswald',Arial,sans-serif; font-size:52px; font-weight:700; letter-spacing:8px; line-height:1; color:#FF8163}
-  :root:not([data-theme="dark"]) .codebox .code{color:#FFA98F}
+  .code{font-family:'Oswald',Arial,sans-serif; font-size:52px; font-weight:700; letter-spacing:8px; line-height:1; color:var(--code)}
   .codebox .exp{font-size:14.5px; color:#C3CEDB; max-width:46ch}
 
   /* ---- buttons ---- */
   .btn{
-    display:inline-flex; align-items:center; gap:9px; border:0; cursor:pointer;
-    background:var(--coral); color:#fff; font-weight:700; font-size:16px;
-    padding:13px 24px; border-radius:999px;
+    display:inline-flex; align-items:center; justify-content:center; gap:9px; cursor:pointer;
+    min-height:48px; padding:12px 24px; border-radius:999px; border:2px solid var(--btn);
+    background:var(--btn); color:var(--on-btn); font-weight:800; font-size:16px; line-height:1.2; text-align:center;
+    box-shadow:0 2px 0 rgba(22,35,58,.18), 0 6px 16px rgba(194,64,31,.18);
+    transition:transform .15s ease, box-shadow .15s ease, background-color .15s ease, filter .15s ease;
   }
-  :root[data-theme="dark"] .btn, :root:not([data-theme="light"]) .btn{color:#251009}
-  .btn.ghost{background:transparent; color:var(--ink); border:1.5px solid var(--line-strong); font-weight:600}
-  .btn.small{padding:8px 16px; font-size:14px}
-  .btn:hover{filter:brightness(1.06)}
+  .btn:hover{filter:brightness(1.06); transform:translateY(-1px)}
+  .btn:active{transform:translateY(1px); box-shadow:none}
+  .btn.ghost{background:var(--btn2-bg); color:var(--btn2-ink); border-color:var(--btn2-line); font-weight:700; box-shadow:0 1px 2px rgba(22,35,58,.08)}
+  .btn.ghost:hover{background:var(--btn2-hover); filter:none}
+  .btn.small{min-height:42px; padding:9px 18px; font-size:15px}
+  /* passo 2: "Aggiungi al confronto" ben visibile, e diverso quando e' gia' scelto */
+  .btn.add{background:var(--add-bg); color:var(--add-ink); border-color:var(--add-line); box-shadow:none}
+  .btn.add:hover{filter:brightness(.97)}
+  .btn.add .pl{font-size:20px; line-height:1; font-weight:700; margin-top:-2px}
+  .btn.add.on{background:var(--teal); color:var(--on-teal); border-color:var(--teal)}
   .actions{display:flex; flex-wrap:wrap; gap:12px; margin-top:30px; align-items:center}
 
   /* ---- filters ---- */
@@ -125,8 +152,8 @@
     border:1.5px solid var(--line-strong); background:var(--surface); color:var(--muted);
     border-radius:999px; padding:7px 15px; font-size:14px; font-weight:600; cursor:pointer;
   }
-  .chip[aria-pressed="true"]{background:var(--ink); color:var(--surface); border-color:var(--ink)}
-  :root[data-theme="dark"] .chip[aria-pressed="true"], :root:not([data-theme="light"]) .chip[aria-pressed="true"]{background:var(--teal); color:#07201E; border-color:var(--teal)}
+  .chip{min-height:40px; transition:background-color .15s ease, color .15s ease}
+  .chip[aria-pressed="true"]{background:var(--chip-on-bg); color:var(--chip-on-ink); border-color:var(--chip-on-bg)}
   .count{font-size:14px; color:var(--muted); margin:14px 0 0}
 
   /* ---- cards ---- */
@@ -142,8 +169,7 @@
     font-family:'Oswald',Arial,sans-serif; font-weight:600; font-size:14px;
     background:var(--surface-2); color:var(--muted); border:1.5px solid var(--line);
   }
-  .let-pill.on{background:var(--coral); color:#fff; border-color:var(--coral)}
-  :root[data-theme="dark"] .let-pill.on, :root:not([data-theme="light"]) .let-pill.on{color:#251009}
+  .let-pill.on{background:var(--btn); color:var(--on-btn); border-color:var(--btn)}
   .strip{margin:0; font-size:13.5px; color:var(--teal); background:var(--teal-soft);
     border-radius:9px; padding:8px 11px; line-height:1.4}
   .strip.none{color:var(--muted); background:transparent; border:1px dashed var(--line-strong)}
@@ -159,8 +185,7 @@
   .tre{background:var(--surface-2); border:1px solid var(--line); border-radius:12px; padding:16px 18px}
   .tre .lab{font-family:'Oswald',Arial,sans-serif; font-size:11px; letter-spacing:1.6px;
     text-transform:uppercase; color:var(--muted); display:flex; gap:7px; align-items:center}
-  .tre .lab i{font-style:normal; width:19px; height:19px; border-radius:50%; background:var(--ink);
-    color:var(--surface); display:grid; place-items:center; font-size:11px; font-weight:700}
+  .tre .lab i{font-style:normal; font-size:16px; line-height:1; letter-spacing:0}
   .tre .big{font-family:'Oswald',Arial,sans-serif; font-size:34px; font-weight:700; line-height:1.05;
     margin:9px 0 3px; color:var(--ink)}
   .tre .sub{font-size:13px; color:var(--muted); line-height:1.4; margin:0}
@@ -189,7 +214,7 @@
     text-transform:uppercase; color:var(--muted); border:1px solid var(--line-strong);
     border-radius:99px; padding:1px 7px; vertical-align:1px}
   .slist .sm{font-size:12.5px; color:var(--muted); font-variant-numeric:tabular-nums}
-  select{font-family:'Nunito Sans',sans-serif; font-size:15px; color:var(--ink);
+  select{font-family:'Nunito Sans',sans-serif; font-size:16px; min-height:44px; color:var(--ink);
     background:var(--surface-2); border:1px solid var(--line-strong); border-radius:9px;
     padding:10px 12px; text-transform:none; letter-spacing:0; width:100%; max-width:100%}
   label.f select + input[type=text]{margin-top:7px}
@@ -210,8 +235,7 @@
   .tablewrap{overflow-x:auto; margin-top:22px; border:1px solid var(--line); border-radius:var(--r); background:var(--surface)}
   table{border-collapse:collapse; width:100%; min-width:600px; font-size:14.5px}
   th,td{text-align:left; padding:13px 16px; border-bottom:1px solid var(--line); vertical-align:top}
-  thead th{background:var(--ink); color:#FBFAF6; font-family:'Oswald',Arial,sans-serif; font-weight:500; font-size:15px; position:sticky; top:0}
-  :root[data-theme="dark"] thead th, :root:not([data-theme="light"]) thead th{background:var(--surface-2); color:var(--ink)}
+  thead th{background:var(--th-bg); color:var(--th-ink); font-family:'Oswald',Arial,sans-serif; font-weight:500; font-size:15px; position:sticky; top:0}
   tbody th{font-family:'Oswald',Arial,sans-serif; font-weight:500; font-size:12px; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); width:170px}
   tbody tr:last-child th, tbody tr:last-child td{border-bottom:0}
 
@@ -224,8 +248,8 @@
   .fields{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px}
   label.f{display:flex; flex-direction:column; gap:5px; font-size:12px; font-family:'Oswald',Arial,sans-serif; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted)}
   input[type=text], textarea{
-    font-family:'Nunito Sans',sans-serif; font-size:15px; color:var(--ink);
-    background:var(--surface-2); border:1px solid var(--line-strong); border-radius:9px; padding:10px 12px;
+    font-family:'Nunito Sans',sans-serif; font-size:16px; color:var(--ink);
+    background:var(--surface-2); border:1px solid var(--line-strong); border-radius:9px; padding:10px 12px; min-height:44px;
     text-transform:none; letter-spacing:0; width:100%;
   }
   textarea{min-height:74px; resize:vertical}
@@ -238,6 +262,35 @@
   .hint{font-size:13.5px; color:var(--muted)}
 
   #printhead{display:none}
+
+  /* ---- tablet e telefono ---- */
+  @media (max-width:820px){
+    .panel{padding-block:26px}
+    .grid{grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+  }
+  @media (max-width:560px){
+    .wrap{padding-inline:16px}
+    header.top{padding-block:20px 16px}
+    .rail li{min-width:112px}
+    .rail button{padding:10px 10px 8px}
+    .lede{font-size:16px}
+    .code{font-size:44px; letter-spacing:6px}
+    .codebox{padding:18px}
+    /* pulsanti di navigazione: uno sotto l'altro, larghi quanto lo schermo, quello per andare avanti in alto */
+    .actions, .printbar{flex-direction:column; align-items:stretch}
+    .actions .btn, .printbar .btn{width:100%}
+    .actions .btn:not(.ghost), .printbar .btn:not(.ghost){order:-1}
+    .card .foot{flex-direction:column; align-items:stretch}
+    .card .foot .btn{width:100%}
+    .card .foot .lnk{align-self:flex-start}
+    .verd{padding:18px}
+    th,td{padding:11px 12px}
+    /* confronto: le etichette restano ferme a sinistra mentre si scorre di lato */
+    table{min-width:0}
+    td{min-width:210px}
+    tbody th{width:112px; min-width:112px; position:sticky; left:0; z-index:1; background:var(--surface); box-shadow:1px 0 0 var(--line)}
+    thead th:first-child{position:sticky; left:0; z-index:2}
+  }
 
   @media print{
     body{background:#fff; color:#000; font-size:12pt}
@@ -255,6 +308,7 @@
   .sitenav{display:flex; gap:18px; flex-wrap:wrap; margin:0 0 14px; font-size:14px; font-weight:700}
   .sitenav a{color:#B7C4D4; text-decoration:none}
   .sitenav a:hover{color:#FBFAF6; text-decoration:underline}
+  @media (max-width:560px){ .sitenav{gap:6px 14px; font-size:13px} }
 </style>
 
 <header class="top">
@@ -307,7 +361,7 @@
   <!-- ============ PASSO 2 ============ -->
   <section id="s2" class="panel" aria-labelledby="h2a" hidden>
     <h2 class="sec" id="h2a">Gli indirizzi che esistono</h2>
-    <p class="lede">Sono gli indirizzi attivi in provincia di Varese: licei, istituti tecnici, professionali e percorsi IeFP. In cima trovi quelli pi&ugrave; vicini al tuo codice. Aprine almeno cinque, poi scegline tre e compila il <b>foglio 1</b>.</p>
+    <p class="lede">Sono gli indirizzi attivi in provincia di Varese: licei, istituti tecnici, professionali e percorsi IeFP. In cima trovi quelli pi&ugrave; vicini al tuo codice. Aprine almeno cinque, poi scegline tre e compila la scheda <b>Analisi degli indirizzi</b> (foglio 1): un indirizzo per colonna, <b>A</b>, <b>B</b> e <b>C</b>.</p>
 
     <div class="filters" role="group" aria-label="Filtra per tipo di scuola">
       <button class="chip" type="button" data-f="all" aria-pressed="true">Tutti</button>
@@ -840,12 +894,12 @@
 
   function jobBlock(c){
     var j = lavOf(c), dt = '<dt>E il lavoro, qui in provincia</dt>';
-    // Un liceo non prepara a un mestiere: prepara a proseguire. Mostrare la sua
+    // Un liceo generalmente non prepara a un mestiere ma a proseguire. Mostrare la sua
     // "difficolta' di reperimento" accanto a quella di un tecnico fa leggere un dato
     // sbagliato: sembra che il liceo "valga meno". Per i licei cambiamo discorso.
     if(c.t === "liceo"){
       return dt + '<dd><div class="job liceo">' +
-        '<p class="jrow"><b>Il liceo non prepara a un mestiere: prepara a continuare a studiare.</b></p>' +
+        '<p class="jrow"><b>Il liceo generalmente prepara a continuare a studiare, non a essere assunti subito.</b></p>' +
         (j && j.en
           ? '<p class="jrow">Nel 2022 le imprese della provincia prevedevano circa <b>' + num(j.en) + '</b> assunzioni di diplomati di liceo, ' +
             'contro le migliaia di settori come meccanica o amministrazione. Non è un difetto: è che il liceo punta altrove.</p>'
@@ -909,8 +963,8 @@
           '</dl>'+
         '</details>'+
         '<div class="foot">'+
-          '<button class="btn small'+(on?'':' ghost')+'" type="button" data-pick="'+i+'">'+
-            (on?'&#10003; Nel confronto':'Aggiungi al confronto')+'</button>'+
+          '<button class="btn small add'+(on?' on':'')+'" type="button" data-pick="'+i+'" aria-pressed="'+(on?'true':'false')+'">'+
+            (on?'&#10003; Nel confronto':'<span class="pl" aria-hidden="true">+</span> Aggiungi al confronto')+'</button>'+
           '<a class="lnk" target="_blank" rel="noopener" href="'+BASE+c.slug+'/">Chi lo fa qui &#8599;</a>'+
         '</div>'+
       '</article>';
@@ -958,7 +1012,7 @@
                    return "da " + v[0] + " a " + v[v.length-1] + ", a seconda della scuola";
                  }],
                 ["Le imprese lo trovano?", function(c){
-                   if(c.t === "liceo") return "il liceo prepara a proseguire gli studi, non ad assumere subito";
+                   if(c.t === "liceo") return "il liceo generalmente prepara a continuare a studiare, non a essere assunti subito";
                    var j = lavOf(c);
                    if(!j) return "nessun dato per questo profilo";
                    return pct(j.d) + " delle assunzioni è difficile da coprire (" + medLab(j) + ": " + pct(j.m) + ")";
@@ -1069,7 +1123,7 @@
       var scelta = n.s ? schoolByName(c, n.s) : null;
       var j = lavOf(c);
 
-      // A — quante scuole e la piu' vicina
+      // quante scuole e la piu' vicina
       var nA = nInst(L), xA = nInst(closedFor(c));
       var a = L.length
         ? '<p class="big">' + nA + '</p><p class="sub">' +
@@ -1078,11 +1132,11 @@
           (xA ? ' Non contiamo ' + (xA === 1 ? 'una scuola' : xA + ' scuole') + ' che nel 2024/25 non ha' + (xA === 1 ? '' : 'nno') + ' formato la prima.' : '') + '</p>'
         : '<p class="big">—</p><p class="sub">Nessuna nei dati ufficiali: cercala su Guida Percorsi.</p>';
 
-      // B — le imprese
+      // le imprese
       var isLic = c.t === "liceo";
       var bcls = (j && !isLic && j.d > j.m) ? " warn" : "";
       var b = isLic
-        ? '<p class="big">LICEO</p><p class="sub">Il liceo prepara a continuare a studiare, non a essere assunti ' +
+        ? '<p class="big">LICEO</p><p class="sub">Il liceo generalmente prepara a continuare a studiare, non a essere assunti ' +
           'subito: questo numero qui non serve. Sulla scheda scrivi <b>LICEO</b>.</p>'
         : j
         ? '<p class="big">' + pct(j.d) + '</p><p class="sub">delle assunzioni previste per ' + j.pop + ' di questo ' + scope(j) +
@@ -1090,7 +1144,7 @@
           (j.d > j.m ? 'più alta' : j.d < j.m ? 'più bassa' : 'uguale') + '</b>.</p>'
         : '<p class="big">—</p><p class="sub">Per questo profilo non c’è un dato provinciale. Sulla scheda scrivi <b>ND</b>.</p>';
 
-      // C — quanti arrivano in seconda
+      // quanti arrivano in seconda
       var c3, ccls = "";
       if(scelta && scelta.ten){
         ccls = scelta.ten < 85 ? " warn" : "";
@@ -1114,13 +1168,13 @@
                                     : (n.s ? 'Scuola scritta a mano: <b>' + esc(n.s) + '</b>'
                                            : 'Nessuna scuola scelta al passo 4')) + '</p>' +
         '<div class="three">' +
-          '<div class="tre"><span class="lab"><i>A</i> Quante scuole</span>' + a + '</div>' +
-          '<div class="tre' + bcls + '"><span class="lab"><i>B</i> Le imprese la trovano?</span>' + b + '</div>' +
-          '<div class="tre' + ccls + '"><span class="lab"><i>C</i> In seconda, ogni 100</span>' + c3 + '</div>' +
+          '<div class="tre"><span class="lab"><i aria-hidden="true">📍</i> Quante scuole</span>' + a + '</div>' +
+          '<div class="tre' + bcls + '"><span class="lab"><i aria-hidden="true">🏭</i> Le imprese la trovano?</span>' + b + '</div>' +
+          '<div class="tre' + ccls + '"><span class="lab"><i aria-hidden="true">🎒</i> In seconda, ogni 100</span>' + c3 + '</div>' +
         '</div>' +
         '<div class="ask"><h4>Adesso rispondi tu</h4><ol>' +
           '<li>Quale dei tre numeri non ti aspettavi?</li>' +
-          '<li>Dopo averli letti, questa scuola sale o scende rispetto all\u2019ordine del <b>foglio 1</b>? Perch\u00e9?</li>' +
+          '<li>Dopo averli letti, questa scuola sale o scende rispetto all\u2019ordine che avevi scritto sulla scheda <b>Analisi degli indirizzi</b>? Perch\u00e9?</li>' +
           '<li>Scrivi <b>una</b> domanda da fare all\u2019open day che ti \u00e8 venuta guardando questi numeri.</li>' +
         '</ol><p class="scrivi">Le risposte vanno sulla scheda di carta (<a href="../#schede">la scarichi qui</a>), non qui.</p></div>' +
       '</div>';
@@ -1129,8 +1183,8 @@
     out += '<div class="verd"><h3>L\u2019ultima cosa</h3>' +
       '<p class="who">Da fare dopo aver compilato tutte le schede.</p>' +
       '<div class="ask" style="border-top:0; padding-top:0"><h4>Il tuo ordine, adesso</h4><ol>' +
-      '<li>Rimetti in fila le tue scuole dalla 1 alla 3, come le vedi <b>adesso</b>.</li>' +
-      '<li>Confronta con l\u2019ordine che avevi scritto sul <b>foglio 1</b>, prima di vedere i numeri.</li>' +
+      '<li>Rimetti in fila le tue scuole dalla 1 alla 3, come le vedi <b>adesso</b>: 1 = quella che sceglieresti, 3 = quella su cui sei meno sicuro o sicura.</li>' +
+      '<li>Confronta con l\u2019ordine che avevi scritto sulla scheda <b>Analisi degli indirizzi</b>, prima di vedere i numeri.</li>' +
       '<li>Se \u00e8 cambiato, che cosa l\u2019ha fatto cambiare?</li>' +
       '<li>Se non \u00e8 cambiato niente, va benissimo: adesso per\u00f2 sai <b>perch\u00e9</b>.</li>' +
       '</ol></div></div>';

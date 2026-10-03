@@ -206,9 +206,8 @@ h2{font-size:clamp(30px,4.2vw,42px)}
   transition:transform .3s var(--ease), box-shadow .3s var(--ease);
 }
 .num-card:hover{transform:translateY(-4px); box-shadow:var(--shadow)}
-.num-card .tag{display:inline-grid; place-items:center; font-family:'Oswald',Arial,sans-serif; font-weight:700; font-size:22px; background:var(--hero); color:var(--hero-ink); width:44px; height:44px; border-radius:12px; margin-bottom:14px}
-.num-card:nth-child(2) .tag{background:var(--accent); color:#fff}
-.num-card:nth-child(3) .tag{background:var(--teal); color:#fff}
+.num-card .tag{display:inline-grid; place-items:center; font-size:24px; line-height:1; background:var(--teal-soft); width:48px; height:48px; border-radius:14px; margin-bottom:14px}
+.num-card:nth-child(2) .tag{background:var(--accent-soft)}
 .num-card h3{font-size:23px; margin-bottom:8px}
 .num-card p{color:var(--muted); font-size:16px}
 .num-card p + p{margin-top:10px}
