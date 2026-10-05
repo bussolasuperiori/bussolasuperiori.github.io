@@ -118,6 +118,17 @@
   .area input[type=range]{flex:1; accent-color:var(--coral); height:26px}
   .area output{font-family:'Oswald',Arial,sans-serif; font-size:22px; min-width:2.2ch; text-align:right; font-variant-numeric:tabular-nums}
 
+  .holland{margin-top:22px; background:var(--surface); border:1px dashed var(--line-strong); border-radius:var(--r); padding:16px 20px; max-width:80ch}
+  .holland .hq{margin:0; font-size:15px}
+  .hsteps{margin:10px 0 4px; padding-left:22px; font-size:14.5px; color:var(--muted)}
+  .hsteps li{margin-bottom:4px}
+  .hsteps b{color:var(--ink)}
+  .holland .btn{margin-top:10px; text-decoration:none}
+  .sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+  .toast{position:fixed; left:50%; bottom:max(18px, env(safe-area-inset-bottom)); transform:translateX(-50%); z-index:50; width:max-content;
+    max-width:min(92vw,460px); background:var(--hdr); color:#FBFAF6; border:1px solid var(--box-line);
+    padding:12px 18px; border-radius:14px; font-size:15px; font-weight:600; box-shadow:0 10px 30px rgba(0,0,0,.25); text-align:center}
+  .toast[hidden]{display:none}
   .codebox{
     margin-top:26px; background:var(--box-bg); border:1px solid var(--box-line); color:#FBFAF6; border-radius:var(--r);
     padding:22px 24px; display:flex; flex-wrap:wrap; align-items:center; gap:22px;
@@ -243,7 +254,7 @@
 
   /* ---- scheda ---- */
   .sheet{background:var(--surface); border:1px solid var(--line); border-radius:var(--r); padding:22px; margin-top:16px; box-shadow:var(--shadow)}
-  .sheet h3{font-size:19px; color:var(--coral)}
+  .sheet h3{font-size:19px; color:var(--btn)}
   .sheet .meta{font-size:13px; color:var(--muted); margin:2px 0 14px}
   .fields{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px}
   label.f{display:flex; flex-direction:column; gap:5px; font-size:12px; font-family:'Oswald',Arial,sans-serif; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted)}
@@ -295,13 +306,16 @@
   @media print{
     body{background:#fff; color:#000; font-size:12pt}
     header.top, .rail, .actions, .printbar, .note, #s1, #s2, #s3, #s5, .filters, .count{display:none !important}
+    .holland, .toast{display:none !important}
     #printhead{display:block; margin-bottom:14pt; border-bottom:2pt solid #000; padding-bottom:8pt}
     .wrap{max-width:none; padding:0}
     .panel{padding:0}
     .sheet{break-inside:avoid; border:1pt solid #999; box-shadow:none; background:#fff; margin-bottom:12pt}
     input[type=text], textarea, select{border:0; border-bottom:1pt solid #666; border-radius:0; background:#fff; appearance:none}
     .strip, ul.slist, .job, .ore, dd.nojob{display:none}
-    textarea{min-height:52pt}
+    textarea{min-height:52pt; resize:none}
+    input::placeholder, textarea::placeholder{color:transparent}
+    input[type=text], select{min-height:0}
   }
   @media (prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important}}
 
@@ -337,7 +351,17 @@
   <!-- ============ PASSO 1 ============ -->
   <section id="s1" class="panel" aria-labelledby="h1a">
     <h2 class="sec" id="h1a">Da dove parti: i tuoi interessi</h2>
-    <p class="lede">Se hai fatto il test di Holland a scuola, sposta ogni cursore fino al punteggio che hai ottenuto in quell&rsquo;area. Se non l&rsquo;hai fatto, leggi le sei descrizioni e dai a ognuna un voto da 0 a 10: <b>quanto ti somiglia?</b> Non serve essere precisi al millimetro.</p>
+    <p class="lede">Se hai fatto il test di Holland, sposta ogni cursore in base al punteggio che hai ottenuto in quell&rsquo;area. Se non l&rsquo;hai fatto, puoi farlo adesso sul sito dell&rsquo;INAPP (qui sotto), oppure leggere le sei descrizioni e dare a ognuna un voto da 0 a 10: <b>quanto ti somiglia?</b> Non serve essere precisi al millimetro.</p>
+
+    <div class="holland">
+      <p class="hq"><b>Non hai fatto il test di Holland?</b> Puoi farlo adesso, gratis, sul sito dell&rsquo;INAPP, l&rsquo;istituto pubblico che lo propone: servono circa 5 minuti e nessuna registrazione.</p>
+      <ol class="hsteps">
+        <li>Alla voce &laquo;Titolo di studi&raquo; scegli <b>Licenza media</b> e premi <b>Inizia il test</b>.</li>
+        <li>Spunta le professioni, le attivit&agrave; e le competenze che ti somigliano, poi premi <b>Invia</b>.</li>
+        <li>Torna su questa pagina (resta aperta) e sposta i cursori: pi&ugrave; alto &egrave; il risultato in un&rsquo;area, pi&ugrave; a destra va il cursore.</li>
+      </ol>
+      <a class="btn small add" href="https://www.inapp.gov.it/professioni/strumenti-per-l-orientamento/holland/" target="_blank" rel="noopener">Fai il test sul sito INAPP <span aria-hidden="true">&#8599;</span><span class="sr"> (si apre in una nuova scheda)</span></a>
+    </div>
 
     <div class="riasec" id="riasec"></div>
 
@@ -479,8 +503,13 @@
   ];
 
   /* ---------------- dati: il catalogo indirizzi ----------------
-     slug = pagina reale su guida-percorsi-varese.it/cat/<slug>/      */
-  var BASE = "https://www.guida-percorsi-varese.it/cat/";
+     Da ottobre 2026 guida-percorsi-varese.it rimanda alla Guida Percorsi 2026/27 sfogliabile su
+     salone-dei-mestieri.it. GP_PAGE = pagina del libro (numerazione DearFlip, link "#dflip-df_16481/N/")
+     dove inizia la scheda dell'indirizzo, con l'elenco delle scuole che lo offrono.
+     (slug = vecchia pagina guida-percorsi-varese.it/cat/<slug>/, non piu' attiva) */
+  var GP = "https://www.salone-dei-mestieri.it/guida-percorsi/";
+  var GP_PAGE = {"Liceo classico": 120,"Liceo scientifico": 126,"Liceo scientifico – scienze applicate": 128,"Liceo scientifico sportivo": 130,"Liceo linguistico": 122,"Liceo delle scienze umane": 132,"Liceo economico-sociale": 132,"Liceo artistico": 116,"Liceo musicale e coreutico": 124,"Liceo del Made in Italy": 136,"Liceo internazionale per l'innovazione": 138,"Amministrazione, finanza e marketing": 78,"Turismo": 82,"Meccanica, meccatronica ed energia": 100,"Trasporti e logistica": 106,"Elettronica ed elettrotecnica": 94,"Informatica e telecomunicazioni": 98,"Grafica e comunicazione": 96,"Chimica, materiali e biotecnologie": 88,"Sistema moda": 104,"Agraria, agroalimentare e agroindustria": 84,"Costruzioni, ambiente e territorio": 92,"Servizi per la sanità e l'assistenza sociale": 72,"Enogastronomia e ospitalità alberghiera": 60,"Manutenzione e assistenza tecnica": 66,"Industria e artigianato per il Made in Italy": 64,"Servizi commerciali": 68,"Servizi culturali e dello spettacolo": 70,"Agricoltura e sviluppo rurale": 54,"Odontotecnico": 56,"Ottico": 58,"Operatore elettrico": 34,"Operatore meccanico": 44,"Operatore informatico": 39,"Operatore del benessere": 25,"Operatore della ristorazione": 28,"Operatore alla riparazione di veicoli a motore": 41,"Operatore grafico": 37,"Operatore ai servizi di impresa": 31,"Operatore ai servizi di vendita": 32,"Operatore ai servizi di promozione e accoglienza": 24,"Operatore di impianti termoidraulici": 43,"Operatore del legno": 40,"Operatore delle produzioni alimentari": 30,"Operatore dell'abbigliamento": 23,"Operatore alle lavorazioni di pelletteria": 22,"Operatore lavorazioni oro e metalli preziosi": 46,"Operatore dei sistemi e servizi logistici": 33,"Operatore agricolo": 27,"Tecnico dei servizi di animazione turistico-sportiva": 50};
+  function gpUrl(c){ var p = GP_PAGE[deent(c.n)]; return p ? GP + "#dflip-df_16481/" + p + "/" : GP; }
 
   var C = [
   /* ---- LICEI ---- */
@@ -965,18 +994,25 @@
         '<div class="foot">'+
           '<button class="btn small add'+(on?' on':'')+'" type="button" data-pick="'+i+'" aria-pressed="'+(on?'true':'false')+'">'+
             (on?'&#10003; Nel confronto':'<span class="pl" aria-hidden="true">+</span> Aggiungi al confronto')+'</button>'+
-          '<a class="lnk" target="_blank" rel="noopener" href="'+BASE+c.slug+'/">Chi lo fa qui &#8599;</a>'+
+          '<a class="lnk" target="_blank" rel="noopener" href="'+gpUrl(c)+'">Sulla Guida Percorsi &#8599;</a>'+
         '</div>'+
       '</article>';
     });
     document.getElementById("cards").innerHTML = html;
   }
 
+  var toastT = null;
+  function toast(msg){
+    var t = document.getElementById("toast");
+    if(!t){ t = document.createElement("div"); t.id = "toast"; t.className = "toast"; t.setAttribute("role","status"); document.body.appendChild(t); }
+    t.textContent = msg; t.hidden = false;
+    clearTimeout(toastT); toastT = setTimeout(function(){ t.hidden = true; }, 4500);
+  }
   function togglePick(i){
     var p = picked.indexOf(i);
     if(p>=0){ picked.splice(p,1); }
     else {
-      if(picked.length>=3){ alert("Puoi confrontare al massimo 3 indirizzi. Togline uno prima di aggiungerne un altro."); return; }
+      if(picked.length>=3){ toast("Puoi confrontare al massimo 3 indirizzi: togline uno prima di aggiungerne un altro."); return; }
       picked.push(i);
     }
     save(); renderCards(); renderCmp(); renderSheets(); renderVerdetto();
@@ -1025,7 +1061,7 @@
                  }],
                 ["Ore a settimana", function(c){ return oreShort(c); }],
                 ["Lingue straniere", function(c){ return liShort(c); }],
-                ["Approfondisci", function(c){return '<a target="_blank" rel="noopener" href="'+BASE+c.slug+'/">Guida Percorsi &#8599;</a>'}]];
+                ["Approfondisci", function(c){return '<a target="_blank" rel="noopener" href="'+gpUrl(c)+'">Guida Percorsi 2026/27 &#8599;</a>'}]];
     var h = '<div class="tablewrap"><table><thead><tr><th scope="col">&nbsp;</th>';
     picked.forEach(function(i){ h += '<th scope="col">'+C[i].n+'</th>'; });
     h += '</tr></thead><tbody>';
@@ -1067,7 +1103,7 @@
       h += '<div class="sheet">'+
         '<h3>'+c.n+'</h3>'+
         '<p class="meta">'+TYPE_LABEL[c.t]+' &middot; aree '+c.r.join("-")+' &middot; '+
-          '<a target="_blank" rel="noopener" href="'+BASE+c.slug+'/">trova le scuole che lo offrono &#8599;</a></p>'+
+          '<a target="_blank" rel="noopener" href="'+gpUrl(c)+'">trova le scuole che lo offrono &#8599;</a></p>'+
         '<div class="fields">'+
           '<label class="f">Scuola'+schoolSelect(i, c, n)+'</label>'+
           '<label class="f">Comune<input type="text" id="n'+i+'_c" value="'+esc(n.c||"")+'" placeholder="Dove si trova"></label>'+

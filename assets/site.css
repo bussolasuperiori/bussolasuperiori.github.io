@@ -59,7 +59,7 @@ img{max-width:100%; height:auto}
   -webkit-backdrop-filter:saturate(1.4) blur(10px); backdrop-filter:saturate(1.4) blur(10px);
   transition:box-shadow .3s var(--ease), background-color .3s var(--ease);
 }
-.topbar.scrolled{background:color-mix(in srgb, var(--hero) 90%, transparent); box-shadow:0 1px 0 rgba(255,255,255,.06), 0 8px 24px rgba(0,0,0,.18)}
+.topbar.scrolled{background:var(--hero); background:color-mix(in srgb, var(--hero) 90%, transparent); box-shadow:0 1px 0 rgba(255,255,255,.06), 0 8px 24px rgba(0,0,0,.18)}
 .topbar .bar{display:flex; justify-content:space-between; align-items:center; gap:16px; min-height:64px}
 .brand{display:flex; align-items:center; gap:10px; color:var(--hero-ink); text-decoration:none; font-family:'Oswald',Arial,sans-serif; font-size:19px; letter-spacing:.6px; text-transform:uppercase; white-space:nowrap}
 .brand img{width:30px; height:30px; transition:transform .6s var(--ease)}
@@ -80,7 +80,7 @@ img{max-width:100%; height:auto}
     radial-gradient(600px 380px at 85% 10%, rgba(79,211,192,.16), transparent 70%),
     radial-gradient(520px 360px at 8% 110%, rgba(255,129,99,.16), transparent 70%);
 }
-.hero-rose{position:absolute; z-index:-1; right:-90px; top:50%; width:min(560px,62vw); translate:0 -50%; opacity:.16; pointer-events:none}
+.hero-rose{position:absolute; z-index:-1; right:-90px; top:50%; width:min(560px,62vw); transform:translateY(-50%); opacity:.16; pointer-events:none}
 .hero-rose .needle{transform-box:fill-box; transform-origin:50% 50%; animation:settle 2.4s var(--ease) .2s both}
 @keyframes settle{0%{transform:rotate(-140deg)} 60%{transform:rotate(18deg)} 80%{transform:rotate(-6deg)} 100%{transform:rotate(0)}}
 .kicker{display:flex; align-items:center; gap:12px; font-family:'Oswald',Arial,sans-serif; text-transform:uppercase; letter-spacing:3px; font-size:14px; color:var(--hero-teal); margin-bottom:18px}
@@ -263,4 +263,9 @@ h2{font-size:clamp(30px,4.2vw,42px)}
   html{scroll-behavior:auto}
   *,*::before,*::after{transition:none !important; animation:none !important}
   .reveal-ready [data-reveal]{opacity:1; transform:none}
+}
+/* telefoni molto stretti (320-360px): il menu resta su una riga */
+@media (max-width:370px){
+  .topbar .bar{gap:8px}
+  .topbar ul a{padding:8px 7px; font-size:13px; white-space:nowrap}
 }
