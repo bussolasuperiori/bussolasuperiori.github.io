@@ -124,11 +124,14 @@
   .hsteps li{margin-bottom:4px}
   .hsteps b{color:var(--ink)}
   .holland .btn{margin-top:10px; text-decoration:none}
+  .skip{position:absolute; left:-999px; top:8px; z-index:60; background:var(--surface-2); color:var(--ink); padding:10px 14px; border-radius:8px; font-weight:700}
+  .skip:focus{left:12px}
+  h2.sec:focus{outline:none}
   .sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
   .toast{position:fixed; left:50%; bottom:max(18px, env(safe-area-inset-bottom)); transform:translateX(-50%); z-index:50; width:max-content;
     max-width:min(92vw,460px); background:var(--hdr); color:#FBFAF6; border:1px solid var(--box-line);
     padding:12px 18px; border-radius:14px; font-size:15px; font-weight:600; box-shadow:0 10px 30px rgba(0,0,0,.25); text-align:center}
-  .toast[hidden]{display:none}
+  .toast:not(.show){opacity:0; pointer-events:none; padding:0; border:0; box-shadow:none}
   .codebox{
     margin-top:26px; background:var(--box-bg); border:1px solid var(--box-line); color:#FBFAF6; border-radius:var(--r);
     padding:22px 24px; display:flex; flex-wrap:wrap; align-items:center; gap:22px;
@@ -156,6 +159,12 @@
   .btn.add .pl{font-size:20px; line-height:1; font-weight:700; margin-top:-2px}
   .btn.add.on{background:var(--teal); color:var(--on-teal); border-color:var(--teal)}
   .actions{display:flex; flex-wrap:wrap; gap:12px; margin-top:30px; align-items:center}
+  .resetline{margin:18px 0 0; font-size:14px; color:var(--muted)}
+  .linkbtn{background:none; border:0; padding:4px 2px; font:inherit; font-weight:700; color:var(--teal); text-decoration:underline; text-underline-offset:3px; cursor:pointer}
+  .donebox{margin-top:30px; border-top:1px solid var(--line); padding-top:18px; max-width:74ch}
+  .donebox p{margin:0 0 12px; font-size:15px; color:var(--muted)}
+  .donebox p b{color:var(--ink)}
+  [data-reset].armed{border-color:var(--btn); color:var(--btn)}
 
   /* ---- filters ---- */
   .filters{display:flex; flex-wrap:wrap; gap:8px; margin:22px 0 4px}
@@ -306,7 +315,7 @@
   @media print{
     body{background:#fff; color:#000; font-size:12pt}
     header.top, .rail, .actions, .printbar, .note, #s1, #s2, #s3, #s5, .filters, .count{display:none !important}
-    .holland, .toast{display:none !important}
+    .holland, .toast, .resetline, .donebox{display:none !important}
     #printhead{display:block; margin-bottom:14pt; border-bottom:2pt solid #000; padding-bottom:8pt}
     .wrap{max-width:none; padding:0}
     .panel{padding:0}
@@ -325,6 +334,8 @@
   @media (max-width:560px){ .sitenav{gap:6px 14px; font-size:13px} }
 </style>
 
+<a class="skip" href="#contenuto">Vai al contenuto</a>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
 <header class="top">
   <div class="wrap">
     <p class="sitenav"><a href="../">&larr; Orientamento superiori</a><a href="../#schede">Schede da stampare</a><a href="../famiglie.html">Per le famiglie</a></p>
@@ -346,7 +357,7 @@
   </div>
 </nav>
 
-<div class="wrap">
+<div class="wrap" id="contenuto" tabindex="-1">
 
   <!-- ============ PASSO 1 ============ -->
   <section id="s1" class="panel" aria-labelledby="h1a">
@@ -380,6 +391,7 @@
     <div class="actions">
       <button class="btn" type="button" data-go="2">Vai agli indirizzi &rarr;</button>
     </div>
+    <p class="resetline">Computer gi&agrave; usato da qualcun altro? <button class="linkbtn" type="button" data-reset>Ricomincia da capo</button></p>
   </section>
 
   <!-- ============ PASSO 2 ============ -->
@@ -442,11 +454,11 @@
       <h2 class="sec" style="margin:0">Scheda di orientamento</h2>
     </div>
 
-    <h2 class="sec">Le tue scuole</h2>
+    <h2 class="sec" id="h4a">Le tue scuole</h2>
     <p class="lede">Ultimo passo: per ogni indirizzo scegli dal men&ugrave; una delle scuole della provincia che lo offrono. Se la tua non c&rsquo;&egrave; (paritarie e centri di formazione non sono nei dati del Ministero), cercala su Guida Percorsi e scrivila a mano. Poi stampa e portala a casa.</p>
 
     <div class="nameline">
-      <label class="f" for="stud">Nome e cognome<input type="text" id="stud" placeholder="Il tuo nome"></label>
+      <label class="f" for="stud">Nome e cognome · non viene salvato<input type="text" id="stud" placeholder="Il tuo nome"></label>
       <label class="f" for="cls">Classe<input type="text" id="cls" placeholder="3&ordf;__"></label>
     </div>
 
@@ -484,6 +496,10 @@
     <div class="actions">
       <button class="btn ghost" type="button" data-go="4">&larr; Torna alle scuole</button>
       <button class="btn ghost" type="button" data-go="2">Cambia indirizzi</button>
+    </div>
+    <div class="donebox">
+      <p><b>Hai finito e il computer lo usa anche qualcun altro?</b> Prima cancella le tue scelte, cos&igrave; chi viene dopo parte da zero. Le schede di carta non cambiano.</p>
+      <button class="btn ghost small" type="button" data-reset>Ho finito: cancella i miei dati da questo computer</button>
     </div>
   </section>
 </div>
@@ -774,40 +790,93 @@
   var filter = "all", onlyMine = false, picked = [], step = 1;
   var notes = {};
 
+  // Formato del salvataggio (chiave "bussola"):
+  //   v2 = {v:2, scores:{R..C: 0-10}, picked:[nome indirizzo, ...], notes:{nome indirizzo: {s,c,o,p,d}}}
+  //   senza "v" = formato fino al 06/10/2026, con posizioni nel catalogo: convertito al primo caricamento.
+  // Nome e classe (passo 4) servono solo per la stampa e non vengono salvati.
+  var SAVE_V = 2, saveWarned = false;
+  function nameOf(i){ return deent(C[i].n); }
+  function indexOf(name){
+    for(var i=0;i<C.length;i++){ if(deent(C[i].n) === name) return i; }
+    return -1;
+  }
+  function cleanScores(x){
+    var out = {};
+    AREAS.forEach(function(a){
+      var v = x ? Number(x[a.k]) : NaN;
+      out[a.k] = (isFinite(v) && v >= 0 && v <= 10) ? Math.round(v) : 5;
+    });
+    return out;
+  }
   function save(){
-    try{ localStorage.setItem("bussola", JSON.stringify({scores:scores,picked:picked,notes:notes,
-      stud:val("stud"), cls:val("cls")})); }catch(e){}
+    var nm = {};
+    Object.keys(notes).forEach(function(i){ if(C[i]) nm[nameOf(i)] = notes[i]; });
+    try{
+      localStorage.setItem("bussola", JSON.stringify({v:SAVE_V, scores:scores, picked:picked.map(nameOf), notes:nm}));
+    }catch(e){
+      if(!saveWarned){
+        saveWarned = true;
+        toast("Questo browser non permette di salvare: se chiudi la pagina perdi le scelte. Scrivile sulla scheda di carta.", 9000);
+      }
+    }
   }
   function load(){
-    try{
-      var raw = localStorage.getItem("bussola"); if(!raw) return;
-      var d = JSON.parse(raw);
-      if(d && d.scores) scores = d.scores;
-      if(d && d.picked) picked = d.picked.filter(function(i){return i>=0 && i<C.length});
-      if(d && d.notes) notes = d.notes;
-      if(d && d.stud) setVal("stud", d.stud);
-      if(d && d.cls) setVal("cls", d.cls);
-    }catch(e){}
+    var d = null;
+    try{ var raw = localStorage.getItem("bussola"); if(raw) d = JSON.parse(raw); }catch(e){ d = null; }
+    if(!d || typeof d !== "object") return;
+    scores = cleanScores(d.scores);
+    var seen = {};
+    if(d.v === 2){
+      (Array.isArray(d.picked) ? d.picked : []).forEach(function(name){
+        var i = indexOf(name);
+        if(i >= 0 && !seen[i] && picked.length < 3){ seen[i] = 1; picked.push(i); }
+      });
+      Object.keys(d.notes || {}).forEach(function(name){
+        var i = indexOf(name); if(i >= 0 && d.notes[name] && typeof d.notes[name] === "object") notes[i] = d.notes[name];
+      });
+    } else {
+      (Array.isArray(d.picked) ? d.picked : []).forEach(function(i){
+        i = parseInt(i, 10);
+        if(i >= 0 && i < C.length && !seen[i] && picked.length < 3){ seen[i] = 1; picked.push(i); }
+      });
+      Object.keys(d.notes || {}).forEach(function(k){
+        var i = parseInt(k, 10); if(i >= 0 && i < C.length && d.notes[k] && typeof d.notes[k] === "object") notes[i] = d.notes[k];
+      });
+      save();   // riscrive subito nel formato nuovo, senza nome e classe
+    }
   }
   function val(id){ var e=document.getElementById(id); return e?e.value:""; }
   function setVal(id,v){ var e=document.getElementById(id); if(e) e.value=v; }
-  function esc(s){ return String(s).replace(/&(?![a-zA-Z#0-9]+;)/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+  function esc(s){
+    return String(s).replace(/&(?![a-zA-Z#0-9]+;)/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+                    .replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+  }
 
   /* ---------------- codice RIASEC ---------------- */
   function topLetters(){
+    if(allEqual()) return [];   // cursori tutti uguali: nessun codice, nessuna lettera evidenziata
     var ks = AREAS.map(function(a){return a.k});
     ks.sort(function(a,b){ return scores[b]-scores[a] || ks.indexOf(a)-ks.indexOf(b); });
     return ks.slice(0,3);
   }
   function allZero(){ return AREAS.every(function(a){ return scores[a.k]===0; }); }
+  function allEqual(){ return AREAS.every(function(a){ return scores[a.k]===scores[AREAS[0].k]; }); }
 
   function renderCode(){
     var t = topLetters(), el = document.getElementById("code"), ex = document.getElementById("codeExp");
-    if(allZero()){ el.textContent = "———"; ex.textContent = "Muovi i cursori: qui compaiono le tue tre lettere più alte."; return; }
+    // tutti i cursori uguali (anche all'inizio, tutti a 5): non c'e' ancora un codice da mostrare
+    if(allZero() || allEqual()){ el.textContent = "———"; ex.textContent = "Muovi i cursori: qui compaiono le tue tre lettere più alte."; return; }
     el.textContent = t.join("");
-    var names = t.map(function(k){ return AREAS.filter(function(a){return a.k===k})[0].nm.toLowerCase(); });
-    ex.textContent = "Le tue tre aree più forti sono " + names[0] + ", " + names[1] + " e " + names[2] +
+    var nm = function(k){ return AREAS.filter(function(a){return a.k===k})[0].nm.toLowerCase(); };
+    var names = t.map(nm);
+    var txt = "Le tue tre aree più forti sono " + names[0] + ", " + names[1] + " e " + names[2] +
       ". Al passo 2 gli indirizzi vicini a queste tre lettere compaiono per primi.";
+    // pari merito sul terzo posto: lo diciamo, cosi' nessuno si sente "escluso" da una lettera
+    var tied = AREAS.map(function(a){return a.k}).filter(function(k){ return t.indexOf(k) < 0 && scores[k] === scores[t[2]]; });
+    var tn = tied.map(nm), tl = tn.length > 1 ? tn.slice(0,-1).join(", ") + " e " + tn[tn.length-1] : tn[0];
+    if(tied.length) txt += " Attenzione: " + tl + (tied.length > 1 ? " sono" : " è") +
+      " a pari merito con " + names[2] + ", quindi guarda anche gli indirizzi " + (tied.length > 1 ? "di queste aree." : "di quell’area.");
+    ex.textContent = txt;
   }
 
   /* ---------------- passo 1 ---------------- */
@@ -968,8 +1037,9 @@
     });
     idx.sort(function(a,b){ return affinity(C[b])-affinity(C[a]) || C[a].n.localeCompare(C[b].n); });
 
-    document.getElementById("count").innerHTML = idx.length + " indirizzi mostrati" +
-      (onlyMine ? " &mdash; solo quelli che toccano il tuo codice <b>"+t.join("")+"</b>" : "") + ".";
+    document.getElementById("count").innerHTML = idx.length + " indirizzi mostrati &middot; distanze in linea d&rsquo;aria da " + esc(DB.da) +
+      (onlyMine ? (t.length ? " &mdash; solo quelli che toccano il tuo codice <b>"+t.join("")+"</b>"
+                            : " &mdash; ma non hai ancora un codice: torna al passo 1 e muovi i cursori") : "") + ".";
 
     var html = "";
     idx.forEach(function(i){
@@ -1002,11 +1072,10 @@
   }
 
   var toastT = null;
-  function toast(msg){
+  function toast(msg, ms){
     var t = document.getElementById("toast");
-    if(!t){ t = document.createElement("div"); t.id = "toast"; t.className = "toast"; t.setAttribute("role","status"); document.body.appendChild(t); }
-    t.textContent = msg; t.hidden = false;
-    clearTimeout(toastT); toastT = setTimeout(function(){ t.hidden = true; }, 4500);
+    t.textContent = msg; t.classList.add("show");
+    clearTimeout(toastT); toastT = setTimeout(function(){ t.classList.remove("show"); t.textContent = ""; }, ms || 4500);
   }
   function togglePick(i){
     var p = picked.indexOf(i);
@@ -1035,7 +1104,7 @@
                    var t = n ? n + (n === 1 ? " in provincia" : " in provincia") : "nessuna nei dati ufficiali";
                    return t + (x ? " (più " + x + " senza classe prima nel 2024/25)" : "");
                  }],
-                ["La più vicina", function(c){var L=schoolsFor(c); return L.length ? L[0].c+" — "+kmTxt(L[0]) + (nInst(L)===1 ? " (è l’unica)" : "") : "nessuna: cercala su Guida Percorsi"}],
+                ["La più vicina (da " + DB.da + ")", function(c){var L=schoolsFor(c); return L.length ? L[0].c+" — "+kmTxt(L[0]) + (nInst(L)===1 ? " (è l’unica)" : "") : "nessuna: cercala su Guida Percorsi"}],
                 ["In seconda, ogni 100 in prima", function(c){
                    var all = schoolsFor(c);
                    if(!all.length) return "nessuna scuola nei dati";
@@ -1164,7 +1233,7 @@
       var a = L.length
         ? '<p class="big">' + nA + '</p><p class="sub">' +
           (nA === 1 ? 'una sola scuola in provincia: è a ' : 'scuole in provincia. La più vicina è a ') +
-          kmTxt(L[0]) + ', a ' + L[0].c + '.' +
+          L[0].c + ', ' + kmTxt(L[0]) + (L[0].c === DB.da ? '' : ' da ' + DB.da) + '.' +
           (xA ? ' Non contiamo ' + (xA === 1 ? 'una scuola' : xA + ' scuole') + ' che nel 2024/25 non ha' + (xA === 1 ? '' : 'nno') + ' formato la prima.' : '') + '</p>'
         : '<p class="big">—</p><p class="sub">Nessuna nei dati ufficiali: cercala su Guida Percorsi.</p>';
 
@@ -1239,6 +1308,9 @@
     if(n===4) renderSheets();
     if(n===5) renderVerdetto();
     window.scrollTo(0,0);
+    // il focus va al titolo del passo: tastiera e lettori di schermo ripartono da li'
+    var h = document.querySelector("#s" + n + " > h2.sec");
+    if(h){ h.setAttribute("tabindex", "-1"); try{ h.focus({preventScroll:true}); }catch(e){ h.focus(); } }
   }
 
   /* ---------------- avvio ---------------- */
@@ -1253,6 +1325,24 @@
   document.addEventListener("click", function(e){
     var g = e.target.closest ? e.target.closest("[data-go]") : null;
     if(g){ go(parseInt(g.getAttribute("data-go"),10)); return; }
+    var r = e.target.closest ? e.target.closest("[data-reset]") : null;
+    if(r){
+      // due tocchi: il primo chiede conferma, il secondo cancella (niente finestre di sistema)
+      if(!r.classList.contains("armed")){
+        r.classList.add("armed"); r.setAttribute("data-label", r.textContent);
+        r.textContent = "Sicuro? Tocca di nuovo per cancellare tutto";
+        setTimeout(function(){ if(r.classList.contains("armed")){ r.classList.remove("armed"); r.textContent = r.getAttribute("data-label"); } }, 5000);
+        return;
+      }
+      try{ localStorage.removeItem("bussola"); }catch(err){}
+      scores = {R:5,I:5,A:5,S:5,E:5,C:5}; picked = []; notes = {};
+      setVal("stud",""); setVal("cls","");
+      buildAreas(); renderCode(); renderCards(); renderCmp(); renderSheets(); renderVerdetto();
+      r.classList.remove("armed"); r.textContent = r.getAttribute("data-label");
+      go(1); window.scrollTo(0,0);
+      toast("Fatto: la Bussola è di nuovo vuota.");
+      return;
+    }
     var p = e.target.closest ? e.target.closest("[data-pick]") : null;
     if(p){ togglePick(parseInt(p.getAttribute("data-pick"),10)); return; }
     var f = e.target.closest ? e.target.closest("[data-f]") : null;
@@ -1271,9 +1361,6 @@
   });
 
   document.getElementById("printBtn").addEventListener("click", function(){ window.print(); });
-  ["stud","cls"].forEach(function(id){
-    var el = document.getElementById(id); if(el) el.addEventListener("input", save);
-  });
 })();
 </script>
 
