@@ -84,7 +84,7 @@ img{max-width:100%; height:auto}
 .hero-rose .needle{transform-box:fill-box; transform-origin:50% 50%; animation:settle 2.4s var(--ease) .2s both}
 @keyframes settle{0%{transform:rotate(-140deg)} 60%{transform:rotate(18deg)} 80%{transform:rotate(-6deg)} 100%{transform:rotate(0)}}
 .kicker{display:flex; align-items:center; gap:12px; font-family:'Oswald',Arial,sans-serif; text-transform:uppercase; letter-spacing:3px; font-size:14px; color:var(--hero-teal); margin-bottom:18px}
-.kicker img{width:46px; height:auto}
+.kicker img{width:auto; height:40px}
 .hero h1{font-size:clamp(40px,7.2vw,76px); text-transform:uppercase; color:var(--hero-ink); max-width:16ch; line-height:1.02}
 .hero h1 em{font-style:normal; color:var(--hero-accent)}
 .hero .sub{margin-top:20px; font-size:clamp(17px,2.2vw,21px); color:var(--hero-muted); max-width:56ch}
@@ -224,12 +224,15 @@ h2{font-size:clamp(30px,4.2vw,42px)}
 /* --- piede: logo applicato direttamente sullo sfondo scuro --- */
 .site-footer{margin-top:96px; background:var(--hero); color:var(--hero-muted); padding-block:56px 40px; font-size:15px}
 .site-footer .foot{display:grid; grid-template-columns:auto 1fr auto; gap:28px 44px; align-items:center}
-.site-footer .foot-logo{display:block; width:150px; transition:transform .4s var(--ease)}
-.site-footer .foot-logo:hover{transform:rotate(-4deg) scale(1.03)}
+.site-footer .foot-logo{display:block; width:260px; transition:transform .4s var(--ease)}
+.site-footer .foot-logo:hover{transform:scale(1.03)}
 .site-footer .foot-logo img{display:block; width:100%; height:auto}
 .site-footer .foot-kicker{font-family:'Oswald',Arial,sans-serif; text-transform:uppercase; letter-spacing:3px; font-size:13px; color:var(--hero-teal)}
 .site-footer .foot-name{font-family:'Oswald',Arial,sans-serif; text-transform:uppercase; font-size:30px; font-weight:600; color:var(--hero-ink); line-height:1.1; margin:4px 0 6px}
 .site-footer .foot-text p + p:not(.foot-name){margin-top:6px}
+.site-footer .foot-contact{list-style:none; margin:12px 0 0; padding:0; display:flex; flex-wrap:wrap; gap:6px 18px}
+.site-footer .foot-contact a{color:var(--hero-ink); font-weight:700; text-decoration:underline; text-underline-offset:3px; text-decoration-color:rgba(255,255,255,.35)}
+.site-footer .foot-contact a:hover{text-decoration-color:currentColor}
 .site-footer .foot-nav{list-style:none; margin:0; padding:0; display:grid; gap:8px; justify-items:start}
 .site-footer .foot-nav a{color:var(--hero-ink); font-weight:700; text-decoration:none; opacity:.85; transition:opacity .2s var(--ease)}
 .site-footer .foot-nav a:hover{opacity:1; text-decoration:underline}
@@ -252,11 +255,11 @@ h2{font-size:clamp(30px,4.2vw,42px)}
   .topbar ul a{padding:8px 10px; font-size:14px}
   .hero{padding-block:40px 96px}
   .hero-rose{right:-140px; width:420px; opacity:.1}
-  .kicker img{width:38px}
+  .kicker img{width:auto; height:32px}
   main section{padding-block:56px 0}
   .sheet{grid-template-columns:96px 1fr; gap:16px; padding:18px}
   .site-footer .foot{grid-template-columns:1fr}
-  .site-footer .foot-logo{width:120px}
+  .site-footer .foot-logo{width:220px}
   .site-footer .foot-nav{grid-auto-flow:row}
 }
 @media (prefers-reduced-motion:reduce){

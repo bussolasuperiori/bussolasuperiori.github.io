@@ -22,8 +22,9 @@ COME SI AGGIORNA (2 minuti)
   6. Dopo 1-2 minuti il sito e' aggiornato. Se non vedi la modifica: Ctrl+F5.
 
 NON TOCCARE A MANO
-  bussola/index.html viene rigenerato da Claude a partire dalla sorgente
-  (ORIENTAMENTO\dati\script\bussola_sorgente.html + build_sito.py).
+  bussola/index.html viene rigenerato a partire dalla sorgente
+  (ORIENTAMENTO\dati\script\bussola_sorgente.html) con  python rilascio.py
+  nella cartella dati\script. Guida completa: dati\GUIDA_MANUTENZIONE.txt.
   Se lo modifichi direttamente, la modifica si perde al prossimo aggiornamento.
 
 QUANDO CAMBIANO I DATI
